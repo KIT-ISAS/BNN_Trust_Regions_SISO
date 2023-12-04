@@ -1,7 +1,6 @@
 """ Class for evaluating models by comparing a reference model to an approximation model."""
 
 import dataclasses
-from pyexpat import model
 import typing
 
 
@@ -12,7 +11,7 @@ from gaussian import UnivariateGaussian
 from wasserstein_dist import WassersteinDistance
 
 
-@dataclasses.dataclass
+@dataclasses.dataclass  # needed?
 class ModelEvaluator:
     """Class for evaluating models by comparing a reference model to an approximation model."""
     predictions_a: typing.Union[np.ndarray, UnivariateGaussian]  # reference model
@@ -31,7 +30,36 @@ class ModelEvaluator:
 
         self.set_distance_settings(wasserstein_distance)
 
-    def set_distance_settings(self, wasserstein_distance: WassersteinDistance, p_norm: int = 1, parallel_computing: bool = True, verbose: bool = False):
+    def set_distance_settings(self,
+                              wasserstein_distance: WassersteinDistance,
+                              p_norm: int = 1,
+                              parallel_computing: bool = True,
+                              verbose: bool = False):
+        """
+        The function sets the distance settings for the Wasserstein distance metric, allowing for
+        customization of the p-norm, parallel computing, and verbosity.
+
+        :param wasserstein_distance: The `wasserstein_distance` parameter is an instance of the
+        `WassersteinDistance` class. It represents the distance metric used for calculating the Wasserstein
+        distance. If no custom distance metric is provided, the method will use the default settings and
+        create a new instance of the `Wasserstein
+        :type wasserstein_distance: WassersteinDistance
+        :param p_norm: The p_norm parameter is an integer that specifies the norm to be used in the
+        Wasserstein distance calculation. It determines the type of distance metric used. The default value
+        is 1.
+        :type p_norm: int (optional)
+        :param parallel_computing: The `parallel_computing` parameter is a boolean flag that determines
+        whether or not to use parallel computing for calculating the Wasserstein distance. If set to `True`,
+        parallel computing will be used, which can potentially speed up the computation. If set to `False`,
+        the computation will be done sequentially, defaults to True
+        :type parallel_computing: bool (optional)
+        :param verbose: The `verbose` parameter is a boolean flag that determines whether or not to print
+        additional information during the computation. If `verbose` is set to `True`, then additional
+        information will be printed. If `verbose` is set to `False`, then no additional information will be
+        printed, defaults to False
+        :type verbose: bool (optional)
+        :return: nothing.
+        """
         # default Wasserstein distance settings
         if wasserstein_distance is None:
             self.wasserstein = WassersteinDistance(
@@ -41,6 +69,9 @@ class ModelEvaluator:
         self.wasserstein = wasserstein_distance
 
     def calc_wasserstein_distance(self):
+        """
+        The function calculates the Wasserstein distance between two sets of predictions.
+        """
         if self.wasserstein is None:
             raise ValueError("Wasserstein distance settings are not set.")
         self.distance = self.wasserstein.calc_wasserstein_distance(
