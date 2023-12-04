@@ -1,0 +1,18 @@
+{
+    "docwriter.style": "reST",
+    "docwriter.progress.trackMethods": true,
+    "docwriter.progress.trackClasses": true,
+    "docwriter.progress.trackTypes": true,
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.autopep8",
+        "editor.formatOnSave": true
+    },
+    "pylint.args": [
+        "--max-line-length=140",
+        "--max-module-lines=1500",
+        "--disable=E1101",
+        "--disable=W1203",
+        "--init-hook",
+        "import sys; sys.path.append('model_evaluator')"
+    ],
+}
