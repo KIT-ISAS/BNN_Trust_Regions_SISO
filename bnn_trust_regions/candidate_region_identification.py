@@ -35,8 +35,8 @@ class CandidateRegionIdentification:
     min_points_per_region: int
 
     critical_distance: float
-    switching_points: np.ndarray
-    extendend_switching_points: np.ndarray  # same as switching_points but with first and last index added
+    switching_idxs: np.ndarray  # switching index of candeidate regions
+    extendend_switching_idxs: np.ndarray  # same as switching_idxs but with first and last index added
 
     # only for plotting
     gif_settings: IdentGifSettings
@@ -148,7 +148,7 @@ class CandidateRegionIdentification:
 
             if ((num_slices > 1) and ((min_points_per_region >= required_min_points))):
                 self.critical_distance = crit_value
-                self.switching_points = valid_invalid_switching
+                self.switching_idxs = valid_invalid_switching
 
                 # final frame with chosen crit value
                 if verbose:
@@ -192,7 +192,7 @@ class CandidateRegionIdentification:
         size, returning the indices that belong to the canidate regions and the full list of indices.
 
         """
-        valid_invalid_switching = self.switching_points
+        valid_invalid_switching = self.switching_idxs
 
         num_predictions = self.test_data.output.shape[0]
         # Add the bounds of the range to the list
@@ -228,8 +228,8 @@ class CandidateRegionIdentification:
 
         # Remove the bounds of the range from the list
         valid_invalid_switching = new_extended_switching_range[1:-1]
-        self.switching_points = valid_invalid_switching
-        self.extendend_switching_points = new_extended_switching_range
+        self.switching_idxs = valid_invalid_switching
+        self.extendend_switching_idxs = new_extended_switching_range
 
         _create_frame(self.test_data.input, self.critical_distance, valid_invalid_switching,
                       dist=self.smoothed_distances, gif_settings=self.gif_settings, idx='final')
