@@ -7,7 +7,7 @@ import typing
 
 import numpy as np
 
-from .candidate_region_identification import CandidateRegionIdentification, IdentGifSettings
+from .candidate_region_identification import CandidateRegionIdentification
 
 
 from .gaussian import UnivariateGaussian
@@ -41,7 +41,7 @@ class ModelEvaluator:
 
         self.predictions_a = predictions_a
         self.predictions_b = predictions_b
-        self.test_data = test_data
+        self.test_data = test_data  # TODO sort input values
         self.num_distributions = test_data.output.shape[0]
 
         self.set_distance_settings(wasserstein_distance)
@@ -93,25 +93,74 @@ class ModelEvaluator:
         self.distance = self.wasserstein.calc_wasserstein_distance(
             self.predictions_a, self.predictions_b)
 
-    def calc_canidate_regions(self, verbose: bool = False, gif_settings: IdentGifSettings = None):
+    def calc_canidate_regions(self, region_ident: CandidateRegionIdentification):
         """
-        The function calculates the candidate regions based on the Wasserstein distance.
+        The function calculates the candidate regions based on th Wasserstein distance.
         """
-        # TODO min_points_per_region, smoothing_window_size as parameters
-        self.region_ident = CandidateRegionIdentification(
-            self.distance, self.test_data, min_points_per_region=200, smoothing_window_size=50)
+        self.region_ident = region_ident
+
+        if region_ident.raw_distances is None:
+            self.region_ident.raw_distances = self.distance
+        if region_ident.test_data is None:
+            self.region_ident.test_data = self.test_data
+
         self.region_ident.smooth_distances()
-        self.region_ident.calc_critical_distance(verbose=verbose, gif_settings=gif_settings)
+        self.region_ident.calc_critical_distance()
+        self.region_ident.subsplit_candidate_regions()
 
-    def calc_critical_distance(self):
-        pass
+        self.split_data_in_regions(self.predictions_a)
 
-    def subdevide_candidate_regions(self):
+        # self.region_ident.extendend_switching_points
+        # self.region_ident.switching_points
+
+    def split_data_in_regions(self, predictions: typing.Union[np.ndarray, UnivariateGaussian],
+                              ) -> typing.Tuple[typing.List[int], typing.List[int]]:
         """
-        The function subdevides the candidate regions into finer candidate regions.
+        The function `split_in_local_clusters` splits prediction and output data into valid and invalid
+        intervals based on an invalid range.
+
+        :param prediction: An array of predictions
+        :param output_data: The `output_data` parameter is an array of output data. It is of type
+        `numpy.ndarray`
+        :type output_data: np.ndarray
+        :param invalid_range: An array of boolean values indicating invalid intervals. Each element in the
+        array corresponds to a prediction, and a value of True indicates that the prediction is invalid
+        :type invalid_range: np.ndarray
+        :param min_points_per_cluster: The parameter `min_points_per_cluster` is an integer that specifies
+        the minimum number of points required for a cluster to be considered valid. If a cluster has fewer
+        points than this threshold, it will be considered invalid
+        :type min_points_per_cluster: int
+        :return: a tuple containing three elements: `splited_prediction`, `splited_output`, and
+        `extended_switching_range`.
         """
-        # Add your subdevide input space logic here
-        pass
+
+        num_predictions = self.num_distributions
+        output_data = self.test_data.output
+
+        valid_invalid_switching = self.region_ident.switching_points
+        extended_switching_range = self.region_ident.extendend_switching_points
+
+        # if all prediction are valid or invalid -> dont split
+        if 0 < valid_invalid_switching.size < output_data.size:
+
+            splited_output = np.split(output_data, valid_invalid_switching, axis=0)
+            if isinstance(predictions, UnivariateGaussian):
+
+                splitted_mean = np.split(predictions.mean, valid_invalid_switching, axis=0)
+                splitted_var = np.split(predictions.var, valid_invalid_switching, axis=0)
+                splited_prediction = []
+                for _, (mean, var) in enumerate(zip(splitted_mean, splitted_var)):
+                    splited_prediction.append(UnivariateGaussian(mean=mean, var=var))
+
+            else:
+                splited_prediction = np.split(predictions, valid_invalid_switching, axis=1)
+        else:
+            splited_prediction = [predictions]
+            splited_output = [output_data]
+            self.region_ident.extendend_switching_points = [0, num_predictions-1]
+        # TODO use class instead of List?
+
+        return splited_prediction, splited_output
 
     def evaluate(self):
         # Add your evaluation logic here
