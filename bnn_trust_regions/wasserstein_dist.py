@@ -8,7 +8,7 @@ import scipy.stats
 
 from tqdm import tqdm
 
-from gaussian import UnivariateGaussian
+from .gaussian import UnivariateGaussian
 
 
 class WassersteinDistance:
@@ -223,8 +223,11 @@ def wasserstein_univariate_gaussian_dirac_multiple_distances(samples: np.ndarray
         n_jobs = 1
 
     wd_1 = joblib.Parallel(n_jobs=n_jobs, verbose=0)(
-        joblib.delayed(wasserstein_univariate_gaussian_dirac_mixture)(samples[:, i], mean1[i],
-                                                                      var1[i], p_norm) for i in tqdm(range(0, num_distributions), disable=not verbose))
+        joblib.delayed(
+            wasserstein_univariate_gaussian_dirac_mixture)(samples[:, i],
+                                                           mean1[i],
+                                                           var1[i],
+                                                           p_norm) for i in tqdm(range(0, num_distributions), disable=not verbose))
     wd_1 = np.asarray(wd_1)
     return wd_1
 

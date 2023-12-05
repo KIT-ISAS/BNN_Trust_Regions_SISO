@@ -13,6 +13,6 @@
         "--disable=E1101",
         "--disable=W1203",
         "--init-hook",
-        "import sys; sys.path.append('model_evaluator')"
+        "import sys; sys.path.append('bnn_trust_regions')"
     ],
 }
