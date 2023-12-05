@@ -7,9 +7,8 @@ import typing
 
 import numpy as np
 
+from .canidate_region import CandidateRegion
 from .candidate_region_identification import CandidateRegionIdentification
-
-
 from .gaussian import UnivariateGaussian
 from .io_data import IOData
 from .wasserstein_dist import WassersteinDistance
@@ -41,7 +40,7 @@ class ModelEvaluator:
 
         self.predictions_a = predictions_a
         self.predictions_b = predictions_b
-        self.test_data = test_data  # TODO sort input values
+        self.test_data = test_data  # TODO sort according to input values
         self.num_distributions = test_data.output.shape[0]
 
         self.set_distance_settings(wasserstein_distance)
@@ -137,30 +136,48 @@ class ModelEvaluator:
         num_predictions = self.num_distributions
         output_data = self.test_data.output
 
-        valid_invalid_switching = self.region_ident.switching_points
-        extended_switching_range = self.region_ident.extendend_switching_points
+        switching_idxs = self.region_ident.switching_idxs
+        extendend_switching_idxs = self.region_ident.extendend_switching_idxs
+
+        region_bounds = self.test_data.input[extendend_switching_idxs]
+
+        candidate_region_list = []
 
         # if all prediction are valid or invalid -> dont split
-        if 0 < valid_invalid_switching.size < output_data.size:
+        if 0 < switching_idxs.size < output_data.size:
 
-            splited_output = np.split(output_data, valid_invalid_switching, axis=0)
+            splited_outputs = np.split(output_data, switching_idxs, axis=0)
             if isinstance(predictions, UnivariateGaussian):
 
-                splitted_mean = np.split(predictions.mean, valid_invalid_switching, axis=0)
-                splitted_var = np.split(predictions.var, valid_invalid_switching, axis=0)
-                splited_prediction = []
-                for _, (mean, var) in enumerate(zip(splitted_mean, splitted_var)):
-                    splited_prediction.append(UnivariateGaussian(mean=mean, var=var))
+                splitted_mean = np.split(predictions.mean, switching_idxs, axis=0)
+                splitted_var = np.split(predictions.var, switching_idxs, axis=0)
+                splited_predictions = []
+                for idx, (mean, var) in enumerate(zip(splitted_mean, splitted_var)):
+                    predictions_in_region = UnivariateGaussian(mean=mean, var=var)
+                    splited_predictions.append(predictions_in_region)
+
+                    candidate_region = CandidateRegion(predictions_in_region=predictions_in_region,
+                                                       outputs_in_region=splited_outputs[idx],
+                                                       x_min=region_bounds[idx], x_max=region_bounds[idx+1],)
+                    candidate_region_list.append(candidate_region)
 
             else:
-                splited_prediction = np.split(predictions, valid_invalid_switching, axis=1)
+                splited_predictions = np.split(predictions, switching_idxs, axis=1)
+
+                for idx, (splitted_prediction, splited_output) in enumerate(zip(splited_predictions, splited_outputs)):
+                    candidate_region = CandidateRegion(
+                        predictions_in_region=splitted_prediction,
+                        outputs_in_region=splited_output,
+                        x_min=region_bounds[idx],
+                        x_max=region_bounds[idx+1],)
+                    candidate_region_list.append(candidate_region)
         else:
-            splited_prediction = [predictions]
-            splited_output = [output_data]
-            self.region_ident.extendend_switching_points = [0, num_predictions-1]
+            splited_predictions = [predictions]
+            splited_outputs = [output_data]
+            self.region_ident.extendend_switching_idxs = [0, num_predictions-1]
         # TODO use class instead of List?
 
-        return splited_prediction, splited_output
+        return splited_predictions, splited_outputs
 
     def evaluate(self):
         # Add your evaluation logic here
