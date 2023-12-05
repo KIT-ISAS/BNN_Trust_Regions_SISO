@@ -6,7 +6,7 @@ from bnn_trust_regions.model_evaluator import ModelEvaluator
 from bnn_trust_regions.wasserstein_dist import WassersteinDistance
 from bnn_trust_regions.gaussian import UnivariateGaussian
 from bnn_trust_regions.io_data import IOData
-from bnn_trust_regions.candidate_region_identification import IdentGifSettings
+from bnn_trust_regions.candidate_region_identification import IdentGifSettings, CandidateRegionIdentification
 
 from bnn_trust_regions.utils import save_load
 
@@ -47,11 +47,15 @@ def test_functionality():
     model_evaluator1 = ModelEvaluator(
         predictions_a=pred_a, predictions_b=pred_b1, wasserstein_distance=ws_dist_settings1, test_data=test_data)
 
+    # wasserstein distance between reference and approximation model
     model_evaluator1.calc_wasserstein_distance()
-    model_evaluator1.calc_critical_distance()
-    gif_settings = IdentGifSettings(path=".", file_name="crit_dist", dpi=200, fps=2, loop=0)
+
+    gif_settings = IdentGifSettings(
+        path="eval1_plots", file_name="crit_dist", dpi=200, fps=2, loop=0)
     # calculate candidate regions and plot gif of critical distance
-    model_evaluator1.calc_canidate_regions(verbose=True, gif_settings=gif_settings)
+    region_ident = CandidateRegionIdentification(
+        min_points_per_region=200, smoothing_window_size=50, verbose=True, gif_settings=gif_settings)
+    model_evaluator1.calc_canidate_regions(region_ident=region_ident)
 
     # evaluate predictions from mcmc and pbp
     # mcmc as reference model
