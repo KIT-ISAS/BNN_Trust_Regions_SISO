@@ -1,9 +1,11 @@
 """ class CandidateRegionIdentification to identify candidate regions in the input space """
 
+
 import copy
 from dataclasses import dataclass
 import logging
 import os
+import typing
 
 import imageio
 from matplotlib import pyplot as plt
@@ -12,7 +14,9 @@ import numpy as np
 import numpy.typing
 import scipy.signal
 
+from .canidate_region import CandidateRegion, CandidateRegions
 from .io_data import IOData
+from .gaussian import UnivariateGaussian
 
 
 @dataclass
@@ -25,18 +29,27 @@ class IdentGifSettings:
 
 
 @dataclass
-class CandidateRegionIdentification:
-    raw_distances: np.ndarray
-    smoothed_distances: np.ndarray
-    smoothing_window_size: int
+class SisoCandidateRegionIdentification:
+    """
+    SISO candidate region identification class.
+    """
 
+    # used data
+    raw_distances: np.ndarray
     test_data: IOData
 
+    # hyperparameters
+    smoothing_window_size: int
     min_points_per_region: int
 
+    # only internal use?
+    smoothed_distances: np.ndarray
+
+    # identified candidate regions
     critical_distance: float
     switching_idxs: np.ndarray  # switching index of candeidate regions
     extendend_switching_idxs: np.ndarray  # same as switching_idxs but with first and last index added
+    candidate_region_list: typing.List[CandidateRegion]
 
     # only for plotting
     gif_settings: IdentGifSettings
@@ -67,6 +80,9 @@ class CandidateRegionIdentification:
         self.smoothing_window_size = smoothing_window_size
         self.test_data = test_data
         self.min_points_per_region = min_points_per_region
+
+        # if test_data is not None:
+        #     self.num_distributions = test_data.output.shape[0]
 
         self.verbose = verbose
         self.gif_settings = gif_settings
@@ -169,23 +185,6 @@ class CandidateRegionIdentification:
         raise ValueError(
             'No critical value found. Please check the input data.')
 
-    # def get_candidate_regions(self):
-    #     """
-    #     The function returns the candidate regions.
-    #     Critical distance defines rough candidate regions.
-    #     Use the minimum number of points per region to get a finder subdevision.
-
-    #     The candidate regions are defined by the switching points.
-
-    #     :return: The candidate regions.
-    #     :rtype: numpy.ndarray
-    #     """
-
-    #     splited_prediction, splited_output, extended_switching_range = split_in_local_clusters(
-    #         prediction=prediction, output_data=output_data, invalid_range=invalid_range, min_points_per_cluster=min_points_per_cluster)
-
-    #     return self.switching_points
-
     def subsplit_candidate_regions(self,):
         """
         The function `subsplit_candidate_regions` takes a range of indices and splits it into finer candidate regions of a minimum
@@ -231,8 +230,79 @@ class CandidateRegionIdentification:
         self.switching_idxs = valid_invalid_switching
         self.extendend_switching_idxs = new_extended_switching_range
 
-        _create_frame(self.test_data.input, self.critical_distance, valid_invalid_switching,
-                      dist=self.smoothed_distances, gif_settings=self.gif_settings, idx='final')
+        if self.verbose:
+            _create_frame(self.test_data.input, self.critical_distance, valid_invalid_switching,
+                          dist=self.smoothed_distances, gif_settings=self.gif_settings, idx='final')
+
+    def split_data_in_regions(self, predictions: typing.Union[np.ndarray, UnivariateGaussian],
+                              ) -> CandidateRegions:
+        """
+        The function `split_in_local_clusters` splits prediction and output data into valid and invalid
+        intervals based on an invalid range.
+
+        :param prediction: An array of predictions
+        :param output_data: The `output_data` parameter is an array of output data. It is of type
+        `numpy.ndarray`
+        :type output_data: np.ndarray
+        :param invalid_range: An array of boolean values indicating invalid intervals. Each element in the
+        array corresponds to a prediction, and a value of True indicates that the prediction is invalid
+        :type invalid_range: np.ndarray
+        :param min_points_per_cluster: The parameter `min_points_per_cluster` is an integer that specifies
+        the minimum number of points required for a cluster to be considered valid. If a cluster has fewer
+        points than this threshold, it will be considered invalid
+        :type min_points_per_cluster: int
+        :return: a tuple containing three elements: `splited_prediction`, `splited_output`, and
+        `extended_switching_range`.
+        """
+
+        # num_predictions = self.num_distributions
+        output_data = self.test_data.output
+
+        switching_idxs = self.switching_idxs
+        extendend_switching_idxs = self.extendend_switching_idxs
+
+        # get input values which define the regions
+        region_bounds = self.test_data.input[extendend_switching_idxs]
+        candidate_region_list = []
+
+        # if all prediction are valid or invalid -> dont split
+        if 0 < switching_idxs.size < output_data.size:
+
+            splited_outputs = np.split(output_data, switching_idxs, axis=0)
+            if isinstance(predictions, UnivariateGaussian):
+
+                splitted_means = np.split(predictions.mean, switching_idxs, axis=0)
+                splitted_vars = np.split(predictions.var, switching_idxs, axis=0)
+                splited_predictions = []
+                for idx, (mean, var, splited_output) in enumerate(zip(splitted_means, splitted_vars, splited_outputs)):
+                    predictions_in_region = UnivariateGaussian(mean=mean, var=var)
+                    # splited_predictions.append(predictions_in_region)
+
+                    candidate_region = CandidateRegion(predictions_in_region=predictions_in_region,
+                                                       outputs_in_region=splited_output,
+                                                       x_min=region_bounds[idx], x_max=region_bounds[idx+1],)
+                    candidate_region_list.append(candidate_region)
+
+            else:
+                splited_predictions = np.split(predictions, switching_idxs, axis=1)
+
+                for idx, (splitted_prediction, splited_output) in enumerate(zip(splited_predictions, splited_outputs)):
+                    candidate_region = CandidateRegion(
+                        predictions_in_region=splitted_prediction,
+                        outputs_in_region=splited_output,
+                        x_min=region_bounds[idx],
+                        x_max=region_bounds[idx+1],)
+                    candidate_region_list.append(candidate_region)
+        else:
+            candidate_region = CandidateRegion(predictions_in_region=predictions,
+                                               outputs_in_region=output_data,
+                                               x_min=region_bounds[0],
+                                               x_max=region_bounds[-1],)
+            candidate_region_list.append(candidate_region)
+
+        self.candidate_region_list = candidate_region_list
+        # return list of candidate regions
+        return CandidateRegions(candidate_region_list)
 
 
 def _create_frame(input_data: np.ndarray, crit_value: float,
