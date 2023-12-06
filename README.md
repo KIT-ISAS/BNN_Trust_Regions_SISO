@@ -7,8 +7,10 @@ Publication is [online available](https://isas.iar.kit.edu/pdf/SDFMFI23_Walker.p
 ## Usage 
 example.ipynb
 
-## Credits
-- Markus Walker (<markus.walker@kit.edu>)
+## Contribute
+Open an issue or email me at (<markus.walker@kit.edu>) if you have any suggestions or problems.
+
+Author: Markus Walker
 
 ## License
 TODO
