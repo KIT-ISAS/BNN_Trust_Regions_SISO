@@ -2,16 +2,24 @@
 
 
 import dataclasses
+import enum
 import typing
 
 
 import numpy as np
 
-from .canidate_region import CandidateRegion
-from .candidate_region_identification import CandidateRegionIdentification
+from .canidate_region import CandidateRegion, CandidateRegions
+from .candidate_region_identification import SisoCandidateRegionIdentification
 from .gaussian import UnivariateGaussian
 from .io_data import IOData
 from .wasserstein_dist import WassersteinDistance
+from .stat_test_settings import StatTestSettings
+
+
+class UseAorB(enum.Enum):
+    """Enum for selecting which model to use for calculating the statistics per regions"""
+    A = 1
+    B = 2
 
 
 @dataclasses.dataclass  # needed?
@@ -25,7 +33,8 @@ class ModelEvaluator:
 
     distance: np.ndarray  # distance information
 
-    region_ident: CandidateRegionIdentification  # instance for candidate region identification
+    region_ident: SisoCandidateRegionIdentification  # instance for candidate region identification
+    candidate_regions: CandidateRegions  # candidate regions
 
     # critical_distance: float  # critical distance
     wasserstein: WassersteinDistance  # instance to calculate the Wasserstein distance
@@ -92,7 +101,7 @@ class ModelEvaluator:
         self.distance = self.wasserstein.calc_wasserstein_distance(
             self.predictions_a, self.predictions_b)
 
-    def calc_canidate_regions(self, region_ident: CandidateRegionIdentification):
+    def calc_canidate_regions(self, region_ident: SisoCandidateRegionIdentification):
         """
         The function calculates the candidate regions based on th Wasserstein distance.
         """
@@ -107,77 +116,24 @@ class ModelEvaluator:
         self.region_ident.calc_critical_distance()
         self.region_ident.subsplit_candidate_regions()
 
-        self.split_data_in_regions(self.predictions_a)
+    def calc_statistical_tests(self, stat_test_settings: StatTestSettings, use_a_or_b: UseAorB = UseAorB.B):
 
-        # self.region_ident.extendend_switching_points
-        # self.region_ident.switching_points
+        alpha = stat_test_settings.alpha
+        confidence_interval = stat_test_settings.confidence_interval
 
-    def split_data_in_regions(self, predictions: typing.Union[np.ndarray, UnivariateGaussian],
-                              ) -> typing.Tuple[typing.List[int], typing.List[int]]:
-        """
-        The function `split_in_local_clusters` splits prediction and output data into valid and invalid
-        intervals based on an invalid range.
-
-        :param prediction: An array of predictions
-        :param output_data: The `output_data` parameter is an array of output data. It is of type
-        `numpy.ndarray`
-        :type output_data: np.ndarray
-        :param invalid_range: An array of boolean values indicating invalid intervals. Each element in the
-        array corresponds to a prediction, and a value of True indicates that the prediction is invalid
-        :type invalid_range: np.ndarray
-        :param min_points_per_cluster: The parameter `min_points_per_cluster` is an integer that specifies
-        the minimum number of points required for a cluster to be considered valid. If a cluster has fewer
-        points than this threshold, it will be considered invalid
-        :type min_points_per_cluster: int
-        :return: a tuple containing three elements: `splited_prediction`, `splited_output`, and
-        `extended_switching_range`.
-        """
-
-        num_predictions = self.num_distributions
-        output_data = self.test_data.output
-
-        switching_idxs = self.region_ident.switching_idxs
-        extendend_switching_idxs = self.region_ident.extendend_switching_idxs
-
-        region_bounds = self.test_data.input[extendend_switching_idxs]
-
-        candidate_region_list = []
-
-        # if all prediction are valid or invalid -> dont split
-        if 0 < switching_idxs.size < output_data.size:
-
-            splited_outputs = np.split(output_data, switching_idxs, axis=0)
-            if isinstance(predictions, UnivariateGaussian):
-
-                splitted_mean = np.split(predictions.mean, switching_idxs, axis=0)
-                splitted_var = np.split(predictions.var, switching_idxs, axis=0)
-                splited_predictions = []
-                for idx, (mean, var) in enumerate(zip(splitted_mean, splitted_var)):
-                    predictions_in_region = UnivariateGaussian(mean=mean, var=var)
-                    splited_predictions.append(predictions_in_region)
-
-                    candidate_region = CandidateRegion(predictions_in_region=predictions_in_region,
-                                                       outputs_in_region=splited_outputs[idx],
-                                                       x_min=region_bounds[idx], x_max=region_bounds[idx+1],)
-                    candidate_region_list.append(candidate_region)
-
-            else:
-                splited_predictions = np.split(predictions, switching_idxs, axis=1)
-
-                for idx, (splitted_prediction, splited_output) in enumerate(zip(splited_predictions, splited_outputs)):
-                    candidate_region = CandidateRegion(
-                        predictions_in_region=splitted_prediction,
-                        outputs_in_region=splited_output,
-                        x_min=region_bounds[idx],
-                        x_max=region_bounds[idx+1],)
-                    candidate_region_list.append(candidate_region)
+        if use_a_or_b == UseAorB.A:
+            self.candidate_regions = self.region_ident.split_data_in_regions(self.predictions_a)
+        elif use_a_or_b == UseAorB.B:
+            self.candidate_regions = self.region_ident.split_data_in_regions(self.predictions_b)
         else:
-            splited_predictions = [predictions]
-            splited_outputs = [output_data]
-            self.region_ident.extendend_switching_idxs = [0, num_predictions-1]
-        # TODO use class instead of List?
+            raise ValueError("use_a_or_b must be either UseAorB.A or UseAorB.B")
 
-        return splited_predictions, splited_outputs
+        self.candidate_regions.binomial_test(confidence_interval=confidence_interval, alpha=alpha)
+        self.candidate_regions.anees_test(alpha=alpha)
+
+    def print_statistical_tests(self):
+        self.candidate_regions.print_binomial_test_results()
+        self.candidate_regions.print_anees_test_results()
 
     def evaluate(self):
         # Add your evaluation logic here
