@@ -3,7 +3,7 @@
 
 import copy
 from dataclasses import dataclass
-import logging
+# import logging
 import os
 import typing
 
@@ -165,8 +165,10 @@ class SisoCandidateRegionIdentification:
                 list_of_lengths[1:-1]) if len(list_of_lengths) > 2 else min(list_of_lengths)
             max_slices = max(num_slices, max_slices)
 
-            logging.debug(
-                f'Number of slices: {num_slices}, last num slices: {last_num_slices}, max num slices: {max_slices}')
+            # logging.debug
+            # if verbose:
+            #     print(
+            #         f'Number of slices: {num_slices}, last num slices: {last_num_slices}, max num slices: {max_slices}')
 
             # stopp increasing of critical value when following conditions are satisfied
             # min_num_cluster_condition = num_slices > 1  # use more than one cluster
@@ -348,8 +350,9 @@ def _create_frame(input_data: np.ndarray, crit_value: float,
     """
     if idx is None:
         idx = 'final'
-    logging.debug(
-        f'Iteration: {idx}, crit value: {crit_value}, num switching: {len(valid_invalid_switching)}')
+    # logging.debug
+    # print(
+    #     f'Iteration: {idx}, crit value: {crit_value}, num switching: {len(valid_invalid_switching)}')
     ax = plt.gca()
     assert isinstance(ax, plt.Axes)
     ax.clear()
