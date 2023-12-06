@@ -1,4 +1,4 @@
-
+""" Test some functionality of the bnn_trust_regions package."""
 from bnn_trust_regions.model_evaluator import ModelEvaluator, UseAorB
 from bnn_trust_regions.wasserstein_dist import WassersteinDistance
 from bnn_trust_regions.gaussian import UnivariateGaussian
@@ -10,6 +10,7 @@ from bnn_trust_regions.utils import save_load
 
 
 def test_functionality():
+    """ Test some functionality of the bnn_trust_regions package."""
 
     ########################################################################################################
     # load test data
@@ -57,7 +58,7 @@ def test_functionality():
     # candidate region identification settings
     min_points_per_region = 200
     smoothing_window_size = 50
-    plot_gif = False  # True or False
+    plot_gif = True  # True or False
 
     # display gif of regions identification critical distance
     plot_folder1 = "eval1_plots"
