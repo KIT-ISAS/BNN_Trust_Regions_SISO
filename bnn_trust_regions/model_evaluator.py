@@ -117,6 +117,19 @@ class ModelEvaluator:
         self.region_ident.subsplit_candidate_regions()
 
     def calc_statistical_tests(self, stat_test_settings: StatTestSettings, use_a_or_b: UseAorB = UseAorB.B):
+        """
+        The function calculates statistical tests on candidate regions based on the given settings and
+        predictions.
+
+        :param stat_test_settings: The `stat_test_settings` parameter is an instance of the
+        `StatTestSettings` class. It contains the settings for the statistical tests, including the
+        alpha value (significance level) and the confidence interval which should be tested by the binomial test.
+        :type stat_test_settings: StatTestSettings
+        :param use_a_or_b: The parameter "use_a_or_b" is an optional parameter that determines whether
+        to use the predictions from group A or group B for the statistical tests. It can take two
+        possible values: UseAorB.A or UseAorB.B
+        :type use_a_or_b: UseAorB
+        """
 
         alpha = stat_test_settings.alpha
         confidence_interval = stat_test_settings.confidence_interval
@@ -132,6 +145,10 @@ class ModelEvaluator:
         self.candidate_regions.anees_test(alpha=alpha)
 
     def print_statistical_tests(self):
+        """
+        The function "print_statistical_tests" prints the results of binomial and ANEES tests for
+        candidate regions to console.
+        """
         self.candidate_regions.print_binomial_test_results()
         self.candidate_regions.print_anees_test_results()
 

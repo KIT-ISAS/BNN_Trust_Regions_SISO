@@ -1,4 +1,4 @@
-
+""" This module contains classes for statistical tests for evaluating the quality of uncertainty estimates."""
 from dataclasses import dataclass
 import typing
 
@@ -11,12 +11,32 @@ from .gaussian import UnivariateGaussian
 
 @dataclass
 class TestResult:
+    """ Base class for test results
+    :param accept_stat: The `accept_stat` parameter is a boolean that represents whether the null hypothesis is rejected or not.
+    :type accept_stat: bool
+    :param pvalue: The `pvalue` parameter is a float that represents the p-value of the test.
+    :type pvalue: float
+    """
     accept_stat: bool
     pvalue: float
 
 
 @dataclass
 class BinomTestResult(TestResult):
+    """ test result for binomial test
+    :param prop_inside: The `prop_inside` parameter is a float that represents the proportion of
+    predictions inside the confidence interval.
+    :type prop_inside: float
+    :param pvalue: The `pvalue` parameter is a float that represents the p-value of the binomial test.
+    :type pvalue: float
+    :param prop_ci: The `prop_ci` parameter is a numpy array that represents the confidence interval
+    for the proportion of predictions inside the confidence interval. It has a shape of `(2,)` and
+    contains the lower and upper bound for the confidence interval.
+    :type prop_ci: np.ndarray
+    :param accept_stat: The `accept_stat` parameter is a boolean that represents whether the null
+    hypothesis is rejected or not.
+    :type accept_stat: bool
+    """
     prop_inside: float
     # pvalue: float
     prop_ci: np.ndarray  # [0] is lower bound, [1] is upper bound
@@ -30,18 +50,39 @@ class BinomTestResult(TestResult):
         # self.accept_stat = accept_stat
 
     def prop_ci_low(self):
+        """
+        The function returns the lower bound of the confidence interval for a proportion.
+        :return: The lower bound of the confidence interval for the proportion.
+        """
         return self.prop_ci[0]
 
     def prop_ci_high(self):
+        """
+        The function returns the upper bound of the confidence interval for a proportion.
+        :return: the second element of the `prop_ci` list.
+        """
         return self.prop_ci[1]
 
 
 class AneesTestResult(TestResult):
+    """ test result for ANEES test
+    :param anees: The `anees` parameter is a float that represents the ANEES (Average Normalized
+    Estimation Error Squared) value.
+    :type anees: float
+    :param anees_crit_bounds: The `anees_crit_bounds` parameter is a numpy array that represents the critical bounds for ANEES.
+    It has a shape of `(2,)` and contains the lower and upper bound for ANEES.
+    :type anees_crit_bounds: np.ndarray
+    :param pvalue: The `pvalue` parameter is a float that represents the p-value of the ANEES test.
+    :type pvalue: float
+    :param accept_stat: The `accept_stat` parameter is a boolean that represents whether the null hypothesis is rejected or not.
+    :type accept_stat: bool
+    :param nees_is_chi2: The `nees_is_chi2` parameter is a boolean that represents whether 
+    the normalized estimation error squared (NEES) is chi2 distributed.
+    :type nees_is_chi2: bool
+    """
     anees: float
-    # pvalue: float
     anees_crit_bounds: np.ndarray
     nees_is_chi2: bool
-    # accept_stat: bool
 
     def __init__(self, anees: float, anees_crit_bounds: np.ndarray, pvalue: float, accept_stat: bool, nees_is_chi2: bool):
         super().__init__(accept_stat=accept_stat, pvalue=pvalue)
@@ -50,19 +91,40 @@ class AneesTestResult(TestResult):
         self.nees_is_chi2 = nees_is_chi2
 
     def anees_crit_bound_low(self):
+        """
+        The function returns the lower bound of the ANEES (Average Normalized Estimation Error Squared)
+        critical bounds.
+        :return: the first element of the `anees_crit_bounds` list.
+        """
         return self.anees_crit_bounds[0]
 
     def anees_crit_bound_high(self):
+        """
+        The function returns the upper bound of the critical value for ANEES.
+        :return: the second element of the list `self.anees_crit_bounds`.
+        """
         return self.anees_crit_bounds[1]
 
 
 @dataclass
 class StatTest:
+    """ Base class for statistical tests
+
+    :param alpha: The `alpha` parameter is a float that represents the significance level of the test.
+    :type alpha: float
+    """
     alpha: float
 
 
 @dataclass
 class BinomialTest(StatTest):
+    """ Binomial test
+
+    :param confidence_interval: The `confidence_interval` parameter is a float that represents the
+    confidence interval to be tested by the binomial test. Defaults to 0.95.
+    :type confidence_interval: float, optional 
+    :param alpha: The `alpha` parameter is a float that represents the significance level of the test.
+    """
     confidence_interval: float  # e.g. 0.95 for testing of 95% confidence interval
     # e.g. [0.025 0.975] for testing of 95% confidence interval
     _two_tailed_ci_levels: np.ndarray
@@ -79,6 +141,20 @@ class BinomialTest(StatTest):
         self._two_tailed_ci_levels = np.array([two_tailed, 1-two_tailed])
 
     def calc_two_sided_binomial_test(self, prediction: typing.Union[np.ndarray, UnivariateGaussian], output_data: np.ndarray):
+        """
+        The function calculates a two-sided binomial test to determine if the proportion of successes in
+        a prediction is significantly different from a null hypothesis proportion.
+
+        :param prediction: The `prediction` parameter can be either a numpy array or an instance of the
+        `UnivariateGaussian` class. It represents the predicted values or the distribution of predicted
+        values
+        :type prediction: typing.Union[np.ndarray, UnivariateGaussian]
+        :param output_data: The `output_data` parameter is a numpy array that contains the observed data
+        or outcomes. It represents the results of a binary event, where each element in the array is
+        either a success (1) or a failure (0)
+        :type output_data: np.ndarray
+        :return: a `BinomTestResult` object.
+        """
 
         # num_outputs = output_data.shape[0]
         proportion_inside_ci, k_inside, n_predictions = self.proportion_inside(
@@ -99,6 +175,20 @@ class BinomialTest(StatTest):
             accept_stat=accept_stat)
 
     def proportion_inside(self, prediction: typing.Union[np.ndarray, UnivariateGaussian], output_data: np.ndarray):
+        """
+        The function calculates the proportion of predictions that fall within a confidence interval.
+
+        :param prediction: The `prediction` parameter can be either a numpy array or an instance of the
+        `UnivariateGaussian` class. It represents the predicted values or the predicted probability
+        distribution for a particular output variable
+        :type prediction: typing.Union[np.ndarray, UnivariateGaussian]
+        :param output_data: The `output_data` parameter is a numpy array that represents the observed
+        output data. It should have shape `(num_outputs, num_predictions)`, where `num_outputs` is the
+        number of output variables and `num_predictions` is the number of prediction samples. Each
+        column of `output_data` represents
+        :type output_data: np.ndarray
+        :return: three values: proportion_inside_ci, k_inside, and n_predictions.
+        """
         output_data = output_data.transpose()
         n_predictions = output_data.shape[1]
 
@@ -125,6 +215,16 @@ class BinomialTest(StatTest):
 
 @dataclass
 class AneesTest(StatTest):
+    """ Average Normalized Estimation Error Squared (ANEES) test
+
+    The ANEES test is a statistical test for evaluating the performance of a filter. It is based on the
+    Average Normalized Estimation Error Squared (ANEES) metric. 
+
+    Uses Chi2 distribution to calculate confidence interval for ANEES.
+
+    :param alpha: The `alpha` parameter is a float that represents the significance level of the test.
+    :type alpha: float
+    """
     # _alpha_lower: float
     # _alpha_upper: float
 
@@ -140,6 +240,21 @@ class AneesTest(StatTest):
         self._alpha_lower_upper = np.array([alpha_lower, alpha_upper])
 
     def calc_anees_test(self, prediction: typing.Union[np.ndarray, UnivariateGaussian], output_data: np.ndarray) -> AneesTestResult:
+        """
+        The function calculates the Average Normalized Estimation Error Squared (ANEES) test for a given
+        prediction and output data.
+
+        :param prediction: The `prediction` parameter can be either a numpy array (`np.ndarray`) or an
+        instance of the `UnivariateGaussian` class. It represents the predicted values or the estimated
+        distribution of the output data
+        :type prediction: typing.Union[np.ndarray, UnivariateGaussian]
+        :param output_data: The `output_data` parameter is a numpy array that represents the actual
+        output data. It has a shape of `(num_predictions, dim_output)`, where `num_predictions` is the
+        number of predictions and `dim_output` is the dimension of the output
+        :type output_data: np.ndarray
+        :return: an instance of the `AneesTestResult` class. The `AneesTestResult` object contains the
+        following attributes:
+        """
 
         # number of predictions and dimension of output
         num_predictions, dim_output = output_data.shape

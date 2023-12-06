@@ -21,6 +21,17 @@ from .gaussian import UnivariateGaussian
 
 @dataclass
 class IdentGifSettings:
+    """ Settings for creating a gif of the critical distance selection.
+    :param path: The `path` parameter is a string that specifies the path where the gif should be saved.
+    :type path: str, optional
+    :param file_name: The `file_name` parameter is a string that specifies the name of the gif file.
+    :type file_name: str, optional
+    :param dpi: The `dpi` parameter is an integer that specifies the resolution of the gif.
+    :type dpi: int, optional
+    :param fps: The `fps` parameter is an integer that specifies the number of frames per second.
+    :type fps: int, optional
+    :param loop: The `loop` parameter is an integer that specifies the number of times the gif should loop.
+    :type loop: int, optional"""
     path: str = None
     file_name: str = 'crit_dist.gif'
     dpi: int = 200
