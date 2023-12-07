@@ -196,7 +196,8 @@ class SisoCandidateRegionIdentification:
             last_num_slices = num_slices
 
         raise ValueError(
-            'No critical value found. Please check the input data.')
+            'No critical value found. Please check if the data and predictions are sorted according to the input data.' +
+            'If the data is sorted, try smaller min_points_per_region.')
 
     def subsplit_candidate_regions(self,):
         """

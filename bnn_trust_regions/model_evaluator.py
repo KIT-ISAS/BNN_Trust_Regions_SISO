@@ -1,6 +1,7 @@
 """ Class for evaluating models by comparing a reference model to an approximation model."""
 
 
+import copy
 import dataclasses
 import enum
 import typing
@@ -14,6 +15,8 @@ from .gaussian import UnivariateGaussian
 from .io_data import IOData
 from .wasserstein_dist import WassersteinDistance
 from .stat_test_settings import StatTestSettings
+
+from .utils.sort_predictions import sort_predictions
 
 
 class UseAorB(enum.Enum):
@@ -47,12 +50,34 @@ class ModelEvaluator:
                  test_data: IOData,
                  wasserstein_distance: WassersteinDistance = None,):
 
-        self.predictions_a = predictions_a
-        self.predictions_b = predictions_b
-        self.test_data = test_data  # TODO sort according to input values
+        self.predictions_a = copy.deepcopy(predictions_a)
+        self.predictions_b = copy.deepcopy(predictions_b)
+        self.test_data = copy.deepcopy(test_data)
         self.num_distributions = test_data.output.shape[0]
 
+        # sort according to input values
+        self.sort_test_data_and_predictions()
+
         self.set_distance_settings(wasserstein_distance)
+
+    def sort_test_data_and_predictions(self):
+        """
+        The function sorts the test data and predictions according to the input values.
+        """
+        # sort input values and get indices
+        idx = np.argsort(self.test_data.input, axis=None)
+        # is idx equal to np.arange(len(idx))?
+        if np.array_equal(idx, np.arange(len(idx))):
+            # no need to sort
+            return
+
+        # sort predictions according to indices
+        self.test_data.input = self.test_data.input[idx]
+        self.test_data.output = self.test_data.output[idx]
+
+        # sort deep copy of predictions
+        self.predictions_a = sort_predictions(self.predictions_a, idx)
+        self.predictions_b = sort_predictions(self.predictions_b, idx)
 
     def set_distance_settings(self,
                               wasserstein_distance: WassersteinDistance,
@@ -155,32 +180,3 @@ class ModelEvaluator:
     def evaluate(self):
         # Add your evaluation logic here
         pass
-
-
-# if __name__ == "__main__":
-#     # test some functionality
-
-#     np.random.seed(42)
-#     pred_a1 = np.random.randn(1000, 100)  # 1000 samples for each input value, 100 output
-#     pred_b1 = np.random.randn(1000, 100)  # 1000 samples for each input value, 100 output
-
-#     data = np.random.randn(1000, 1)  # 1000 samples for each input value, 1 output
-
-#     ws_dist_settings1 = WassersteinDistance(p_norm=1, parallel_computing=True, verbose=False)
-#     model_evaluator1 = ModelEvaluator(
-#         predictions_a=pred_a1, predictions_b=pred_b1, wasserstein_distance=ws_dist_settings1, test_data=data)
-
-#     model_evaluator1.calc_wasserstein_distance()
-
-#     pred_a2 = UnivariateGaussian(mean=np.mean(pred_a1, axis=0), var=np.var(pred_a1, axis=0))
-#     pred_b2 = UnivariateGaussian(mean=np.mean(pred_b1, axis=0), var=np.var(pred_a1, axis=0))
-
-#     ws_dist_settings2 = WassersteinDistance(p_norm=1, parallel_computing=False, verbose=False)
-#     model_evaluator2 = ModelEvaluator(
-#         predictions_a=pred_a2, predictions_b=pred_b2, test_data=data)
-#     model_evaluator2.set_distance_settings(ws_dist_settings2)
-#     model_evaluator2.calc_wasserstein_distance()
-
-#     # difference reduces if more samples are used # looks plausbiel
-#     diff = model_evaluator2.distance - model_evaluator1.distance
-#     print(diff)

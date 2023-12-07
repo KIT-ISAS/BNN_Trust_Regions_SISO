@@ -1,4 +1,9 @@
 """ Test some functionality of the bnn_trust_regions package."""
+
+
+import numpy as np
+
+
 from bnn_trust_regions.model_evaluator import ModelEvaluator, UseAorB
 from bnn_trust_regions.wasserstein_dist import WassersteinDistance
 from bnn_trust_regions.gaussian import UnivariateGaussian
@@ -7,6 +12,8 @@ from bnn_trust_regions.candidate_region_identification import IdentGifSettings, 
 from bnn_trust_regions.stat_test_settings import StatTestSettings
 
 from bnn_trust_regions.utils import save_load
+
+np.random.seed(42)
 
 
 def test_functionality():
@@ -86,6 +93,22 @@ def test_functionality():
 
     # test model A or B
     use_a_or_b = UseAorB.B
+    ########################################################################################################
+
+    ########################################################################################################
+    # only testing
+    # shuffling test data and their predictions
+    ########################################################################################################
+    num_test_points = len(test_data.input)
+    idx = np.arange(num_test_points)
+    np.random.shuffle(idx)
+
+    test_data.input = test_data.input[idx]
+    test_data.output = test_data.output[idx]
+
+    pred_a = pred_a[:, idx]
+    pred_b1 = pred_b1[:, idx]
+    pred_b2 = UnivariateGaussian(mean=pred_b2.mean[idx], var=pred_b2.var[idx])
     ########################################################################################################
 
     ########################################################################################################
