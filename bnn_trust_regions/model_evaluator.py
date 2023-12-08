@@ -8,8 +8,9 @@ import typing
 
 
 import numpy as np
+from setuptools import Distribution
 
-from .plot_candidate_regions import PlotSettings, PlotSisoCandidateRegions
+from .plot_candidate_regions import DistributionPlotSettings, PlotSettings, PlotSisoCandidateRegions
 
 from .canidate_region import CandidateRegion, CandidateRegions
 from .candidate_region_identification import SisoCandidateRegionIdentification
@@ -185,7 +186,10 @@ class ModelEvaluator:
         candidate regions.
         """
 
-        plot_settings = PlotSettings(confidence_interval=0.95)
+        plot_settings = PlotSettings(confidence_interval=0.95,
+                                     ground_truth_plot_settings=DistributionPlotSettings(
+                                         mean_label=r'$y=x^3$',)
+                                     )
 
         plot_instance = PlotSisoCandidateRegions(
             candidate_regions=self.candidate_regions,
@@ -200,6 +204,8 @@ class ModelEvaluator:
             ground_truth=ground_truth,
         )
         plot_instance.plot_stats_per_region()
+        plot_instance.plot_stats_and_predictions(data=self.test_data,
+                                                 predictions=self.predictions_a,)
 
     def evaluate(self):
         # Add your evaluation logic here

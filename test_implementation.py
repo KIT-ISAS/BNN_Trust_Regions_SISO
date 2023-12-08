@@ -60,7 +60,7 @@ def test_functionality():
     verbose = False
     ws_dist_settings1 = WassersteinDistance(
         p_norm=p_norm, parallel_computing=parallel_computing, verbose=verbose)
-    ws_dist_settings2 = WassersteinDistance(p_norm=1, parallel_computing=False, verbose=False)
+    ws_dist_settings2 = WassersteinDistance(p_norm=1, parallel_computing=False, verbose=verbose)
 
     # candidate region identification settings
     min_points_per_region = 200
@@ -74,6 +74,12 @@ def test_functionality():
     dpi = 200
     fps = 2
     loop = 0  # 0 for infinite loop
+
+    # statistical test settings
+    alpha = 0.01  # significance level of 1%
+    confidence_interval = 0.95  # test the 95% confidence interval
+    use_a_or_b = UseAorB.A  # use model A or B for calculating the statistics per regions
+
     gif_settings1 = IdentGifSettings(
         path=plot_folder1, file_name=file_name, dpi=dpi, fps=fps, loop=loop)
     gif_settings2 = IdentGifSettings(
@@ -86,13 +92,9 @@ def test_functionality():
         min_points_per_region=min_points_per_region, smoothing_window_size=smoothing_window_size,
         verbose=plot_gif, gif_settings=gif_settings2)
 
-    # statistical test settings
-    alpha = 0.01  # significance level of 1%
-    confidence_interval = 0.95  # test the 95% confidence interval
     stat_test_settings = StatTestSettings(alpha=alpha, confidence_interval=confidence_interval)
 
     # test model A or B
-    use_a_or_b = UseAorB.A
     ########################################################################################################
 
     ########################################################################################################
