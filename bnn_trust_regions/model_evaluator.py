@@ -9,6 +9,8 @@ import typing
 
 import numpy as np
 
+from .plot_candidate_regions import PlotSettings, PlotSisoCandidateRegions
+
 from .canidate_region import CandidateRegion, CandidateRegions
 from .candidate_region_identification import SisoCandidateRegionIdentification
 from .gaussian import UnivariateGaussian
@@ -176,6 +178,28 @@ class ModelEvaluator:
         """
         self.candidate_regions.print_binomial_test_results()
         self.candidate_regions.print_anees_test_results()
+
+    def plot_statistical_tests(self):
+        """
+        The function "plot_statistical_tests" plots the results of binomial and ANEES tests for
+        candidate regions.
+        """
+
+        plot_settings = PlotSettings(confidence_interval=0.95)
+
+        plot_instance = PlotSisoCandidateRegions(
+            candidate_regions=self.candidate_regions,
+            plot_settings=plot_settings,)
+
+        # mean ground truth
+        ground_truth = np.power(self.test_data.input, 3).reshape(1, -1)
+
+        plot_instance.plot_predictions_with_region_results(
+            predictions=self.predictions_a,
+            data=self.test_data,
+            ground_truth=ground_truth,
+        )
+        plot_instance.plot_stats_per_region()
 
     def evaluate(self):
         # Add your evaluation logic here

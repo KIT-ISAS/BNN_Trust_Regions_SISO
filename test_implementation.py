@@ -92,7 +92,7 @@ def test_functionality():
     stat_test_settings = StatTestSettings(alpha=alpha, confidence_interval=confidence_interval)
 
     # test model A or B
-    use_a_or_b = UseAorB.B
+    use_a_or_b = UseAorB.A
     ########################################################################################################
 
     ########################################################################################################
@@ -125,6 +125,7 @@ def test_functionality():
     model_evaluator1.calc_statistical_tests(
         stat_test_settings=stat_test_settings, use_a_or_b=use_a_or_b)
     model_evaluator1.print_statistical_tests()  # print results to console
+    model_evaluator1.plot_statistical_tests()  # plot candidate regions
     ########################################################################################################
 
     ########################################################################################################
@@ -132,6 +133,7 @@ def test_functionality():
     # mcmc as reference model
     # pred_b2 = pred_pbp  # pbp as approximation model
     ########################################################################################################
+    use_a_or_b = UseAorB.B
 
     model_evaluator2 = ModelEvaluator(
         predictions_a=pred_a, predictions_b=pred_b2, test_data=test_data)
