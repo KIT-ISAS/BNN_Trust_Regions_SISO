@@ -1,4 +1,5 @@
 """ This module contains classes for statistical tests for evaluating the quality of uncertainty estimates."""
+import abc
 from dataclasses import dataclass
 import typing
 
@@ -9,7 +10,7 @@ from .distance_measures import squared_mahalanobis_distance
 from .gaussian import UnivariateGaussian
 
 
-@dataclass
+# @dataclass
 class TestResult:
     """ Base class for test results
     :param accept_stat: The `accept_stat` parameter is a boolean that represents whether the null hypothesis is rejected or not.
@@ -19,6 +20,40 @@ class TestResult:
     """
     accept_stat: bool
     pvalue: float
+    over_estimation_flag: bool = None
+
+    def __init__(self, accept_stat: bool, pvalue: float):
+        self.accept_stat = accept_stat
+        self.pvalue = pvalue
+
+    @property
+    def over_estimation(self):
+        """
+        The function returns whether the null hypothesis is rejected because of overestimated uncertainty.
+        :return: `True` if the null hypothesis is rejected because of overestimated uncertainty, `False` otherwise.
+        """
+        if self.over_estimation_flag is None:
+            raise ValueError(
+                "The over_estimation_flag is not set. Please set the over_estimation_flag.")
+        return self.over_estimation_flag and not self.accept_stat
+
+    @property
+    def under_estimation(self):
+        """
+        The function returns whether the null hypothesis is rejected because of underestimated uncertainty.
+        :return: `True` if the null hypothesis is rejected because of underestimated uncertainty, `False` otherwise.
+        """
+        if self.over_estimation_flag is None:
+            raise ValueError(
+                "The over_estimation_flag is not set. Please set the over_estimation_flag.")
+        return not self.over_estimation_flag and not self.accept_stat
+
+    @abc.abstractmethod
+    def _is_over_estimating(self):
+        """
+        The function checks if the uncertainty is overestimated.
+        """
+        raise NotImplementedError
 
 
 @dataclass
@@ -37,17 +72,26 @@ class BinomTestResult(TestResult):
     hypothesis is rejected or not.
     :type accept_stat: bool
     """
+
+    # Other instance variables
     prop_inside: float
-    # pvalue: float
     prop_ci: np.ndarray  # [0] is lower bound, [1] is upper bound
-    # accept_stat: bool
+
+    # Class variable (static variable)
+    tested_proportion: float = None
 
     def __init__(self, prop_inside: float, pvalue: float, prop_ci: np.ndarray, accept_stat: bool):
         super().__init__(accept_stat=accept_stat, pvalue=pvalue)
         self.prop_inside = prop_inside
-        # self.pvalue = pvalue
         self.prop_ci = prop_ci
-        # self.accept_stat = accept_stat
+        self._is_over_estimating()
+
+    def _is_over_estimating(self):
+        """
+        check if uncertainty is overestimated based on the proportion confidence interval
+        """
+        # is the proportion to be tested lower than the lower bound of the proportion confidence interval?
+        self.over_estimation_flag = self.prop_ci_low() > self.tested_proportion
 
     def prop_ci_low(self):
         """
@@ -89,6 +133,7 @@ class AneesTestResult(TestResult):
         self.anees = anees
         self.anees_crit_bounds = anees_crit_bounds
         self.nees_is_chi2 = nees_is_chi2
+        self._is_over_estimating()
 
     def anees_crit_bound_low(self):
         """
@@ -104,6 +149,13 @@ class AneesTestResult(TestResult):
         :return: the second element of the list `self.anees_crit_bounds`.
         """
         return self.anees_crit_bounds[1]
+
+    def _is_over_estimating(self):
+        """
+        check if uncertainty is overestimated based on the ANEES critical bounds
+        """
+        # is the ANEES value lower than the lower bound of the ANEES critical bounds?
+        self.over_estimation_flag = self.anees < self.anees_crit_bound_low()
 
 
 @dataclass
@@ -136,6 +188,7 @@ class BinomialTest(StatTest):
         super().__init__(alpha=alpha)
         self.confidence_interval = confidence_interval
         # self.alpha = alpha
+        BinomTestResult.tested_proportion = confidence_interval
 
         two_tailed = (1 - self.confidence_interval) / 2
         self._two_tailed_ci_levels = np.array([two_tailed, 1-two_tailed])

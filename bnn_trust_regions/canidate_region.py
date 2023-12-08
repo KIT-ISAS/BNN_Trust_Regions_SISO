@@ -164,6 +164,60 @@ class CandidateRegions:
         print('Binomial test results:')
         print(binom_test_table)
 
+    def get_binom_results(self):
+        prop_inside = np.zeros((len(self.regions), ))
+        binom_deviation_from_stat = np.zeros((2, len(self.regions)))
+        pvalues = np.zeros((len(self.regions), ))
+        for idx, region in enumerate(self.regions):
+            # binomial test result
+            prop_inside[idx] = region.binom_test_result.prop_inside
+            lower_deviation = prop_inside[idx] - region.binom_test_result.prop_ci_low()
+            upper_deviation = region.binom_test_result.prop_ci_high() - prop_inside[idx]
+            binom_deviation_from_stat[:, idx] = np.array([lower_deviation, upper_deviation])
+            tested_proportion = self.regions[0].binom_test_result.tested_proportion
+            pvalues[idx] = region.binom_test_result.pvalue
+        return prop_inside, binom_deviation_from_stat, tested_proportion, pvalues
+
+    def get_anees_results(self):
+        anees_stat = np.zeros((len(self.regions), ))
+        anees_crit_deviations_from_1 = np.zeros((2, len(self.regions)))
+        nees_is_chi2 = np.zeros((len(self.regions), ), dtype=bool)
+        pvalues = np.zeros((len(self.regions), ))
+        for idx, region in enumerate(self.regions):
+            anees_stat[idx] = region.anees_test_result.anees
+            anees_crit_deviations_from_1[0, idx] = 1 - \
+                region.anees_test_result.anees_crit_bound_low()
+            anees_crit_deviations_from_1[1,
+                                         idx] = region.anees_test_result.anees_crit_bound_high() - 1
+            nees_is_chi2[idx] = region.anees_test_result.nees_is_chi2
+            pvalues[idx] = region.anees_test_result.pvalue
+        return anees_stat, anees_crit_deviations_from_1, nees_is_chi2, pvalues
+
+    def get_anees_results_as_array(self):
+        """
+        The function `get_anees_results_as_array` returns the ANEES test results as a numpy array.
+
+        :return: A numpy array containing the ANEES test results.
+        :rtype: np.ndarray
+        """
+        anees_values = np.zeros((len(self.regions), ))
+        anees_crit_bounds = np.zeros((len(self.regions), 2))
+        input_range = np.zeros((len(self.regions), 2))
+        nees_is_chi2 = np.zeros((len(self.regions), ), dtype=bool)
+        pvalues = np.zeros((len(self.regions), ))
+
+        for idx, region in enumerate(self.regions):
+            assert isinstance(region, CandidateRegion)
+            anees_values[idx] = region.anees_test_result.anees
+            anees_crit_bounds[idx, 0] = region.anees_test_result.anees_crit_bound_low()
+            anees_crit_bounds[idx, 1] = region.anees_test_result.anees_crit_bound_high()
+            nees_is_chi2[idx] = region.anees_test_result.nees_is_chi2
+            pvalues[idx] = region.anees_test_result.pvalue
+            input_range[idx, 0] = region.x_min
+            input_range[idx, 1] = region.x_max
+
+        return anees_values, anees_crit_bounds, nees_is_chi2, pvalues, input_range
+
     def get_num_regions(self) -> int:
         """
         The function returns the number of regions in an object.
