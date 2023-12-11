@@ -39,8 +39,8 @@ def calc_mean_and_quantiles(predictions: typing.Union[np.ndarray, UnivariateGaus
         var_predictions = predictions.var
         # calculate confidence interval of gaussian predictions by using the inverse cdf
         # of the normal distribution
-        quantiles = stats.norm.ppf(quantile_level, loc=mean_predictions,
-                                   scale=np.sqrt(var_predictions))
+        quantiles = stats.norm.ppf(quantile_level, loc=mean_predictions.reshape(-1, 1),
+                                   scale=np.sqrt(var_predictions).reshape(-1, 1))
 
     if isinstance(predictions, np.ndarray):
         num_samples_per_prediction, _ = predictions.shape
