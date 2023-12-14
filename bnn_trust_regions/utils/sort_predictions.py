@@ -1,3 +1,4 @@
+""" This module contains the `sort_predictions` function which is used to sort predictions based on an index array. """
 import typing
 
 import numpy as np
