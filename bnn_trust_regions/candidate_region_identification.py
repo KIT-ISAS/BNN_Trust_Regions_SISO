@@ -3,7 +3,6 @@
 
 import copy
 from dataclasses import dataclass
-# import logging
 import os
 import typing
 
@@ -32,11 +31,31 @@ class IdentGifSettings:
     :type fps: int, optional
     :param loop: The `loop` parameter is an integer that specifies the number of times the gif should loop.
     :type loop: int, optional"""
-    path: str = None
+    path: str = '.'
     file_name: str = 'crit_dist.gif'
     dpi: int = 200
     fps: int = 2
     loop: int = 0  # 0 means infinite loop, 1 means no loop
+    region_ident_subfolder_name: str = 'region_ident'
+
+    # def __init__(self, path: str = '.', file_name: str = 'crit_dist.gif', dpi: int = 200, fps: int = 2, loop: int = 0):
+    #     self.path = path
+    #     self.file_name = file_name
+    #     self.dpi = dpi
+    #     self.fps = fps
+    #     self.loop = loop
+
+    # if path is changed, call method to create new folder
+    def __setattr__(self, name, value):
+        if name == 'path':
+            assert isinstance(value, str)
+            # if path does not end with region_ident, add region_ident
+            if not value.endswith(self.region_ident_subfolder_name):
+                value = os.path.join(value, self.region_ident_subfolder_name)
+            # Set plot folder for stats and create plot folder if it does not exist.
+            if not os.path.exists(value):
+                os.makedirs(value)
+        super().__setattr__(name, value)
 
 
 @dataclass
@@ -67,12 +86,12 @@ class SisoCandidateRegionIdentification:
     verbose: bool = False
 
     def __init__(self,
-                 raw_distances: np.ndarray = None,
-                 test_data: IOData = None,
+                 raw_distances: typing.Union[np.ndarray, None] = None,
+                 test_data: typing.Union[IOData, None] = None,
                  min_points_per_region: int = 200,
                  smoothing_window_size: int = 50,
                  verbose: bool = False,
-                 gif_settings: IdentGifSettings = None
+                 gif_settings: typing.Union[IdentGifSettings, None] = None
                  ):
         """
         The function initializes the CandidateRegionIdentification class.
@@ -354,17 +373,17 @@ def _create_frame(input_data: np.ndarray, crit_value: float,
     # logging.debug
     # print(
     #     f'Iteration: {idx}, crit value: {crit_value}, num switching: {len(valid_invalid_switching)}')
-    ax = plt.gca()
+    fig, ax = plt.subplots()
     assert isinstance(ax, plt.Axes)
     ax.clear()
     ax.set(xlabel='x', ylabel='Wasserstein distance')
-    plt.plot(input_data.squeeze(), dist, color='b')
+    ax.plot(input_data.squeeze(), dist, color='b')
 
-    plt.axhline(y=crit_value, color='k', linestyle='--')
+    ax.axhline(y=crit_value, color='k', linestyle='--')
 
     # plot vertical lines at switching points
     for switching_point in valid_invalid_switching:
-        plt.axvline(x=input_data.squeeze()[switching_point], color='k', linestyle='-.')
+        ax.axvline(x=input_data.squeeze()[switching_point], color='k', linestyle='-.')
     # fill areas between switching points
     # the areas should be white if distance is lower than crit value
     # and red if distance is higher than crit value
@@ -377,12 +396,12 @@ def _create_frame(input_data: np.ndarray, crit_value: float,
             facecolor = 'r'
         else:
             facecolor = 'w'
-        plt.axvspan(input_data.squeeze()[range_start], input_data.squeeze()[
+        ax.axvspan(input_data.squeeze()[range_start], input_data.squeeze()[
             range_end], facecolor=facecolor, alpha=0.5)
     # make dir if .tmp does not exist
     if not os.path.exists(gif_settings.path):
         os.makedirs(gif_settings.path)
 
     file_path = os.path.join(gif_settings.path, f'wasserstein_dist_animation_{idx}.png')
-    plt.savefig(file_path, dpi=gif_settings.dpi)
+    fig.savefig(file_path, dpi=gif_settings.dpi)
     return imageio.v3.imread(file_path)
