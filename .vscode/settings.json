@@ -1,4 +1,6 @@
-{
+{   
+    "python.analysis.typeCheckingMode": "off",
+
     "docwriter.style": "reST",
     "docwriter.progress.trackMethods": true,
     "docwriter.progress.trackClasses": true,
@@ -15,4 +17,5 @@
         "--init-hook",
         "import sys; sys.path.append('bnn_trust_regions')"
     ],
+    
 }
