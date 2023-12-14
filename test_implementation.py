@@ -12,10 +12,11 @@ from bnn_trust_regions.io_data import IOData
 from bnn_trust_regions.model_evaluator import ModelEvaluator
 from bnn_trust_regions.plot_candidate_regions import ErrorbarPlotSettings, PlotSettings, DistributionPlotSettings
 from bnn_trust_regions.stat_test_settings import StatTestSettings
-from bnn_trust_regions.utils import save_load
+from bnn_trust_regions.utils import save_load, matplotlib_settings
 from bnn_trust_regions.wasserstein_dist import WassersteinDistance
 
 np.random.seed(42)
+matplotlib_settings.init_settings()
 
 
 def test_functionality():
