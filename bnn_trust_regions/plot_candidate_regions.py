@@ -14,11 +14,6 @@ from .gaussian import UnivariateGaussian
 from .utils.ci_prediction import calc_mean_and_quantiles
 
 
-# TODO matplotlib settings should be set in a separate file
-plt.rcParams.update({'errorbar.capsize': 4,
-                     })
-
-
 @dataclass
 class ErrorbarPlotSettings:
     """
@@ -109,24 +104,21 @@ class PlotSettings:
     hatch_under_est: str = '//'
     stats_subfolder_name: str = 'stats'
 
-    def __post_init__(self):
+    def __setattr__(self, prop, value):
+        if prop == 'plot_folder':
+            # call method if plot folder is changed
+            value = self._check_plot_folder(value)
+        super().__setattr__(prop, value)
 
-        # create folder if it does not exist
-        if not os.path.exists(self.plot_folder):
-            os.makedirs(self.plot_folder)
-
-    # call method if plot folder is changed
-    def __setattr__(self, name, value):
-        if name == 'plot_folder':
-            assert isinstance(value, str)
-            # if path does not end with region_ident, add region_ident
-
-            if not value.endswith(self.stats_subfolder_name):
-                value = os.path.join(value, self.stats_subfolder_name)
+    def _check_plot_folder(self, value: str,):
+        assert isinstance(value, str)
+        # if path does not end with region_ident, add region_ident
+        if not value.endswith(self.stats_subfolder_name):
+            value = os.path.join(value, self.stats_subfolder_name)
             # Set plot folder for stats and create plot folder if it does not exist.
-            if not os.path.exists(value):
-                os.makedirs(value)
-        super().__setattr__(name, value)
+        if not os.path.exists(value):
+            os.makedirs(value)
+        return value
 
 
 @dataclass
@@ -235,7 +227,7 @@ class PlotSisoCandidateRegions:
         self._plot_predictions(predictions=predictions,
                                data=data,
                                ax=ax[0],
-                               distribution_plot_settings=self.plot_settings.ground_truth_plot_settings)
+                               distribution_plot_settings=self.plot_settings.prediction_plot_settings)
 
         self._plot_regions(ax=ax[0], test_type=test_type)
 

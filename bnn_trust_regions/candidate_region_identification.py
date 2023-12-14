@@ -46,16 +46,21 @@ class IdentGifSettings:
     #     self.loop = loop
 
     # if path is changed, call method to create new folder
-    def __setattr__(self, name, value):
-        if name == 'path':
-            assert isinstance(value, str)
-            # if path does not end with region_ident, add region_ident
-            if not value.endswith(self.region_ident_subfolder_name):
-                value = os.path.join(value, self.region_ident_subfolder_name)
-            # Set plot folder for stats and create plot folder if it does not exist.
-            if not os.path.exists(value):
-                os.makedirs(value)
-        super().__setattr__(name, value)
+    def __setattr__(self, prop, value):
+        if prop == 'path':
+            value = self._check_path(value)
+        super().__setattr__(prop, value)
+
+    def _check_path(self, value: str,):
+        """ Check if path exists. If not, create it."""
+        assert isinstance(value, str)
+        # if path does not end with region_ident, add region_ident
+        if not value.endswith(self.region_ident_subfolder_name):
+            value = os.path.join(value, self.region_ident_subfolder_name)
+        # Set plot folder for stats and create plot folder if it does not exist.
+        if not os.path.exists(value):
+            os.makedirs(value)
+        return value
 
 
 @dataclass
@@ -213,6 +218,7 @@ class SisoCandidateRegionIdentification:
                 return
 
             last_num_slices = num_slices
+            _ = last_num_slices  # only for debugging?
 
         raise ValueError(
             'No critical value found. Please check if the data and predictions are sorted according to the input data.' +
@@ -375,8 +381,8 @@ def _create_frame(input_data: np.ndarray, crit_value: float,
     #     f'Iteration: {idx}, crit value: {crit_value}, num switching: {len(valid_invalid_switching)}')
     fig, ax = plt.subplots()
     assert isinstance(ax, plt.Axes)
-    ax.clear()
-    ax.set(xlabel='x', ylabel='Wasserstein distance')
+    # ax.clear()
+    ax.set(xlabel=r'$x$', ylabel='Wasserstein distance')
     ax.plot(input_data.squeeze(), dist, color='b')
 
     ax.axhline(y=crit_value, color='k', linestyle='--')
@@ -404,4 +410,5 @@ def _create_frame(input_data: np.ndarray, crit_value: float,
 
     file_path = os.path.join(gif_settings.path, f'wasserstein_dist_animation_{idx}.png')
     fig.savefig(file_path, dpi=gif_settings.dpi)
+    plt.close()
     return imageio.v3.imread(file_path)
