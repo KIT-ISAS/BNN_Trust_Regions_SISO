@@ -165,6 +165,21 @@ class CandidateRegions:
         print(binom_test_table)
 
     def get_binom_results(self):
+        """
+        The function ``get_binom_results`` returns the test results of the binomial test
+        as numpy arrays.
+
+        :return: A tuple containing the ANEES test results as numpy arrays.
+            prop_inside (numpy.ndarray):
+                Array of proportions inside each region.
+            binom_deviation_from_stat (numpy.ndarray):
+                Array of deviations from the binomial test statistic for each region.
+            tested_proportion (float):
+                Proportion used in the binomial test.
+            pvalues (numpy.ndarray):
+                Array of p-values for each region.
+        :rtype: Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]
+        """
         prop_inside = np.zeros((len(self.regions), ))
         binom_deviation_from_stat = np.zeros((2, len(self.regions)))
         pvalues = np.zeros((len(self.regions), ))
@@ -179,6 +194,12 @@ class CandidateRegions:
         return prop_inside, binom_deviation_from_stat, tested_proportion, pvalues
 
     def get_anees_results(self):
+        """
+        The function `get_anees_results` returns the ANEES test results as numpy arrays.
+
+        :return: A tuple containing the ANEES test results as numpy arrays.
+        :rtype: Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]
+        """
         anees_stat = np.zeros((len(self.regions), ))
         anees_crit_deviations_from_1 = np.zeros((2, len(self.regions)))
         nees_is_chi2 = np.zeros((len(self.regions), ), dtype=bool)
