@@ -8,11 +8,12 @@ import typing
 
 
 import numpy as np
-from setuptools import Distribution
 
-from .plot_candidate_regions import DistributionPlotSettings, PlotSettings, PlotSisoCandidateRegions
+from bnn_trust_regions.utils.ci_prediction import calc_mean_and_quantiles
 
-from .canidate_region import CandidateRegion, CandidateRegions
+from .plot_candidate_regions import PlotSettings, PlotSisoCandidateRegions
+
+from .canidate_region import CandidateRegions
 from .candidate_region_identification import SisoCandidateRegionIdentification
 from .gaussian import UnivariateGaussian
 from .io_data import IOData
@@ -40,7 +41,8 @@ class ModelEvaluator:
     distance: np.ndarray  # distance information
 
     region_ident: SisoCandidateRegionIdentification  # instance for candidate region identification
-    candidate_regions: CandidateRegions  # candidate regions
+    candidate_regions_model_a: CandidateRegions  # candidate regions
+    candidate_regions_model_b: CandidateRegions  # candidate regions
 
     # critical_distance: float  # critical distance
     wasserstein: WassersteinDistance  # instance to calculate the Wasserstein distance
@@ -144,7 +146,9 @@ class ModelEvaluator:
         self.region_ident.calc_critical_distance()
         self.region_ident.subsplit_candidate_regions()
 
-    def calc_statistical_tests(self, stat_test_settings: StatTestSettings, use_a_or_b: UseAorB = UseAorB.B):
+    def calc_statistical_tests(self, stat_test_settings: StatTestSettings,
+
+                               ):
         """
         The function calculates statistical tests on candidate regions based on the given settings and
         predictions.
@@ -162,51 +166,83 @@ class ModelEvaluator:
         alpha = stat_test_settings.alpha
         confidence_interval = stat_test_settings.confidence_interval
 
-        if use_a_or_b == UseAorB.A:
-            self.candidate_regions = self.region_ident.split_data_in_regions(self.predictions_a)
-        elif use_a_or_b == UseAorB.B:
-            self.candidate_regions = self.region_ident.split_data_in_regions(self.predictions_b)
-        else:
-            raise ValueError("use_a_or_b must be either UseAorB.A or UseAorB.B")
+        self.candidate_regions_model_a = self.region_ident.split_data_in_regions(self.predictions_a)
+        self.candidate_regions_model_a.binomial_test(
+            confidence_interval=confidence_interval, alpha=alpha)
+        self.candidate_regions_model_a.anees_test(alpha=alpha)
 
-        self.candidate_regions.binomial_test(confidence_interval=confidence_interval, alpha=alpha)
-        self.candidate_regions.anees_test(alpha=alpha)
+        self.candidate_regions_model_b = self.region_ident.split_data_in_regions(self.predictions_b)
+        self.candidate_regions_model_b.binomial_test(
+            confidence_interval=confidence_interval, alpha=alpha)
+        self.candidate_regions_model_b.anees_test(alpha=alpha)
 
-    def print_statistical_tests(self):
+    def print_statistical_tests(self, model_names: typing.Tuple[str, str] = ('reference model', 'approximation model')):
         """
-        The function "print_statistical_tests" prints the results of binomial and ANEES tests for
+        The function "print_statistical_tests" prints the results of binomial and ANEES tests for each
         candidate regions to console.
         """
-        self.candidate_regions.print_binomial_test_results()
-        self.candidate_regions.print_anees_test_results()
+        self._print_one_model_stat_test(
+            candidate_regions=self.candidate_regions_model_a, model_name=model_names[0])
+        self._print_one_model_stat_test(
+            candidate_regions=self.candidate_regions_model_b, model_name=model_names[1])
 
-    def plot_statistical_tests(self):
+    def plot_statistical_tests(self, plot_settings: PlotSettings, ground_truth:
+                               typing.Union[np.ndarray, UnivariateGaussian] = None,
+                               model_names: typing.Tuple[str, str] = ('MCMC', 'SVI')):
         """
         The function "plot_statistical_tests" plots the results of binomial and ANEES tests for
         candidate regions.
         """
 
-        plot_settings = PlotSettings(confidence_interval=0.95,
-                                     ground_truth_plot_settings=DistributionPlotSettings(
-                                         mean_label=r'$y=x^3$',)
-                                     )
+        # plot settings for model a and b
+        plot_settings_a = copy.deepcopy(plot_settings)
+        plot_settings_a.model_name = model_names[0] + '_a'
+        plot_settings_b = copy.deepcopy(plot_settings)
+        plot_settings_b.model_name = model_names[1] + '_b'
+
+        self._plot_one_model(candidate_regions=self.candidate_regions_model_a,
+                             predictions=self.predictions_a,
+                             plot_settings=plot_settings_a,
+                             ground_truth=ground_truth)
+
+        self._plot_one_model(candidate_regions=self.candidate_regions_model_b,
+                             predictions=self.predictions_b,
+                             plot_settings=plot_settings_b,
+                             ground_truth=ground_truth)
+
+    def _print_one_model_stat_test(self, candidate_regions: CandidateRegions, model_name: str):
+        print(f"Model {model_name}:")
+        candidate_regions.print_binomial_test_results()
+        print(f"Model {model_name}:")
+        candidate_regions.print_anees_test_results()
+
+    def _plot_one_model(self, candidate_regions: CandidateRegions, predictions: typing.Union[np.ndarray, UnivariateGaussian],
+                        plot_settings: PlotSettings, ground_truth: typing.Union[np.ndarray, UnivariateGaussian] = None):
+        """"""
 
         plot_instance = PlotSisoCandidateRegions(
-            candidate_regions=self.candidate_regions,
+            candidate_regions=candidate_regions,
             plot_settings=plot_settings,)
 
-        # mean ground truth
-        ground_truth = np.power(self.test_data.input, 3).reshape(1, -1)
+        if ground_truth is None:
+            ground_truth_mean = None
+        else:
+            ground_truth_mean, _ = calc_mean_and_quantiles(
+                ground_truth, plot_settings.confidence_interval)
 
         plot_instance.plot_predictions_with_region_results(
-            predictions=self.predictions_a,
+            predictions=predictions,
             data=self.test_data,
-            ground_truth=ground_truth,
+            ground_truth=ground_truth_mean,
         )
         plot_instance.plot_stats_per_region()
         plot_instance.plot_stats_and_predictions(data=self.test_data,
-                                                 predictions=self.predictions_a,)
+                                                 predictions=predictions,)
 
-    def evaluate(self):
-        # Add your evaluation logic here
-        pass
+        if not isinstance(ground_truth, UnivariateGaussian):
+            return
+
+        ws_dist_gt = self.wasserstein.calc_wasserstein_distance(
+            predictions, ground_truth).reshape(1, -1)
+        plot_instance.plot_stats_and_ground_truth_dist(data=self.test_data,
+                                                       dist_to_ground_truth=ws_dist_gt)
