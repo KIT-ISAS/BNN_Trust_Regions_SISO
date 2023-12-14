@@ -1,4 +1,4 @@
-
+""" module for calculating the mean and quantiles of the predictions. """
 import typing
 
 import numpy as np
@@ -39,10 +39,12 @@ def calc_mean_and_quantiles(predictions: typing.Union[np.ndarray, UnivariateGaus
         var_predictions = predictions.var
         # calculate confidence interval of gaussian predictions by using the inverse cdf
         # of the normal distribution
-        quantiles = stats.norm.ppf(quantile_level, loc=mean_predictions.reshape(-1, 1),
-                                   scale=np.sqrt(var_predictions).reshape(-1, 1))
+        quantiles = stats.norm.ppf(quantile_level.reshape(-1, 1), loc=mean_predictions,
+                                   scale=np.sqrt(var_predictions))
 
     if isinstance(predictions, np.ndarray):
+        if predictions.ndim == 1:
+            predictions = predictions.reshape(1, -1)
         num_samples_per_prediction, _ = predictions.shape
 
         if num_samples_per_prediction == 1:  # only one sample per prediction
