@@ -1,10 +1,11 @@
-
+""" Module for plotting the candidate regions and their statistical test results of a SISO model."""
 
 from dataclasses import dataclass, field
+import math
 import os
 import typing
-from matplotlib import pyplot as plt
 
+from matplotlib import pyplot as plt
 import numpy as np
 
 from .io_data import IOData
@@ -20,44 +21,52 @@ plt.rcParams.update({'errorbar.capsize': 4,
 
 @dataclass
 class ErrorbarPlotSettings:
-    z_order_errorbar = 0.9
-    z_grid_vlines = 0.8
-    alpha_grid = 0.15
-    grid_line_color = 'grey'
-    region_x_label = r'Region $k$'
-    fmt = 'none'
-    x_pos_binom_bar_factor = 2/3
-    binom_bar_color = 'purple'
-    binom_marker_color = 'red'
-    binom_marker = 'x'
-    binom_y_label = r'$\pi$'
-    binom_errorbar_label = r'$\pi$ Bounds'  # +' in Region'
-    binom_p0_label = r'$\pi_0=$'
-    prop_range = [-0.05, 1.05]
+    """
+    Class representing the settings for error bar plots.
+    """
+    z_order_errorbar: float = 0.9
+    z_grid_vlines: float = 0.8
+    alpha_grid: float = 0.15
+    grid_line_color: str = 'grey'
+    region_x_label: str = r'Region $k$'
+    fmt: str = 'none'
+    x_pos_binom_bar_factor: float = 2/3
+    binom_bar_color: str = 'purple'
+    binom_marker_color: str = 'red'
+    binom_marker: str = 'x'
+    binom_y_label: str = r'$\pi$'
+    binom_errorbar_label: str = r'$\pi$ Bounds'  # +' in Region'
+    binom_p0_label: str = r'$\pi_0=$'
+    prop_range: tuple = (-0.05, 1.05)
 
-    anees_label = r'ANEES is $\chi^2$'
-    anees_label_notchi2 = r'ANEES is not $\chi^2$'
-    annes_errorbar_label = 'ANEES Bounds'
-    split_label = 'Region Split'
-    out_of_scope_label = 'ANEES o.s.'
-    anees_y_label = 'ANEES'
+    anees_label: str = r'ANEES is $\chi^2$'
+    anees_label_notchi2: str = r'ANEES is not $\chi^2$'
+    annes_errorbar_label: str = 'ANEES Bounds'
+    split_label: str = 'Region Split'
+    out_of_scope_label: str = 'ANEES o.s.'
+    anees_y_label: str = 'ANEES'
 
-    x_pos_anees_bar_factor = 1/3
-    anees_bar_color = 'orange'
-    anees_marker_color = 'blue'
-    anees_marker = 'x'
-    anees_marker_out_of_scope = '^'
+    x_pos_anees_bar_factor: float = 1/3
+    anees_bar_color: str = 'tab:orange'
+    anees_marker_color: str = 'tab:blue'
+    anees_marker: str = 'x'
+    anees_marker_out_of_scope: str = '^'
     # diamond marker for regions where ANEES is not chi2 distributed
-    nees_is_not_chi2_marker = 'D'
-    anees_range = [-0.05, 2.5]
-    max_anees_factor = 0.95
+    nees_is_not_chi2_marker: str = 'D'
+    anees_range: tuple = (-0.05, 2.5)
+    max_anees_factor: float = 0.95
 
 
 @dataclass
 class DistributionPlotSettings:
+    """
+    Class representing the settings for distribution plots.
+    """
     mean_label: str = 'predicted mean'
     quantile_label: str = 'CI'
     mean_zorder: float = 2
+    mean_color: str = 'tab:blue'
+    mean_linestyle: str = '-'
     ci_area_color: str = 'lightblue'
     ci_area_opacity: float = 1
     ci_area_zorder: float = 1.9
@@ -65,16 +74,18 @@ class DistributionPlotSettings:
 
 @dataclass
 class PlotSettings:
-
-    # TODO default values?
+    """ Class representing the settings for plots."""
     # confidence interval of predictions that should be plotted in [0, 1]
     confidence_interval: float = 0.95
     image_format: str = 'svg'  # suppported image format for matplotlib 'png', 'svg' or 'pdf'
-    plot_name: str = 'model_a'
+    model_name: str = 'model'
     plot_folder: str = '.'  # folder where plots should be saved
+
+    first_ax_to_second_ax_ratio: float = 0.5
 
     x_label: str = r'$x$'
     y_label: str = r'$y$'
+    wasserstein_label: str = r'$W_1$'
 
     # prediction plot settings
     prediction_plot_settings: DistributionPlotSettings = field(
@@ -82,6 +93,9 @@ class PlotSettings:
 
     # ground truth plot settings
     ground_truth_plot_settings: DistributionPlotSettings = DistributionPlotSettings
+
+    # wasserstein plot settings
+    wasserstein_plot_settings: DistributionPlotSettings = DistributionPlotSettings
 
     error_bar_plot_settings: ErrorbarPlotSettings = ErrorbarPlotSettings
 
@@ -93,6 +107,26 @@ class PlotSettings:
     under_est_color: str = 'lightsalmon'
     edge_color_under_est: str = 'black'
     hatch_under_est: str = '//'
+    stats_subfolder_name: str = 'stats'
+
+    def __post_init__(self):
+
+        # create folder if it does not exist
+        if not os.path.exists(self.plot_folder):
+            os.makedirs(self.plot_folder)
+
+    # call method if plot folder is changed
+    def __setattr__(self, name, value):
+        if name == 'plot_folder':
+            assert isinstance(value, str)
+            # if path does not end with region_ident, add region_ident
+
+            if not value.endswith(self.stats_subfolder_name):
+                value = os.path.join(value, self.stats_subfolder_name)
+            # Set plot folder for stats and create plot folder if it does not exist.
+            if not os.path.exists(value):
+                os.makedirs(value)
+        super().__setattr__(name, value)
 
 
 @dataclass
@@ -117,7 +151,19 @@ class PlotSisoCandidateRegions:
                                              data: IOData,
                                              ground_truth: typing.Union[np.ndarray,
                                                                         UnivariateGaussian] = None,
+                                             test_type: str = 'anees',
                                              ):
+        """ Plot predictions and candidate regions with their statistical test results.
+
+        :param predictions: predictions of a model
+        :type predictions: typing.Union[np.ndarray, UnivariateGaussian]
+        :param data: data used for predictions
+        :type data: IOData
+        :param ground_truth: ground truth distribution
+        :type ground_truth: typing.Union[np.ndarray, UnivariateGaussian]
+        :param test_type: type of statistical test, either 'anees' or 'binom'
+        :type test_type: str
+        """
 
         fig, ax = plt.subplots(constrained_layout=True)
         self._plot_predictions(predictions=predictions,
@@ -129,7 +175,8 @@ class PlotSisoCandidateRegions:
                                    data=data,
                                    ax=ax,
                                    distribution_plot_settings=self.plot_settings.ground_truth_plot_settings)
-        self._plot_regions(ax=ax)
+
+        self._plot_regions(ax=ax, test_type=test_type)
 
         assert isinstance(ax, plt.Axes)  # only for type hints
         ax.legend()
@@ -138,21 +185,51 @@ class PlotSisoCandidateRegions:
 
         plot_type = 'pred'
         plot_path = self._plot_path(plot_type)
-        plt.savefig(plot_path)
+        fig.savefig(plot_path)
+        plt.close(fig)
 
     def plot_stats_per_region(self, ):
+        """
+        The function plots results of the statistical tests per input region and saves the plot as an image.
+        """
 
         fig, ax = plt.subplots(constrained_layout=True)
 
+        # set x axis limits to min and max of data
+        ax.set_xlim(self.candidate_regions.regions[0].x_min,
+                    self.candidate_regions.regions[-1].x_max)
         self._plot_stat_error_bar(ax)
 
         plot_type = 'stats'
         plot_path = self._plot_path(plot_type)
-        plt.savefig(plot_path)
+        fig.savefig(plot_path)
 
-    def plot_stats_and_predictions(self, data, predictions: typing.Union[np.ndarray, UnivariateGaussian]):
+        self._save_legend_as_separate_image(fig, plot_type)
+        plt.close(fig)
 
-        fig, ax = plt.subplots(2, constrained_layout=True)
+    def plot_stats_and_predictions(self, data, predictions: typing.Union[np.ndarray, UnivariateGaussian],
+                                   test_type: str = 'anees',):
+        """
+        Plot statistical test results and predictions.
+
+        :param data: data used for predictions
+        :type data: IOData
+        :param predictions: predictions of a model
+        :type predictions: typing.Union[np.ndarray, UnivariateGaussian]
+        :param test_type: type of statistical test, either 'anees' or 'binom'
+        :type test_type: str
+        """
+
+        fig, ax = plt.subplots(
+            2, constrained_layout=True, sharex=True,
+            gridspec_kw={'height_ratios': [self.plot_settings.first_ax_to_second_ax_ratio, 1.]})
+
+        # set x axis limits to min and max of data
+        ax[0].set_xlim(self.candidate_regions.regions[0].x_min,
+                       self.candidate_regions.regions[-1].x_max)
+
+        # ax[0] and ax[1] should have the same x axis scaling
+        ax[1].set_xlim(ax[0].get_xlim())
 
         self._plot_stat_error_bar(ax[1])
         self._plot_predictions(predictions=predictions,
@@ -160,25 +237,122 @@ class PlotSisoCandidateRegions:
                                ax=ax[0],
                                distribution_plot_settings=self.plot_settings.ground_truth_plot_settings)
 
-        plot_type = 'stat_gt'
+        self._plot_regions(ax=ax[0], test_type=test_type)
+
+        ax[0].set_xlabel(self.plot_settings.x_label)
+        ax[0].set_ylabel(self.plot_settings.y_label)
+
+        plot_type = 'stat_pred'
         plot_path = self._plot_path(plot_type)
-        plt.savefig(plot_path)
+        fig.savefig(plot_path)
 
-    def plot_stats_and_ground_truth_dist(self, data, dist_to_ground_truth: np.ndarray, ):
+        self._save_legend_as_separate_image(fig, plot_type)
+        plt.close(fig)
 
-        fig, ax = plt.subplots(2, constrained_layout=True)
+    def plot_stats_and_ground_truth_dist(self, data, dist_to_ground_truth: np.ndarray,
+                                         test_type: str = 'anees',):
+        """ 
+        Plot statistical test results and ground truth distribution.
+
+        :param data: data used for predictions
+        :type data: IOData
+        :param dist_to_ground_truth: distance to ground truth distribution
+        :type dist_to_ground_truth: np.ndarray
+        :param test_type: type of statistical test, either 'anees' or 'binom'
+        :type test_type: str
+
+
+        """
+
+        # set ratio of first axis to second axis
+        fig, ax = plt.subplots(
+            2, constrained_layout=True, sharex=True,
+            gridspec_kw={'height_ratios': [self.plot_settings.first_ax_to_second_ax_ratio, 1.]})
+
+        # set x axis limits to min and max of data
+        ax[0].set_xlim(self.candidate_regions.regions[0].x_min,
+                       self.candidate_regions.regions[-1].x_max)
+
+        # ax[0] and ax[1] should have the same x axis scaling
+        ax[1].set_xlim(ax[0].get_xlim())
+
+        ax[0].set_xlabel(self.plot_settings.x_label)
+        ax[0].set_ylabel(self.plot_settings.wasserstein_label)
 
         self._plot_stat_error_bar(ax[1])
-        self._plot_predictions(predictions=ground_truth,
+        self._plot_predictions(predictions=dist_to_ground_truth,
                                data=data,
                                ax=ax[0],
-                               distribution_plot_settings=self.plot_settings.ground_truth_plot_settings)
+                               distribution_plot_settings=self.plot_settings.wasserstein_plot_settings)
+
+        # plot test results as colered areas
+        self._plot_regions(ax=ax[0], test_type=test_type)
 
         plot_type = 'stat_gt'
         plot_path = self._plot_path(plot_type)
-        plt.savefig(plot_path)
+        fig.savefig(plot_path)
+        self._save_legend_as_separate_image(fig, plot_type)
+        plt.close(fig)
 
-    # function which returns ax instance with predictions
+    def _get_legend_of_different_axes(self, ax_list: typing.List[plt.Axes], ):
+        """ Combine legend of different axes. 
+        :param ax: list of axis instances
+        :type ax: typing.List[plt.Axes]
+        """
+
+        if not isinstance(ax_list, list):
+            handles, labels = ax_list.get_legend_handles_labels()
+            return handles, labels
+
+        handles_list = []
+        labels_list = []
+        for ax_ in ax_list:
+            # if ax contains list of axes instances, loop over them
+            if isinstance(ax_, list):
+                handles, labels = self._get_legend_of_different_axes(ax_)
+                handles_list = handles_list + handles
+                labels_list = labels_list + labels
+                continue
+
+            # get handles and labels
+            handles, labels = ax_.get_legend_handles_labels()
+            handles_list = handles_list + handles
+            labels_list = labels_list + labels
+
+        return handles_list, labels_list
+
+    def _combine_legend_of_different_axes(self, fig: plt.Figure, ):
+
+        ax_list = fig.get_axes()
+
+        handles_list, labels_list = self._get_legend_of_different_axes(ax_list)
+        # specify default order of items in legend
+        order = range(len(handles_list))
+        # switch last and second last item in order
+        order = list(order)
+
+        return handles_list, labels_list, order
+
+    def _save_legend_as_separate_image(self, fig: plt.Figure, plot_type: str):
+
+        plot_type += '_legend'
+        plot_path = self._plot_path(plot_type)
+
+        # get handles and labels
+        handles_list, labels_list, order = self._combine_legend_of_different_axes(fig)
+
+        # change order of legend items
+        order[-1], order[-2] = order[-2], order[-1]
+
+        # add legend to plot
+        lgd = fig.legend([handles_list[idx] for idx in order], [labels_list[idx]
+                                                                for idx in order],
+                         loc='upper right', bbox_to_anchor=(10, 0),
+                         ncols=math.ceil(len(labels_list)/2))
+
+        fig.savefig(plot_path,
+                    bbox_inches=lgd.get_window_extent().transformed(fig.dpi_scale_trans.inverted()),)
+        plt.close(fig)
 
     def _plot_predictions(self, predictions: typing.Union[np.ndarray, UnivariateGaussian],
                           data: IOData,
@@ -205,22 +379,28 @@ class PlotSisoCandidateRegions:
             predictions, self.plot_settings.confidence_interval)
 
         ax.plot(data.input, mean_predictions, label=plt_settings.mean_label,
+                color=plt_settings.mean_color, linestyle=plt_settings.mean_linestyle,
                 zorder=plt_settings.mean_zorder)
         if quantile_predictions is None:
             return ax
+
+        ci_label = f'{100*self.plot_settings.confidence_interval:0.1f}' + r' $\%$ CI'
 
         # plot quantiles as filled area
         ax.fill_between(data.input[:, 0], quantile_predictions[0, :], quantile_predictions[1, :],
                         color=plt_settings.ci_area_color,
                         alpha=plt_settings.ci_area_opacity,
-                        label=plt_settings.quantile_label, zorder=plt_settings.ci_area_zorder)
+                        label=ci_label, zorder=plt_settings.ci_area_zorder)
         return ax
 
-    def _plot_regions(self, ax: plt.Axes):
+    def _plot_regions(self, ax: plt.Axes, test_type: str = 'anees'):
         """ Plot candidate regions and their statistical test results.
 
         :param ax: axis instance
         :type ax: plt.Axes
+        :param test_type: type of statistical test, either 'anees' or 'binom'
+        :type test_type: str
+
         :return: axis instance with candidate regions and their statistical test results
         :rtype: plt.Axes
         """
@@ -230,15 +410,22 @@ class PlotSisoCandidateRegions:
         # plot candidate regions
         for region in self.candidate_regions.regions:
             # fill between x values
-            uncertainty_over_est = region.anees_test_result.over_estimation
-            uncertainty_under_est = region.anees_test_result.under_estimation
+            if test_type == 'anees':
+                uncertainty_over_est = region.anees_test_result.over_estimation
+                uncertainty_under_est = region.anees_test_result.under_estimation
+            elif test_type == 'binom':
+                uncertainty_over_est = region.binom_test_result.over_estimation
+                uncertainty_under_est = region.binom_test_result.under_estimation
+            else:
+                raise ValueError("test__type must be either 'anees' or 'binom'")
+
             if uncertainty_over_est:
                 ax.axvspan(region.x_min, region.x_max, alpha=plt_settings.region_opacity,
-                           color=plt_settings.area_color_over_est,
+                           facecolor=plt_settings.area_color_over_est,
                            edgecolor=plt_settings.edge_color_over_est, hatch=plt_settings.hatch_over_est)
             elif uncertainty_under_est:
                 ax.axvspan(region.x_min, region.x_max, alpha=plt_settings.region_opacity,
-                           color=plt_settings.under_est_color,
+                           facecolor=plt_settings.under_est_color,
                            edgecolor=plt_settings.edge_color_under_est, hatch=plt_settings.hatch_under_est)
             else:
                 # calibrated region
@@ -330,9 +517,6 @@ class PlotSisoCandidateRegions:
                    color=plt_settings.grid_line_color, linestyles='dashed',
                    label=plt_settings.split_label)
 
-        ax.set_xlim(self.candidate_regions.regions[0].x_min,
-                    self.candidate_regions.regions[-1].x_max)
-
         x_label = [f'{x:n}' for x in range(len(x_label_position))]
 
         if len(x_label) >= 13:
@@ -351,15 +535,7 @@ class PlotSisoCandidateRegions:
         ax2.set_ylabel(plt_settings.binom_y_label)
         ax2.set_ylim(plt_settings.prop_range)
 
-        # ax.legend()
-        # ax2.legend()
-
-        # added these three lines
-        # ask matplotlib for the plotted objects and their labels
-        lines, labels = ax.get_legend_handles_labels()
-        lines2, labels2 = ax2.get_legend_handles_labels()
-        ax2.legend(lines + lines2, labels + labels2, loc=0)
-
+        # ax = [ax, ax2]
         return ax
 
         # plot marker for regions w
@@ -395,5 +571,5 @@ class PlotSisoCandidateRegions:
         :param plot_type: name which is used in the plot file name
         :type plot_type: str
         """
-        return os.path.join(self.plot_settings.plot_folder, self.plot_settings.plot_name + '_' +
+        return os.path.join(self.plot_settings.plot_folder, self.plot_settings.model_name + '_' +
                             plot_type + '.' + self.plot_settings.image_format)
