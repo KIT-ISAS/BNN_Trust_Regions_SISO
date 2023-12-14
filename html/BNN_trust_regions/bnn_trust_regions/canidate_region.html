@@ -1,0 +1,1042 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>BNN_trust_regions.bnn_trust_regions.canidate_region API documentation</title>
+<meta name="description" content="class CandidateRegion" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>BNN_trust_regions.bnn_trust_regions.canidate_region</code></h1>
+</header>
+<section id="section-intro">
+<p>class CandidateRegion</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34; class CandidateRegion &#34;&#34;&#34;
+
+
+from dataclasses import dataclass
+import typing
+
+import numpy as np
+
+from prettytable import PrettyTable
+
+from .gaussian import UnivariateGaussian
+from .calibration_test import AneesTest, AneesTestResult, BinomialTest, BinomTestResult
+
+
+@dataclass
+class CandidateRegion:
+    &#34;&#34;&#34;
+    Represents a candidate region in the BNN trust regions algorithm.
+
+
+    :param x_min: The minimum value of the candidate region.
+    :type x_min: float
+    :param x_max: The maximum value of the candidate region.
+    :type x_max: float
+
+    :param predictions_in_region: The predictions within the candidate region.
+    :type predictions_in_region: Union[np.ndarray, UnivariateGaussian]
+    :param outputs_in_region: The outputs within the candidate region.
+    :type outputs_in_region: np.ndarray
+
+    :param binom_test_result: The result of the binomial test.
+    :type binom_test_result: BinomTestResult
+    :param anees_test_result: The result of the ANEES test.
+    :type anees_test_result: AneesTestResult
+    &#34;&#34;&#34;
+
+    x_min: float
+    x_max: float
+
+    predictions_in_region: typing.Union[np.ndarray, UnivariateGaussian]
+    outputs_in_region: np.ndarray
+
+    binom_test_result: BinomTestResult
+    anees_test_result: AneesTestResult
+
+    def __init__(self, predictions_in_region: typing.Union[np.ndarray, UnivariateGaussian],
+                 outputs_in_region: np.ndarray,
+                 x_min: float,
+                 x_max: float,):
+
+        # if x_min/x_max is numpy array, convert to float
+        if isinstance(x_min, np.ndarray):
+            x_min = x_min.item()
+        if isinstance(x_max, np.ndarray):
+            x_max = x_max.item()
+
+        self.x_min = x_min
+        self.x_max = x_max
+
+        self.predictions_in_region = predictions_in_region
+        self.outputs_in_region = outputs_in_region
+
+
+@dataclass
+class CandidateRegions:
+    &#34;&#34;&#34;
+        The CandidateRegions class represents a collection of candidate regions.
+    &#34;&#34;&#34;
+    regions: typing.List[CandidateRegion]
+
+    def __init__(self, regions: typing.List[CandidateRegion]):
+        &#34;&#34;&#34;
+        The CandidateRegions class represents a collection of candidate regions.
+
+        :param regions: A list of CandidateRegion objects representing the candidate regions.
+        :type regions: typing.List[CandidateRegion]
+        &#34;&#34;&#34;
+        self.regions = regions
+
+    def binomial_test(self, confidence_interval: float, alpha: float):
+        &#34;&#34;&#34;
+        The function performs a two-sided binomial test on the predictions and outputs of candidate
+        regions.
+
+        :param confidence_interval: The confidence interval is a measure of the uncertainty associated
+        with an estimate. It represents the range within which the true value is likely to
+        fall with a certain level of confidence.
+        In this context, it is used as a parameter for the
+        binomial test to test the confidence interval for the proportion of test data.
+        :type confidence_interval: float
+        :param alpha: The alpha parameter is the significance level, which is the probability of
+        rejecting the null hypothesis when it is true. It is typically set to a value between 0 and 1,
+        such as 0.05 or 0.01.
+        :type alpha: float
+        &#34;&#34;&#34;
+
+        prop_test = BinomialTest(confidence_interval=confidence_interval, alpha=alpha)
+        for region in self.regions:
+            assert isinstance(region, CandidateRegion)
+            prop_test_result = prop_test.calc_two_sided_binomial_test(
+                prediction=region.predictions_in_region,
+                output_data=region.outputs_in_region)
+            region.binom_test_result = prop_test_result
+
+    def anees_test(self, alpha: float, ):
+        &#34;&#34;&#34;
+        The function `anees_test` calculates the ANEES test result for each region in a list of
+        candidate regions.
+
+        :param alpha: The alpha parameter is a float value that represents the significance level for
+        the Anees test. It is used to determine the critical value for the test statistic.
+        :type alpha: float
+        &#34;&#34;&#34;
+        anees_test = AneesTest(alpha=alpha)
+
+        for region in self.regions:
+            assert isinstance(region, CandidateRegion)
+            anees_test_result = anees_test.calc_anees_test(
+                prediction=region.predictions_in_region,
+                output_data=region.outputs_in_region)
+            region.anees_test_result = anees_test_result
+
+    def print_anees_test_results(self):
+        &#34;&#34;&#34;
+        The function `print_anees_test_results` prints the ANEES test results in a table format.
+        &#34;&#34;&#34;
+
+        # print as table in console
+        anees_test_table = PrettyTable()
+        anees_test_table.field_names = [&#34;x_min&#34;, &#34;x_max&#34;, &#34;anees&#34;, &#34;p-value&#34;,
+                                        &#34;anees crit bound low&#34;, &#34;anees crit bound high&#34;,  &#34;calibrated predictions&#34;, &#34;nees is chi2&#34;]
+        anees_test_table.float_format = &#34;.2&#34;
+        for region in self.regions:
+            assert isinstance(region, CandidateRegion)
+            anees_test_table.add_row([region.x_min, region.x_max,
+                                      region.anees_test_result.anees,
+                                      region.anees_test_result.pvalue,
+                                      region.anees_test_result.anees_crit_bound_low(),
+                                      region.anees_test_result.anees_crit_bound_high(),
+                                      region.anees_test_result.accept_stat,
+                                      region.anees_test_result.nees_is_chi2])
+        print(&#39;ANEES test results:&#39;)
+        print(anees_test_table)
+
+    def print_binomial_test_results(self):
+        &#34;&#34;&#34;
+        The function `print_binomial_test_results` prints the results of a binomial test in a table
+        format.
+        &#34;&#34;&#34;
+
+        # print as table in console
+        binom_test_table = PrettyTable()
+        binom_test_table.field_names = [&#34;x_min&#34;, &#34;x_max&#34;, &#34;proportion inside&#34;,
+                                        &#34;p-value&#34;, &#34;prop CI low&#34;, &#34;prop CI high&#34;,  &#34;calibrated predictions&#34;]
+        binom_test_table.float_format = &#34;.2&#34;
+        for region in self.regions:
+            assert isinstance(region, CandidateRegion)
+            binom_test_table.add_row([region.x_min, region.x_max,
+                                      region.binom_test_result.prop_inside,
+                                      region.binom_test_result.pvalue,
+                                      region.binom_test_result.prop_ci_low(),
+                                      region.binom_test_result.prop_ci_high(),
+                                      region.binom_test_result.accept_stat])
+        print(&#39;Binomial test results:&#39;)
+        print(binom_test_table)
+
+    def get_binom_results(self):
+        &#34;&#34;&#34;
+        The function ``get_binom_results`` returns the test results of the binomial test
+        as numpy arrays.
+
+        :return: A tuple containing the ANEES test results as numpy arrays.
+            prop_inside (numpy.ndarray):
+                Array of proportions inside each region.
+            binom_deviation_from_stat (numpy.ndarray):
+                Array of deviations from the binomial test statistic for each region.
+            tested_proportion (float):
+                Proportion used in the binomial test.
+            pvalues (numpy.ndarray):
+                Array of p-values for each region.
+        :rtype: Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]
+        &#34;&#34;&#34;
+        prop_inside = np.zeros((len(self.regions), ))
+        binom_deviation_from_stat = np.zeros((2, len(self.regions)))
+        pvalues = np.zeros((len(self.regions), ))
+        for idx, region in enumerate(self.regions):
+            # binomial test result
+            prop_inside[idx] = region.binom_test_result.prop_inside
+            lower_deviation = prop_inside[idx] - region.binom_test_result.prop_ci_low()
+            upper_deviation = region.binom_test_result.prop_ci_high() - prop_inside[idx]
+            binom_deviation_from_stat[:, idx] = np.array([lower_deviation, upper_deviation])
+            tested_proportion = self.regions[0].binom_test_result.tested_proportion
+            pvalues[idx] = region.binom_test_result.pvalue
+        return prop_inside, binom_deviation_from_stat, tested_proportion, pvalues
+
+    def get_anees_results(self):
+        &#34;&#34;&#34;
+        The function `get_anees_results` returns the ANEES test results as numpy arrays.
+
+        :return: A tuple containing the ANEES test results as numpy arrays.
+        :rtype: Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]
+        &#34;&#34;&#34;
+        anees_stat = np.zeros((len(self.regions), ))
+        anees_crit_deviations_from_1 = np.zeros((2, len(self.regions)))
+        nees_is_chi2 = np.zeros((len(self.regions), ), dtype=bool)
+        pvalues = np.zeros((len(self.regions), ))
+        for idx, region in enumerate(self.regions):
+            anees_stat[idx] = region.anees_test_result.anees
+            anees_crit_deviations_from_1[0, idx] = 1 - \
+                region.anees_test_result.anees_crit_bound_low()
+            anees_crit_deviations_from_1[1,
+                                         idx] = region.anees_test_result.anees_crit_bound_high() - 1
+            nees_is_chi2[idx] = region.anees_test_result.nees_is_chi2
+            pvalues[idx] = region.anees_test_result.pvalue
+        return anees_stat, anees_crit_deviations_from_1, nees_is_chi2, pvalues
+
+    def get_anees_results_as_array(self):
+        &#34;&#34;&#34;
+        The function `get_anees_results_as_array` returns the ANEES test results as a numpy array.
+
+        :return: A numpy array containing the ANEES test results.
+        :rtype: np.ndarray
+        &#34;&#34;&#34;
+        anees_values = np.zeros((len(self.regions), ))
+        anees_crit_bounds = np.zeros((len(self.regions), 2))
+        input_range = np.zeros((len(self.regions), 2))
+        nees_is_chi2 = np.zeros((len(self.regions), ), dtype=bool)
+        pvalues = np.zeros((len(self.regions), ))
+
+        for idx, region in enumerate(self.regions):
+            assert isinstance(region, CandidateRegion)
+            anees_values[idx] = region.anees_test_result.anees
+            anees_crit_bounds[idx, 0] = region.anees_test_result.anees_crit_bound_low()
+            anees_crit_bounds[idx, 1] = region.anees_test_result.anees_crit_bound_high()
+            nees_is_chi2[idx] = region.anees_test_result.nees_is_chi2
+            pvalues[idx] = region.anees_test_result.pvalue
+            input_range[idx, 0] = region.x_min
+            input_range[idx, 1] = region.x_max
+
+        return anees_values, anees_crit_bounds, nees_is_chi2, pvalues, input_range
+
+    def get_num_regions(self) -&gt; int:
+        &#34;&#34;&#34;
+        The function returns the number of regions in an object.
+
+        :return: The number of regions in the object.
+        :rtype: int
+        &#34;&#34;&#34;
+        return len(self.regions)
+
+    def get_region(self, index: int) -&gt; CandidateRegion:
+        &#34;&#34;&#34;
+        The function `get_region` returns a `CandidateRegion` object based on the given index.
+
+        :param index: The index parameter is an integer that represents the position of the candidate
+        region in the list of regions.
+        :type index: int
+        :return: A CandidateRegion object.
+        :rtype: CandidateRegion
+        &#34;&#34;&#34;
+        return self.regions[index]
+
+    def get_region_by_x(self, x: float) -&gt; CandidateRegion:
+        &#34;&#34;&#34;
+        The function `get_region_by_x` returns the candidate region that contains a given x-coordinate.
+
+        :param x: A float value representing the x-coordinate of a point.
+        :type x: float
+        :return: A CandidateRegion object.
+        :rtype: CandidateRegion
+        &#34;&#34;&#34;
+        for region in self.regions:
+            if region.x_min &lt;= x &lt;= region.x_max:
+                return region
+        raise ValueError(f&#34;No region found for x = {x}&#34;)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion"><code class="flex name class">
+<span>class <span class="ident">CandidateRegion</span></span>
+<span>(</span><span>predictions_in_region: Union[numpy.ndarray, <a title="BNN_trust_regions.bnn_trust_regions.gaussian.UnivariateGaussian" href="gaussian.html#BNN_trust_regions.bnn_trust_regions.gaussian.UnivariateGaussian">UnivariateGaussian</a>], outputs_in_region: numpy.ndarray, x_min: float, x_max: float)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Represents a candidate region in the BNN trust regions algorithm.</p>
+<p>:param x_min: The minimum value of the candidate region.
+:type x_min: float
+:param x_max: The maximum value of the candidate region.
+:type x_max: float</p>
+<p>:param predictions_in_region: The predictions within the candidate region.
+:type predictions_in_region: Union[np.ndarray, UnivariateGaussian]
+:param outputs_in_region: The outputs within the candidate region.
+:type outputs_in_region: np.ndarray</p>
+<p>:param binom_test_result: The result of the binomial test.
+:type binom_test_result: BinomTestResult
+:param anees_test_result: The result of the ANEES test.
+:type anees_test_result: AneesTestResult</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class CandidateRegion:
+    &#34;&#34;&#34;
+    Represents a candidate region in the BNN trust regions algorithm.
+
+
+    :param x_min: The minimum value of the candidate region.
+    :type x_min: float
+    :param x_max: The maximum value of the candidate region.
+    :type x_max: float
+
+    :param predictions_in_region: The predictions within the candidate region.
+    :type predictions_in_region: Union[np.ndarray, UnivariateGaussian]
+    :param outputs_in_region: The outputs within the candidate region.
+    :type outputs_in_region: np.ndarray
+
+    :param binom_test_result: The result of the binomial test.
+    :type binom_test_result: BinomTestResult
+    :param anees_test_result: The result of the ANEES test.
+    :type anees_test_result: AneesTestResult
+    &#34;&#34;&#34;
+
+    x_min: float
+    x_max: float
+
+    predictions_in_region: typing.Union[np.ndarray, UnivariateGaussian]
+    outputs_in_region: np.ndarray
+
+    binom_test_result: BinomTestResult
+    anees_test_result: AneesTestResult
+
+    def __init__(self, predictions_in_region: typing.Union[np.ndarray, UnivariateGaussian],
+                 outputs_in_region: np.ndarray,
+                 x_min: float,
+                 x_max: float,):
+
+        # if x_min/x_max is numpy array, convert to float
+        if isinstance(x_min, np.ndarray):
+            x_min = x_min.item()
+        if isinstance(x_max, np.ndarray):
+            x_max = x_max.item()
+
+        self.x_min = x_min
+        self.x_max = x_max
+
+        self.predictions_in_region = predictions_in_region
+        self.outputs_in_region = outputs_in_region</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion.anees_test_result"><code class="name">var <span class="ident">anees_test_result</span> : <a title="BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTestResult" href="calibration_test.html#BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTestResult">AneesTestResult</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion.binom_test_result"><code class="name">var <span class="ident">binom_test_result</span> : <a title="BNN_trust_regions.bnn_trust_regions.calibration_test.BinomTestResult" href="calibration_test.html#BNN_trust_regions.bnn_trust_regions.calibration_test.BinomTestResult">BinomTestResult</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion.outputs_in_region"><code class="name">var <span class="ident">outputs_in_region</span> : numpy.ndarray</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion.predictions_in_region"><code class="name">var <span class="ident">predictions_in_region</span> : Union[numpy.ndarray, <a title="BNN_trust_regions.bnn_trust_regions.gaussian.UnivariateGaussian" href="gaussian.html#BNN_trust_regions.bnn_trust_regions.gaussian.UnivariateGaussian">UnivariateGaussian</a>]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion.x_max"><code class="name">var <span class="ident">x_max</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion.x_min"><code class="name">var <span class="ident">x_min</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions"><code class="flex name class">
+<span>class <span class="ident">CandidateRegions</span></span>
+<span>(</span><span>regions: List[<a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion" href="#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion">CandidateRegion</a>])</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The CandidateRegions class represents a collection of candidate regions.</p>
+<p>The CandidateRegions class represents a collection of candidate regions.</p>
+<p>:param regions: A list of CandidateRegion objects representing the candidate regions.
+:type regions: typing.List[CandidateRegion]</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class CandidateRegions:
+    &#34;&#34;&#34;
+        The CandidateRegions class represents a collection of candidate regions.
+    &#34;&#34;&#34;
+    regions: typing.List[CandidateRegion]
+
+    def __init__(self, regions: typing.List[CandidateRegion]):
+        &#34;&#34;&#34;
+        The CandidateRegions class represents a collection of candidate regions.
+
+        :param regions: A list of CandidateRegion objects representing the candidate regions.
+        :type regions: typing.List[CandidateRegion]
+        &#34;&#34;&#34;
+        self.regions = regions
+
+    def binomial_test(self, confidence_interval: float, alpha: float):
+        &#34;&#34;&#34;
+        The function performs a two-sided binomial test on the predictions and outputs of candidate
+        regions.
+
+        :param confidence_interval: The confidence interval is a measure of the uncertainty associated
+        with an estimate. It represents the range within which the true value is likely to
+        fall with a certain level of confidence.
+        In this context, it is used as a parameter for the
+        binomial test to test the confidence interval for the proportion of test data.
+        :type confidence_interval: float
+        :param alpha: The alpha parameter is the significance level, which is the probability of
+        rejecting the null hypothesis when it is true. It is typically set to a value between 0 and 1,
+        such as 0.05 or 0.01.
+        :type alpha: float
+        &#34;&#34;&#34;
+
+        prop_test = BinomialTest(confidence_interval=confidence_interval, alpha=alpha)
+        for region in self.regions:
+            assert isinstance(region, CandidateRegion)
+            prop_test_result = prop_test.calc_two_sided_binomial_test(
+                prediction=region.predictions_in_region,
+                output_data=region.outputs_in_region)
+            region.binom_test_result = prop_test_result
+
+    def anees_test(self, alpha: float, ):
+        &#34;&#34;&#34;
+        The function `anees_test` calculates the ANEES test result for each region in a list of
+        candidate regions.
+
+        :param alpha: The alpha parameter is a float value that represents the significance level for
+        the Anees test. It is used to determine the critical value for the test statistic.
+        :type alpha: float
+        &#34;&#34;&#34;
+        anees_test = AneesTest(alpha=alpha)
+
+        for region in self.regions:
+            assert isinstance(region, CandidateRegion)
+            anees_test_result = anees_test.calc_anees_test(
+                prediction=region.predictions_in_region,
+                output_data=region.outputs_in_region)
+            region.anees_test_result = anees_test_result
+
+    def print_anees_test_results(self):
+        &#34;&#34;&#34;
+        The function `print_anees_test_results` prints the ANEES test results in a table format.
+        &#34;&#34;&#34;
+
+        # print as table in console
+        anees_test_table = PrettyTable()
+        anees_test_table.field_names = [&#34;x_min&#34;, &#34;x_max&#34;, &#34;anees&#34;, &#34;p-value&#34;,
+                                        &#34;anees crit bound low&#34;, &#34;anees crit bound high&#34;,  &#34;calibrated predictions&#34;, &#34;nees is chi2&#34;]
+        anees_test_table.float_format = &#34;.2&#34;
+        for region in self.regions:
+            assert isinstance(region, CandidateRegion)
+            anees_test_table.add_row([region.x_min, region.x_max,
+                                      region.anees_test_result.anees,
+                                      region.anees_test_result.pvalue,
+                                      region.anees_test_result.anees_crit_bound_low(),
+                                      region.anees_test_result.anees_crit_bound_high(),
+                                      region.anees_test_result.accept_stat,
+                                      region.anees_test_result.nees_is_chi2])
+        print(&#39;ANEES test results:&#39;)
+        print(anees_test_table)
+
+    def print_binomial_test_results(self):
+        &#34;&#34;&#34;
+        The function `print_binomial_test_results` prints the results of a binomial test in a table
+        format.
+        &#34;&#34;&#34;
+
+        # print as table in console
+        binom_test_table = PrettyTable()
+        binom_test_table.field_names = [&#34;x_min&#34;, &#34;x_max&#34;, &#34;proportion inside&#34;,
+                                        &#34;p-value&#34;, &#34;prop CI low&#34;, &#34;prop CI high&#34;,  &#34;calibrated predictions&#34;]
+        binom_test_table.float_format = &#34;.2&#34;
+        for region in self.regions:
+            assert isinstance(region, CandidateRegion)
+            binom_test_table.add_row([region.x_min, region.x_max,
+                                      region.binom_test_result.prop_inside,
+                                      region.binom_test_result.pvalue,
+                                      region.binom_test_result.prop_ci_low(),
+                                      region.binom_test_result.prop_ci_high(),
+                                      region.binom_test_result.accept_stat])
+        print(&#39;Binomial test results:&#39;)
+        print(binom_test_table)
+
+    def get_binom_results(self):
+        &#34;&#34;&#34;
+        The function ``get_binom_results`` returns the test results of the binomial test
+        as numpy arrays.
+
+        :return: A tuple containing the ANEES test results as numpy arrays.
+            prop_inside (numpy.ndarray):
+                Array of proportions inside each region.
+            binom_deviation_from_stat (numpy.ndarray):
+                Array of deviations from the binomial test statistic for each region.
+            tested_proportion (float):
+                Proportion used in the binomial test.
+            pvalues (numpy.ndarray):
+                Array of p-values for each region.
+        :rtype: Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]
+        &#34;&#34;&#34;
+        prop_inside = np.zeros((len(self.regions), ))
+        binom_deviation_from_stat = np.zeros((2, len(self.regions)))
+        pvalues = np.zeros((len(self.regions), ))
+        for idx, region in enumerate(self.regions):
+            # binomial test result
+            prop_inside[idx] = region.binom_test_result.prop_inside
+            lower_deviation = prop_inside[idx] - region.binom_test_result.prop_ci_low()
+            upper_deviation = region.binom_test_result.prop_ci_high() - prop_inside[idx]
+            binom_deviation_from_stat[:, idx] = np.array([lower_deviation, upper_deviation])
+            tested_proportion = self.regions[0].binom_test_result.tested_proportion
+            pvalues[idx] = region.binom_test_result.pvalue
+        return prop_inside, binom_deviation_from_stat, tested_proportion, pvalues
+
+    def get_anees_results(self):
+        &#34;&#34;&#34;
+        The function `get_anees_results` returns the ANEES test results as numpy arrays.
+
+        :return: A tuple containing the ANEES test results as numpy arrays.
+        :rtype: Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]
+        &#34;&#34;&#34;
+        anees_stat = np.zeros((len(self.regions), ))
+        anees_crit_deviations_from_1 = np.zeros((2, len(self.regions)))
+        nees_is_chi2 = np.zeros((len(self.regions), ), dtype=bool)
+        pvalues = np.zeros((len(self.regions), ))
+        for idx, region in enumerate(self.regions):
+            anees_stat[idx] = region.anees_test_result.anees
+            anees_crit_deviations_from_1[0, idx] = 1 - \
+                region.anees_test_result.anees_crit_bound_low()
+            anees_crit_deviations_from_1[1,
+                                         idx] = region.anees_test_result.anees_crit_bound_high() - 1
+            nees_is_chi2[idx] = region.anees_test_result.nees_is_chi2
+            pvalues[idx] = region.anees_test_result.pvalue
+        return anees_stat, anees_crit_deviations_from_1, nees_is_chi2, pvalues
+
+    def get_anees_results_as_array(self):
+        &#34;&#34;&#34;
+        The function `get_anees_results_as_array` returns the ANEES test results as a numpy array.
+
+        :return: A numpy array containing the ANEES test results.
+        :rtype: np.ndarray
+        &#34;&#34;&#34;
+        anees_values = np.zeros((len(self.regions), ))
+        anees_crit_bounds = np.zeros((len(self.regions), 2))
+        input_range = np.zeros((len(self.regions), 2))
+        nees_is_chi2 = np.zeros((len(self.regions), ), dtype=bool)
+        pvalues = np.zeros((len(self.regions), ))
+
+        for idx, region in enumerate(self.regions):
+            assert isinstance(region, CandidateRegion)
+            anees_values[idx] = region.anees_test_result.anees
+            anees_crit_bounds[idx, 0] = region.anees_test_result.anees_crit_bound_low()
+            anees_crit_bounds[idx, 1] = region.anees_test_result.anees_crit_bound_high()
+            nees_is_chi2[idx] = region.anees_test_result.nees_is_chi2
+            pvalues[idx] = region.anees_test_result.pvalue
+            input_range[idx, 0] = region.x_min
+            input_range[idx, 1] = region.x_max
+
+        return anees_values, anees_crit_bounds, nees_is_chi2, pvalues, input_range
+
+    def get_num_regions(self) -&gt; int:
+        &#34;&#34;&#34;
+        The function returns the number of regions in an object.
+
+        :return: The number of regions in the object.
+        :rtype: int
+        &#34;&#34;&#34;
+        return len(self.regions)
+
+    def get_region(self, index: int) -&gt; CandidateRegion:
+        &#34;&#34;&#34;
+        The function `get_region` returns a `CandidateRegion` object based on the given index.
+
+        :param index: The index parameter is an integer that represents the position of the candidate
+        region in the list of regions.
+        :type index: int
+        :return: A CandidateRegion object.
+        :rtype: CandidateRegion
+        &#34;&#34;&#34;
+        return self.regions[index]
+
+    def get_region_by_x(self, x: float) -&gt; CandidateRegion:
+        &#34;&#34;&#34;
+        The function `get_region_by_x` returns the candidate region that contains a given x-coordinate.
+
+        :param x: A float value representing the x-coordinate of a point.
+        :type x: float
+        :return: A CandidateRegion object.
+        :rtype: CandidateRegion
+        &#34;&#34;&#34;
+        for region in self.regions:
+            if region.x_min &lt;= x &lt;= region.x_max:
+                return region
+        raise ValueError(f&#34;No region found for x = {x}&#34;)</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.regions"><code class="name">var <span class="ident">regions</span> : List[<a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion" href="#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion">CandidateRegion</a>]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.anees_test"><code class="name flex">
+<span>def <span class="ident">anees_test</span></span>(<span>self, alpha: float)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function <code>anees_test</code> calculates the ANEES test result for each region in a list of
+candidate regions.</p>
+<p>:param alpha: The alpha parameter is a float value that represents the significance level for
+the Anees test. It is used to determine the critical value for the test statistic.
+:type alpha: float</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def anees_test(self, alpha: float, ):
+    &#34;&#34;&#34;
+    The function `anees_test` calculates the ANEES test result for each region in a list of
+    candidate regions.
+
+    :param alpha: The alpha parameter is a float value that represents the significance level for
+    the Anees test. It is used to determine the critical value for the test statistic.
+    :type alpha: float
+    &#34;&#34;&#34;
+    anees_test = AneesTest(alpha=alpha)
+
+    for region in self.regions:
+        assert isinstance(region, CandidateRegion)
+        anees_test_result = anees_test.calc_anees_test(
+            prediction=region.predictions_in_region,
+            output_data=region.outputs_in_region)
+        region.anees_test_result = anees_test_result</code></pre>
+</details>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.binomial_test"><code class="name flex">
+<span>def <span class="ident">binomial_test</span></span>(<span>self, confidence_interval: float, alpha: float)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function performs a two-sided binomial test on the predictions and outputs of candidate
+regions.</p>
+<p>:param confidence_interval: The confidence interval is a measure of the uncertainty associated
+with an estimate. It represents the range within which the true value is likely to
+fall with a certain level of confidence.
+In this context, it is used as a parameter for the
+binomial test to test the confidence interval for the proportion of test data.
+:type confidence_interval: float
+:param alpha: The alpha parameter is the significance level, which is the probability of
+rejecting the null hypothesis when it is true. It is typically set to a value between 0 and 1,
+such as 0.05 or 0.01.
+:type alpha: float</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def binomial_test(self, confidence_interval: float, alpha: float):
+    &#34;&#34;&#34;
+    The function performs a two-sided binomial test on the predictions and outputs of candidate
+    regions.
+
+    :param confidence_interval: The confidence interval is a measure of the uncertainty associated
+    with an estimate. It represents the range within which the true value is likely to
+    fall with a certain level of confidence.
+    In this context, it is used as a parameter for the
+    binomial test to test the confidence interval for the proportion of test data.
+    :type confidence_interval: float
+    :param alpha: The alpha parameter is the significance level, which is the probability of
+    rejecting the null hypothesis when it is true. It is typically set to a value between 0 and 1,
+    such as 0.05 or 0.01.
+    :type alpha: float
+    &#34;&#34;&#34;
+
+    prop_test = BinomialTest(confidence_interval=confidence_interval, alpha=alpha)
+    for region in self.regions:
+        assert isinstance(region, CandidateRegion)
+        prop_test_result = prop_test.calc_two_sided_binomial_test(
+            prediction=region.predictions_in_region,
+            output_data=region.outputs_in_region)
+        region.binom_test_result = prop_test_result</code></pre>
+</details>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.get_anees_results"><code class="name flex">
+<span>def <span class="ident">get_anees_results</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function <code>get_anees_results</code> returns the ANEES test results as numpy arrays.</p>
+<p>:return: A tuple containing the ANEES test results as numpy arrays.
+:rtype: Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_anees_results(self):
+    &#34;&#34;&#34;
+    The function `get_anees_results` returns the ANEES test results as numpy arrays.
+
+    :return: A tuple containing the ANEES test results as numpy arrays.
+    :rtype: Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]
+    &#34;&#34;&#34;
+    anees_stat = np.zeros((len(self.regions), ))
+    anees_crit_deviations_from_1 = np.zeros((2, len(self.regions)))
+    nees_is_chi2 = np.zeros((len(self.regions), ), dtype=bool)
+    pvalues = np.zeros((len(self.regions), ))
+    for idx, region in enumerate(self.regions):
+        anees_stat[idx] = region.anees_test_result.anees
+        anees_crit_deviations_from_1[0, idx] = 1 - \
+            region.anees_test_result.anees_crit_bound_low()
+        anees_crit_deviations_from_1[1,
+                                     idx] = region.anees_test_result.anees_crit_bound_high() - 1
+        nees_is_chi2[idx] = region.anees_test_result.nees_is_chi2
+        pvalues[idx] = region.anees_test_result.pvalue
+    return anees_stat, anees_crit_deviations_from_1, nees_is_chi2, pvalues</code></pre>
+</details>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.get_anees_results_as_array"><code class="name flex">
+<span>def <span class="ident">get_anees_results_as_array</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function <code>get_anees_results_as_array</code> returns the ANEES test results as a numpy array.</p>
+<p>:return: A numpy array containing the ANEES test results.
+:rtype: np.ndarray</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_anees_results_as_array(self):
+    &#34;&#34;&#34;
+    The function `get_anees_results_as_array` returns the ANEES test results as a numpy array.
+
+    :return: A numpy array containing the ANEES test results.
+    :rtype: np.ndarray
+    &#34;&#34;&#34;
+    anees_values = np.zeros((len(self.regions), ))
+    anees_crit_bounds = np.zeros((len(self.regions), 2))
+    input_range = np.zeros((len(self.regions), 2))
+    nees_is_chi2 = np.zeros((len(self.regions), ), dtype=bool)
+    pvalues = np.zeros((len(self.regions), ))
+
+    for idx, region in enumerate(self.regions):
+        assert isinstance(region, CandidateRegion)
+        anees_values[idx] = region.anees_test_result.anees
+        anees_crit_bounds[idx, 0] = region.anees_test_result.anees_crit_bound_low()
+        anees_crit_bounds[idx, 1] = region.anees_test_result.anees_crit_bound_high()
+        nees_is_chi2[idx] = region.anees_test_result.nees_is_chi2
+        pvalues[idx] = region.anees_test_result.pvalue
+        input_range[idx, 0] = region.x_min
+        input_range[idx, 1] = region.x_max
+
+    return anees_values, anees_crit_bounds, nees_is_chi2, pvalues, input_range</code></pre>
+</details>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.get_binom_results"><code class="name flex">
+<span>def <span class="ident">get_binom_results</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function <code>get_binom_results</code> returns the test results of the binomial test
+as numpy arrays.</p>
+<p>:return: A tuple containing the ANEES test results as numpy arrays.
+prop_inside (numpy.ndarray):
+Array of proportions inside each region.
+binom_deviation_from_stat (numpy.ndarray):
+Array of deviations from the binomial test statistic for each region.
+tested_proportion (float):
+Proportion used in the binomial test.
+pvalues (numpy.ndarray):
+Array of p-values for each region.
+:rtype: Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_binom_results(self):
+    &#34;&#34;&#34;
+    The function ``get_binom_results`` returns the test results of the binomial test
+    as numpy arrays.
+
+    :return: A tuple containing the ANEES test results as numpy arrays.
+        prop_inside (numpy.ndarray):
+            Array of proportions inside each region.
+        binom_deviation_from_stat (numpy.ndarray):
+            Array of deviations from the binomial test statistic for each region.
+        tested_proportion (float):
+            Proportion used in the binomial test.
+        pvalues (numpy.ndarray):
+            Array of p-values for each region.
+    :rtype: Tuple[np.ndarray, np.ndarray, np.ndarray, np.ndarray]
+    &#34;&#34;&#34;
+    prop_inside = np.zeros((len(self.regions), ))
+    binom_deviation_from_stat = np.zeros((2, len(self.regions)))
+    pvalues = np.zeros((len(self.regions), ))
+    for idx, region in enumerate(self.regions):
+        # binomial test result
+        prop_inside[idx] = region.binom_test_result.prop_inside
+        lower_deviation = prop_inside[idx] - region.binom_test_result.prop_ci_low()
+        upper_deviation = region.binom_test_result.prop_ci_high() - prop_inside[idx]
+        binom_deviation_from_stat[:, idx] = np.array([lower_deviation, upper_deviation])
+        tested_proportion = self.regions[0].binom_test_result.tested_proportion
+        pvalues[idx] = region.binom_test_result.pvalue
+    return prop_inside, binom_deviation_from_stat, tested_proportion, pvalues</code></pre>
+</details>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.get_num_regions"><code class="name flex">
+<span>def <span class="ident">get_num_regions</span></span>(<span>self) ‑> int</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function returns the number of regions in an object.</p>
+<p>:return: The number of regions in the object.
+:rtype: int</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_num_regions(self) -&gt; int:
+    &#34;&#34;&#34;
+    The function returns the number of regions in an object.
+
+    :return: The number of regions in the object.
+    :rtype: int
+    &#34;&#34;&#34;
+    return len(self.regions)</code></pre>
+</details>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.get_region"><code class="name flex">
+<span>def <span class="ident">get_region</span></span>(<span>self, index: int) ‑> <a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion" href="#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion">CandidateRegion</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function <code>get_region</code> returns a <code><a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion" href="#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion">CandidateRegion</a></code> object based on the given index.</p>
+<p>:param index: The index parameter is an integer that represents the position of the candidate
+region in the list of regions.
+:type index: int
+:return: A CandidateRegion object.
+:rtype: CandidateRegion</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_region(self, index: int) -&gt; CandidateRegion:
+    &#34;&#34;&#34;
+    The function `get_region` returns a `CandidateRegion` object based on the given index.
+
+    :param index: The index parameter is an integer that represents the position of the candidate
+    region in the list of regions.
+    :type index: int
+    :return: A CandidateRegion object.
+    :rtype: CandidateRegion
+    &#34;&#34;&#34;
+    return self.regions[index]</code></pre>
+</details>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.get_region_by_x"><code class="name flex">
+<span>def <span class="ident">get_region_by_x</span></span>(<span>self, x: float) ‑> <a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion" href="#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion">CandidateRegion</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function <code>get_region_by_x</code> returns the candidate region that contains a given x-coordinate.</p>
+<p>:param x: A float value representing the x-coordinate of a point.
+:type x: float
+:return: A CandidateRegion object.
+:rtype: CandidateRegion</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_region_by_x(self, x: float) -&gt; CandidateRegion:
+    &#34;&#34;&#34;
+    The function `get_region_by_x` returns the candidate region that contains a given x-coordinate.
+
+    :param x: A float value representing the x-coordinate of a point.
+    :type x: float
+    :return: A CandidateRegion object.
+    :rtype: CandidateRegion
+    &#34;&#34;&#34;
+    for region in self.regions:
+        if region.x_min &lt;= x &lt;= region.x_max:
+            return region
+    raise ValueError(f&#34;No region found for x = {x}&#34;)</code></pre>
+</details>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.print_anees_test_results"><code class="name flex">
+<span>def <span class="ident">print_anees_test_results</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function <code>print_anees_test_results</code> prints the ANEES test results in a table format.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def print_anees_test_results(self):
+    &#34;&#34;&#34;
+    The function `print_anees_test_results` prints the ANEES test results in a table format.
+    &#34;&#34;&#34;
+
+    # print as table in console
+    anees_test_table = PrettyTable()
+    anees_test_table.field_names = [&#34;x_min&#34;, &#34;x_max&#34;, &#34;anees&#34;, &#34;p-value&#34;,
+                                    &#34;anees crit bound low&#34;, &#34;anees crit bound high&#34;,  &#34;calibrated predictions&#34;, &#34;nees is chi2&#34;]
+    anees_test_table.float_format = &#34;.2&#34;
+    for region in self.regions:
+        assert isinstance(region, CandidateRegion)
+        anees_test_table.add_row([region.x_min, region.x_max,
+                                  region.anees_test_result.anees,
+                                  region.anees_test_result.pvalue,
+                                  region.anees_test_result.anees_crit_bound_low(),
+                                  region.anees_test_result.anees_crit_bound_high(),
+                                  region.anees_test_result.accept_stat,
+                                  region.anees_test_result.nees_is_chi2])
+    print(&#39;ANEES test results:&#39;)
+    print(anees_test_table)</code></pre>
+</details>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.print_binomial_test_results"><code class="name flex">
+<span>def <span class="ident">print_binomial_test_results</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function <code>print_binomial_test_results</code> prints the results of a binomial test in a table
+format.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def print_binomial_test_results(self):
+    &#34;&#34;&#34;
+    The function `print_binomial_test_results` prints the results of a binomial test in a table
+    format.
+    &#34;&#34;&#34;
+
+    # print as table in console
+    binom_test_table = PrettyTable()
+    binom_test_table.field_names = [&#34;x_min&#34;, &#34;x_max&#34;, &#34;proportion inside&#34;,
+                                    &#34;p-value&#34;, &#34;prop CI low&#34;, &#34;prop CI high&#34;,  &#34;calibrated predictions&#34;]
+    binom_test_table.float_format = &#34;.2&#34;
+    for region in self.regions:
+        assert isinstance(region, CandidateRegion)
+        binom_test_table.add_row([region.x_min, region.x_max,
+                                  region.binom_test_result.prop_inside,
+                                  region.binom_test_result.pvalue,
+                                  region.binom_test_result.prop_ci_low(),
+                                  region.binom_test_result.prop_ci_high(),
+                                  region.binom_test_result.accept_stat])
+    print(&#39;Binomial test results:&#39;)
+    print(binom_test_table)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions" href="index.html">BNN_trust_regions.bnn_trust_regions</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion" href="#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion">CandidateRegion</a></code></h4>
+<ul class="">
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion.anees_test_result" href="#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion.anees_test_result">anees_test_result</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion.binom_test_result" href="#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion.binom_test_result">binom_test_result</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion.outputs_in_region" href="#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion.outputs_in_region">outputs_in_region</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion.predictions_in_region" href="#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion.predictions_in_region">predictions_in_region</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion.x_max" href="#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion.x_max">x_max</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion.x_min" href="#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion.x_min">x_min</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions" href="#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions">CandidateRegions</a></code></h4>
+<ul class="">
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.anees_test" href="#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.anees_test">anees_test</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.binomial_test" href="#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.binomial_test">binomial_test</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.get_anees_results" href="#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.get_anees_results">get_anees_results</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.get_anees_results_as_array" href="#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.get_anees_results_as_array">get_anees_results_as_array</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.get_binom_results" href="#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.get_binom_results">get_binom_results</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.get_num_regions" href="#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.get_num_regions">get_num_regions</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.get_region" href="#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.get_region">get_region</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.get_region_by_x" href="#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.get_region_by_x">get_region_by_x</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.print_anees_test_results" href="#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.print_anees_test_results">print_anees_test_results</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.print_binomial_test_results" href="#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.print_binomial_test_results">print_binomial_test_results</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.regions" href="#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions.regions">regions</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

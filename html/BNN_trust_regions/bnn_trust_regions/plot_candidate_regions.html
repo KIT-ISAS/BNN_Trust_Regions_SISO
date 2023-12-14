@@ -1,0 +1,1764 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>BNN_trust_regions.bnn_trust_regions.plot_candidate_regions API documentation</title>
+<meta name="description" content="Module for plotting the candidate regions and their statistical test results of a SISO model." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>BNN_trust_regions.bnn_trust_regions.plot_candidate_regions</code></h1>
+</header>
+<section id="section-intro">
+<p>Module for plotting the candidate regions and their statistical test results of a SISO model.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34; Module for plotting the candidate regions and their statistical test results of a SISO model.&#34;&#34;&#34;
+
+from dataclasses import dataclass, field
+import math
+import os
+import typing
+
+from matplotlib import pyplot as plt
+import numpy as np
+
+from .io_data import IOData
+from .canidate_region import CandidateRegions
+from .gaussian import UnivariateGaussian
+from .utils.ci_prediction import calc_mean_and_quantiles
+
+
+@dataclass
+class ErrorbarPlotSettings:
+    &#34;&#34;&#34;
+    Class representing the settings for error bar plots.
+    &#34;&#34;&#34;
+    z_order_errorbar: float = 0.9
+    z_grid_vlines: float = 0.8
+    alpha_grid: float = 0.15
+    grid_line_color: str = &#39;grey&#39;
+    region_x_label: str = r&#39;Region $k$&#39;
+    fmt: str = &#39;none&#39;
+    x_pos_binom_bar_factor: float = 2/3
+    binom_bar_color: str = &#39;purple&#39;
+    binom_marker_color: str = &#39;red&#39;
+    binom_marker: str = &#39;x&#39;
+    binom_y_label: str = r&#39;$\pi$&#39;
+    binom_errorbar_label: str = r&#39;$\pi$ Bounds&#39;  # +&#39; in Region&#39;
+    binom_p0_label: str = r&#39;$\pi_0=$&#39;
+    prop_range: tuple = (-0.05, 1.05)
+
+    anees_label: str = r&#39;ANEES is $\chi^2$&#39;
+    anees_label_notchi2: str = r&#39;ANEES is not $\chi^2$&#39;
+    annes_errorbar_label: str = &#39;ANEES Bounds&#39;
+    split_label: str = &#39;Region Split&#39;
+    out_of_scope_label: str = &#39;ANEES o.s.&#39;
+    anees_y_label: str = &#39;ANEES&#39;
+
+    x_pos_anees_bar_factor: float = 1/3
+    anees_bar_color: str = &#39;tab:orange&#39;
+    anees_marker_color: str = &#39;tab:blue&#39;
+    anees_marker: str = &#39;x&#39;
+    anees_marker_out_of_scope: str = &#39;^&#39;
+    # diamond marker for regions where ANEES is not chi2 distributed
+    nees_is_not_chi2_marker: str = &#39;D&#39;
+    anees_range: tuple = (-0.05, 2.5)
+    max_anees_factor: float = 0.95
+
+
+@dataclass
+class DistributionPlotSettings:
+    &#34;&#34;&#34;
+    Class representing the settings for distribution plots.
+    &#34;&#34;&#34;
+    mean_label: str = &#39;predicted mean&#39;
+    quantile_label: str = &#39;CI&#39;
+    mean_zorder: float = 2
+    mean_color: str = &#39;tab:blue&#39;
+    mean_linestyle: str = &#39;-&#39;
+    ci_area_color: str = &#39;lightblue&#39;
+    ci_area_opacity: float = 1
+    ci_area_zorder: float = 1.9
+
+
+@dataclass
+class PlotSettings:
+    &#34;&#34;&#34; Class representing the settings for plots.&#34;&#34;&#34;
+    # confidence interval of predictions that should be plotted in [0, 1]
+    confidence_interval: float = 0.95
+    image_format: str = &#39;svg&#39;  # suppported image format for matplotlib &#39;png&#39;, &#39;svg&#39; or &#39;pdf&#39;
+    model_name: str = &#39;model&#39;
+    plot_folder: str = &#39;.&#39;  # folder where plots should be saved
+
+    first_ax_to_second_ax_ratio: float = 0.5
+
+    x_label: str = r&#39;$x$&#39;
+    y_label: str = r&#39;$y$&#39;
+    wasserstein_label: str = r&#39;$W_1$&#39;
+
+    # prediction plot settings
+    prediction_plot_settings: DistributionPlotSettings = field(
+        default_factory=DistributionPlotSettings)
+
+    # ground truth plot settings
+    ground_truth_plot_settings: DistributionPlotSettings = DistributionPlotSettings
+
+    # wasserstein plot settings
+    wasserstein_plot_settings: DistributionPlotSettings = DistributionPlotSettings
+
+    error_bar_plot_settings: ErrorbarPlotSettings = ErrorbarPlotSettings
+
+    # candidate region plot settings
+    region_opacity: float = 0.5
+    area_color_over_est: str = &#39;aquamarine&#39;
+    edge_color_over_est: str = &#39;black&#39;
+    hatch_over_est: str = &#39;\\&#39;
+    under_est_color: str = &#39;lightsalmon&#39;
+    edge_color_under_est: str = &#39;black&#39;
+    hatch_under_est: str = &#39;//&#39;
+    stats_subfolder_name: str = &#39;stats&#39;
+
+    def __setattr__(self, prop, value):
+        if prop == &#39;plot_folder&#39;:
+            # call method if plot folder is changed
+            value = self._check_plot_folder(value)
+        super().__setattr__(prop, value)
+
+    def _check_plot_folder(self, value: str,):
+        assert isinstance(value, str)
+        # if path does not end with region_ident, add region_ident
+        if not value.endswith(self.stats_subfolder_name):
+            value = os.path.join(value, self.stats_subfolder_name)
+            # Set plot folder for stats and create plot folder if it does not exist.
+        if not os.path.exists(value):
+            os.makedirs(value)
+        return value
+
+
+@dataclass
+class PlotSisoCandidateRegions:
+    &#34;&#34;&#34;Class for plotting the candidate regions and their statistical test results of a SISO model.
+
+    # TODO: add docstring
+    &#34;&#34;&#34;
+
+    candidate_regions: CandidateRegions
+    plot_settings: PlotSettings
+
+    def __init__(self,
+                 candidate_regions: CandidateRegions,
+                 plot_settings: PlotSettings):
+
+        self.candidate_regions = candidate_regions
+        self.plot_settings = plot_settings
+
+    def plot_predictions_with_region_results(self,
+                                             predictions: typing.Union[np.ndarray, UnivariateGaussian],
+                                             data: IOData,
+                                             ground_truth: typing.Union[np.ndarray,
+                                                                        UnivariateGaussian] = None,
+                                             test_type: str = &#39;anees&#39;,
+                                             ):
+        &#34;&#34;&#34; Plot predictions and candidate regions with their statistical test results.
+
+        :param predictions: predictions of a model
+        :type predictions: typing.Union[np.ndarray, UnivariateGaussian]
+        :param data: data used for predictions
+        :type data: IOData
+        :param ground_truth: ground truth distribution
+        :type ground_truth: typing.Union[np.ndarray, UnivariateGaussian]
+        :param test_type: type of statistical test, either &#39;anees&#39; or &#39;binom&#39;
+        :type test_type: str
+        &#34;&#34;&#34;
+
+        fig, ax = plt.subplots(constrained_layout=True)
+        self._plot_predictions(predictions=predictions,
+                               data=data,
+                               ax=ax,
+                               distribution_plot_settings=self.plot_settings.prediction_plot_settings)
+        if ground_truth is not None:
+            self._plot_predictions(predictions=ground_truth,
+                                   data=data,
+                                   ax=ax,
+                                   distribution_plot_settings=self.plot_settings.ground_truth_plot_settings)
+
+        self._plot_regions(ax=ax, test_type=test_type)
+
+        assert isinstance(ax, plt.Axes)  # only for type hints
+        ax.legend()
+        ax.set_xlabel(self.plot_settings.x_label)
+        ax.set_ylabel(self.plot_settings.y_label)
+
+        plot_type = &#39;pred&#39;
+        plot_path = self._plot_path(plot_type)
+        fig.savefig(plot_path)
+        plt.close(fig)
+
+    def plot_stats_per_region(self, ):
+        &#34;&#34;&#34;
+        The function plots results of the statistical tests per input region and saves the plot as an image.
+        &#34;&#34;&#34;
+
+        fig, ax = plt.subplots(constrained_layout=True)
+
+        # set x axis limits to min and max of data
+        ax.set_xlim(self.candidate_regions.regions[0].x_min,
+                    self.candidate_regions.regions[-1].x_max)
+        self._plot_stat_error_bar(ax)
+
+        plot_type = &#39;stats&#39;
+        plot_path = self._plot_path(plot_type)
+        fig.savefig(plot_path)
+
+        self._save_legend_as_separate_image(fig, plot_type)
+        plt.close(fig)
+
+    def plot_stats_and_predictions(self, data, predictions: typing.Union[np.ndarray, UnivariateGaussian],
+                                   test_type: str = &#39;anees&#39;,):
+        &#34;&#34;&#34;
+        Plot statistical test results and predictions.
+
+        :param data: data used for predictions
+        :type data: IOData
+        :param predictions: predictions of a model
+        :type predictions: typing.Union[np.ndarray, UnivariateGaussian]
+        :param test_type: type of statistical test, either &#39;anees&#39; or &#39;binom&#39;
+        :type test_type: str
+        &#34;&#34;&#34;
+
+        fig, ax = plt.subplots(
+            2, constrained_layout=True, sharex=True,
+            gridspec_kw={&#39;height_ratios&#39;: [self.plot_settings.first_ax_to_second_ax_ratio, 1.]})
+
+        # set x axis limits to min and max of data
+        ax[0].set_xlim(self.candidate_regions.regions[0].x_min,
+                       self.candidate_regions.regions[-1].x_max)
+
+        # ax[0] and ax[1] should have the same x axis scaling
+        ax[1].set_xlim(ax[0].get_xlim())
+
+        self._plot_stat_error_bar(ax[1])
+        self._plot_predictions(predictions=predictions,
+                               data=data,
+                               ax=ax[0],
+                               distribution_plot_settings=self.plot_settings.prediction_plot_settings)
+
+        self._plot_regions(ax=ax[0], test_type=test_type)
+
+        ax[0].set_xlabel(self.plot_settings.x_label)
+        ax[0].set_ylabel(self.plot_settings.y_label)
+
+        plot_type = &#39;stat_pred&#39;
+        plot_path = self._plot_path(plot_type)
+        fig.savefig(plot_path)
+
+        self._save_legend_as_separate_image(fig, plot_type)
+        plt.close(fig)
+
+    def plot_stats_and_ground_truth_dist(self, data, dist_to_ground_truth: np.ndarray,
+                                         test_type: str = &#39;anees&#39;,):
+        &#34;&#34;&#34; 
+        Plot statistical test results and ground truth distribution.
+
+        :param data: data used for predictions
+        :type data: IOData
+        :param dist_to_ground_truth: distance to ground truth distribution
+        :type dist_to_ground_truth: np.ndarray
+        :param test_type: type of statistical test, either &#39;anees&#39; or &#39;binom&#39;
+        :type test_type: str
+
+
+        &#34;&#34;&#34;
+
+        # set ratio of first axis to second axis
+        fig, ax = plt.subplots(
+            2, constrained_layout=True, sharex=True,
+            gridspec_kw={&#39;height_ratios&#39;: [self.plot_settings.first_ax_to_second_ax_ratio, 1.]})
+
+        # set x axis limits to min and max of data
+        ax[0].set_xlim(self.candidate_regions.regions[0].x_min,
+                       self.candidate_regions.regions[-1].x_max)
+
+        # ax[0] and ax[1] should have the same x axis scaling
+        ax[1].set_xlim(ax[0].get_xlim())
+
+        ax[0].set_xlabel(self.plot_settings.x_label)
+        ax[0].set_ylabel(self.plot_settings.wasserstein_label)
+
+        self._plot_stat_error_bar(ax[1])
+        self._plot_predictions(predictions=dist_to_ground_truth,
+                               data=data,
+                               ax=ax[0],
+                               distribution_plot_settings=self.plot_settings.wasserstein_plot_settings)
+
+        # plot test results as colered areas
+        self._plot_regions(ax=ax[0], test_type=test_type)
+
+        plot_type = &#39;stat_gt&#39;
+        plot_path = self._plot_path(plot_type)
+        fig.savefig(plot_path)
+        self._save_legend_as_separate_image(fig, plot_type)
+        plt.close(fig)
+
+    def _get_legend_of_different_axes(self, ax_list: typing.List[plt.Axes], ):
+        &#34;&#34;&#34; Combine legend of different axes. 
+        :param ax: list of axis instances
+        :type ax: typing.List[plt.Axes]
+        &#34;&#34;&#34;
+
+        if not isinstance(ax_list, list):
+            handles, labels = ax_list.get_legend_handles_labels()
+            return handles, labels
+
+        handles_list = []
+        labels_list = []
+        for ax_ in ax_list:
+            # if ax contains list of axes instances, loop over them
+            if isinstance(ax_, list):
+                handles, labels = self._get_legend_of_different_axes(ax_)
+                handles_list = handles_list + handles
+                labels_list = labels_list + labels
+                continue
+
+            # get handles and labels
+            handles, labels = ax_.get_legend_handles_labels()
+            handles_list = handles_list + handles
+            labels_list = labels_list + labels
+
+        return handles_list, labels_list
+
+    def _combine_legend_of_different_axes(self, fig: plt.Figure, ):
+
+        ax_list = fig.get_axes()
+
+        handles_list, labels_list = self._get_legend_of_different_axes(ax_list)
+        # specify default order of items in legend
+        order = range(len(handles_list))
+        # switch last and second last item in order
+        order = list(order)
+
+        return handles_list, labels_list, order
+
+    def _save_legend_as_separate_image(self, fig: plt.Figure, plot_type: str):
+
+        plot_type += &#39;_legend&#39;
+        plot_path = self._plot_path(plot_type)
+
+        # get handles and labels
+        handles_list, labels_list, order = self._combine_legend_of_different_axes(fig)
+
+        # change order of legend items
+        order[-1], order[-2] = order[-2], order[-1]
+
+        # add legend to plot
+        lgd = fig.legend([handles_list[idx] for idx in order], [labels_list[idx]
+                                                                for idx in order],
+                         loc=&#39;upper right&#39;, bbox_to_anchor=(10, 0),
+                         ncols=math.ceil(len(labels_list)/2))
+
+        fig.savefig(plot_path,
+                    bbox_inches=lgd.get_window_extent().transformed(fig.dpi_scale_trans.inverted()),)
+        plt.close(fig)
+
+    def _plot_predictions(self, predictions: typing.Union[np.ndarray, UnivariateGaussian],
+                          data: IOData,
+                          ax: plt.Axes,
+                          distribution_plot_settings: DistributionPlotSettings,
+                          ):
+        &#34;&#34;&#34; Plot predictions of a model.
+
+        :param predictions: predictions of a model
+        :type predictions: typing.Union[np.ndarray, UnivariateGaussian]
+        :param data: data used for predictions
+        :type data: IOData
+        :param confidence_interval: confidence interval of predictions that should be plotted in [0, 1]
+        :type confidence_interval: float
+        :param ax: axis instance
+        :type ax: plt.Axes
+        :return: axis instance with predictions
+        :rtype: plt.Axes
+        &#34;&#34;&#34;
+
+        plt_settings = distribution_plot_settings
+
+        mean_predictions, quantile_predictions = calc_mean_and_quantiles(
+            predictions, self.plot_settings.confidence_interval)
+
+        ax.plot(data.input, mean_predictions, label=plt_settings.mean_label,
+                color=plt_settings.mean_color, linestyle=plt_settings.mean_linestyle,
+                zorder=plt_settings.mean_zorder)
+        if quantile_predictions is None:
+            return ax
+
+        ci_label = f&#39;{100*self.plot_settings.confidence_interval:0.1f}&#39; + r&#39; $\%$ CI&#39;
+
+        # plot quantiles as filled area
+        ax.fill_between(data.input[:, 0], quantile_predictions[0, :], quantile_predictions[1, :],
+                        color=plt_settings.ci_area_color,
+                        alpha=plt_settings.ci_area_opacity,
+                        label=ci_label, zorder=plt_settings.ci_area_zorder)
+        return ax
+
+    def _plot_regions(self, ax: plt.Axes, test_type: str = &#39;anees&#39;):
+        &#34;&#34;&#34; Plot candidate regions and their statistical test results.
+
+        :param ax: axis instance
+        :type ax: plt.Axes
+        :param test_type: type of statistical test, either &#39;anees&#39; or &#39;binom&#39;
+        :type test_type: str
+
+        :return: axis instance with candidate regions and their statistical test results
+        :rtype: plt.Axes
+        &#34;&#34;&#34;
+
+        plt_settings = self.plot_settings
+
+        # plot candidate regions
+        for region in self.candidate_regions.regions:
+            # fill between x values
+            if test_type == &#39;anees&#39;:
+                uncertainty_over_est = region.anees_test_result.over_estimation
+                uncertainty_under_est = region.anees_test_result.under_estimation
+            elif test_type == &#39;binom&#39;:
+                uncertainty_over_est = region.binom_test_result.over_estimation
+                uncertainty_under_est = region.binom_test_result.under_estimation
+            else:
+                raise ValueError(&#34;test__type must be either &#39;anees&#39; or &#39;binom&#39;&#34;)
+
+            if uncertainty_over_est:
+                ax.axvspan(region.x_min, region.x_max, alpha=plt_settings.region_opacity,
+                           facecolor=plt_settings.area_color_over_est,
+                           edgecolor=plt_settings.edge_color_over_est, hatch=plt_settings.hatch_over_est)
+            elif uncertainty_under_est:
+                ax.axvspan(region.x_min, region.x_max, alpha=plt_settings.region_opacity,
+                           facecolor=plt_settings.under_est_color,
+                           edgecolor=plt_settings.edge_color_under_est, hatch=plt_settings.hatch_under_est)
+            else:
+                # calibrated region
+                # anything to visualize?
+                pass
+
+        return ax
+
+    def _plot_stat_error_bar(self, ax: plt.Axes):
+        &#34;&#34;&#34; Plot statistical test results per region.
+
+        :return: axis instance with statistical test results per region
+        :rtype: plt.Axes
+        &#34;&#34;&#34;
+
+        plt_settings = self.plot_settings.error_bar_plot_settings
+
+        ax2 = ax.twinx()
+
+        x_pos_bar_binom, x_pos_bar_anees, x_label_position, x_region_split_points = \
+            self._get_x_positons_for_errorbars(
+                plt_settings.x_pos_binom_bar_factor, plt_settings.x_pos_anees_bar_factor)
+        binom_stat, binom_bounds, tested_proportion, _ = self.candidate_regions.get_binom_results()
+        anees_stat, anees_crit_deviations_from_1, nees_is_chi2, _ = self.candidate_regions.get_anees_results()
+
+        binom_p0_label = plt_settings.binom_p0_label + r&#39;$&#39; + f&#39;{tested_proportion:0.2f}&#39; + r&#39;$&#39;
+
+        # anees test results
+        max_anees = plt_settings.max_anees_factor * plt_settings.anees_range[1]
+        anees_greater_max = anees_stat &gt; max_anees  # plot with different markers when value is out of scope
+        anees_lower_max_and_chi2 = np.logical_and(anees_stat &lt;= max_anees, nees_is_chi2)
+        anees_lower_max_and_not_chi2 = np.logical_and(
+            anees_stat &lt;= max_anees, np.logical_not(nees_is_chi2))
+
+        ax.errorbar(x=x_pos_bar_anees,
+                    y=np.ones_like(x_pos_bar_anees),  # perfect calibration is ANEES=1
+                    yerr=anees_crit_deviations_from_1,
+                    label=plt_settings.annes_errorbar_label,
+                    # capsize=plt_settings.errorbar_capsize,  # set capsize
+                    fmt=plt_settings.fmt, color=plt_settings.anees_bar_color, zorder=plt_settings.z_order_errorbar)
+
+        # plot anees if its lower than max_anees and is chi2 distributed
+        ax.plot(x_pos_bar_anees[anees_lower_max_and_chi2], anees_stat[anees_lower_max_and_chi2],
+                marker=plt_settings.anees_marker, zorder=plt_settings.z_order_errorbar,
+                color=plt_settings.anees_marker_color, label=plt_settings.anees_label,
+                linestyle=&#39;None&#39;)
+        # plot anees if its lower than max_anees and is not chi2 distributed
+        ax.plot(x_pos_bar_anees[anees_lower_max_and_not_chi2], anees_stat[anees_lower_max_and_not_chi2],
+                marker=plt_settings.nees_is_not_chi2_marker, zorder=plt_settings.z_order_errorbar,
+                color=plt_settings.anees_marker_color, label=plt_settings.anees_label_notchi2,
+                linestyle=&#39;None&#39;)
+        # number of anees values &gt; max as integer
+        num_anees_greater_max = np.sum(anees_greater_max)
+        # plot anees if its greater than max_anees
+        ax.plot(x_pos_bar_anees[anees_greater_max], max_anees * np.ones((num_anees_greater_max,)),
+                marker=plt_settings.anees_marker_out_of_scope, zorder=plt_settings.z_order_errorbar,
+                color=plt_settings.anees_marker_color, label=plt_settings.out_of_scope_label,
+                linestyle=&#39;None&#39;)
+
+        # binomial test results
+        assert isinstance(ax, plt.Axes)  # only for type hints
+        ax2.errorbar(x=x_pos_bar_binom,
+                     y=binom_stat,
+                     yerr=binom_bounds,
+                     label=plt_settings.binom_errorbar_label,
+                     #  capsize=plt_settings.errorbar_capsize,  # set capsize
+                     fmt=plt_settings.fmt, color=plt_settings.binom_bar_color, zorder=plt_settings.z_order_errorbar)
+
+        ax2.plot(x_pos_bar_binom, tested_proportion * np.ones_like(x_pos_bar_binom),
+                 label=binom_p0_label,
+                 marker=plt_settings.binom_marker, zorder=plt_settings.z_order_errorbar,
+                 color=plt_settings.binom_marker_color, linestyle=&#39;None&#39;)
+
+        # grid lines for binomial errorbar and scatter points
+        ax2.vlines(x_pos_bar_binom,
+                   ymin=plt_settings.prop_range[0], ymax=plt_settings.prop_range[1],
+                   color=plt_settings.grid_line_color, linestyles=&#39;dotted&#39;,
+                   alpha=plt_settings.alpha_grid, zorder=plt_settings.z_grid_vlines)
+        # grid lines for anees errorbars and scatter points
+        ax2.vlines(x_pos_bar_anees,
+                   ymin=plt_settings.prop_range[0], ymax=plt_settings.prop_range[1],
+                   color=plt_settings.grid_line_color, linestyles=&#39;dotted&#39;,
+                   alpha=plt_settings.alpha_grid, zorder=plt_settings.z_grid_vlines)
+
+        # grid lines for regions
+        # add vertical lines to mark regions
+        ax2.vlines(x_region_split_points[1:-1],  # splitting points without first and last data points
+                   ymin=plt_settings.prop_range[0], ymax=plt_settings.prop_range[1],
+                   color=plt_settings.grid_line_color, linestyles=&#39;dashed&#39;,
+                   label=plt_settings.split_label)
+
+        x_label = [f&#39;{x:n}&#39; for x in range(len(x_label_position))]
+
+        if len(x_label) &gt;= 13:
+            # ax.set_xticks(x_label_position, minor=True)
+            # use every second label
+            ax.set_xticks(x_label_position[::2], minor=False)
+            ax.set_xticklabels(x_label[::2])
+        else:
+            ax.set_xticks(x_label_position)
+            ax.set_xticklabels(x_label)
+
+        ax.set_xlabel(plt_settings.region_x_label)
+        ax.set_ylabel(plt_settings.anees_y_label)
+        ax.set_ylim(plt_settings.anees_range)
+
+        ax2.set_ylabel(plt_settings.binom_y_label)
+        ax2.set_ylim(plt_settings.prop_range)
+
+        # ax = [ax, ax2]
+        return ax
+
+        # plot marker for regions w
+
+    def _get_x_positons_for_errorbars(self, x_pos_binom_bar_factor: float, x_pos_anees_bar_factor: float):
+        # initialize array for x position of error bar
+        x_pos_bar_binom = np.empty((self.candidate_regions.get_num_regions(), ))
+        x_pos_bar_anees = np.empty_like(x_pos_bar_binom)
+        x_label_position = np.empty_like(x_pos_bar_binom)
+        # initialize array for x position of vertical line which split the regions
+        # add one more element to array to plot vertical line at the end of the last region
+        x_region_split_points = np.empty((self.candidate_regions.get_num_regions()+1, ))
+
+        # plot stat confidence interval per region as error bar
+        for idx, region in enumerate(self.candidate_regions.regions):
+
+            max_min_diff = region.x_max - region.x_min
+
+            # calculate x position of binom error bar
+            x_pos_bar_binom[idx] = region.x_min + max_min_diff * x_pos_binom_bar_factor
+            x_pos_bar_anees[idx] = region.x_min + max_min_diff * x_pos_anees_bar_factor
+            x_label_position[idx] = region.x_min + max_min_diff * 0.5
+
+            x_region_split_points[idx] = region.x_min
+
+        # add last region x_max to array
+        x_region_split_points[-1] = self.candidate_regions.regions[-1].x_max
+
+        return x_pos_bar_binom, x_pos_bar_anees, x_label_position, x_region_split_points
+
+    def _plot_path(self, plot_type: str):
+        &#34;&#34;&#34; get path to save plot 
+        :param plot_type: name which is used in the plot file name
+        :type plot_type: str
+        &#34;&#34;&#34;
+        return os.path.join(self.plot_settings.plot_folder, self.plot_settings.model_name + &#39;_&#39; +
+                            plot_type + &#39;.&#39; + self.plot_settings.image_format)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings"><code class="flex name class">
+<span>class <span class="ident">DistributionPlotSettings</span></span>
+<span>(</span><span>mean_label: str = 'predicted mean', quantile_label: str = 'CI', mean_zorder: float = 2, mean_color: str = 'tab:blue', mean_linestyle: str = '-', ci_area_color: str = 'lightblue', ci_area_opacity: float = 1, ci_area_zorder: float = 1.9)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Class representing the settings for distribution plots.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class DistributionPlotSettings:
+    &#34;&#34;&#34;
+    Class representing the settings for distribution plots.
+    &#34;&#34;&#34;
+    mean_label: str = &#39;predicted mean&#39;
+    quantile_label: str = &#39;CI&#39;
+    mean_zorder: float = 2
+    mean_color: str = &#39;tab:blue&#39;
+    mean_linestyle: str = &#39;-&#39;
+    ci_area_color: str = &#39;lightblue&#39;
+    ci_area_opacity: float = 1
+    ci_area_zorder: float = 1.9</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings.ci_area_color"><code class="name">var <span class="ident">ci_area_color</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings.ci_area_opacity"><code class="name">var <span class="ident">ci_area_opacity</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings.ci_area_zorder"><code class="name">var <span class="ident">ci_area_zorder</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings.mean_color"><code class="name">var <span class="ident">mean_color</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings.mean_label"><code class="name">var <span class="ident">mean_label</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings.mean_linestyle"><code class="name">var <span class="ident">mean_linestyle</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings.mean_zorder"><code class="name">var <span class="ident">mean_zorder</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings.quantile_label"><code class="name">var <span class="ident">quantile_label</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings"><code class="flex name class">
+<span>class <span class="ident">ErrorbarPlotSettings</span></span>
+<span>(</span><span>z_order_errorbar: float = 0.9, z_grid_vlines: float = 0.8, alpha_grid: float = 0.15, grid_line_color: str = 'grey', region_x_label: str = 'Region $k$', fmt: str = 'none', x_pos_binom_bar_factor: float = 0.6666666666666666, binom_bar_color: str = 'purple', binom_marker_color: str = 'red', binom_marker: str = 'x', binom_y_label: str = '$\\pi$', binom_errorbar_label: str = '$\\pi$ Bounds', binom_p0_label: str = '$\\pi_0=$', prop_range: tuple = (-0.05, 1.05), anees_label: str = 'ANEES is $\\chi^2$', anees_label_notchi2: str = 'ANEES is not $\\chi^2$', annes_errorbar_label: str = 'ANEES Bounds', split_label: str = 'Region Split', out_of_scope_label: str = 'ANEES o.s.', anees_y_label: str = 'ANEES', x_pos_anees_bar_factor: float = 0.3333333333333333, anees_bar_color: str = 'tab:orange', anees_marker_color: str = 'tab:blue', anees_marker: str = 'x', anees_marker_out_of_scope: str = '^', nees_is_not_chi2_marker: str = 'D', anees_range: tuple = (-0.05, 2.5), max_anees_factor: float = 0.95)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Class representing the settings for error bar plots.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class ErrorbarPlotSettings:
+    &#34;&#34;&#34;
+    Class representing the settings for error bar plots.
+    &#34;&#34;&#34;
+    z_order_errorbar: float = 0.9
+    z_grid_vlines: float = 0.8
+    alpha_grid: float = 0.15
+    grid_line_color: str = &#39;grey&#39;
+    region_x_label: str = r&#39;Region $k$&#39;
+    fmt: str = &#39;none&#39;
+    x_pos_binom_bar_factor: float = 2/3
+    binom_bar_color: str = &#39;purple&#39;
+    binom_marker_color: str = &#39;red&#39;
+    binom_marker: str = &#39;x&#39;
+    binom_y_label: str = r&#39;$\pi$&#39;
+    binom_errorbar_label: str = r&#39;$\pi$ Bounds&#39;  # +&#39; in Region&#39;
+    binom_p0_label: str = r&#39;$\pi_0=$&#39;
+    prop_range: tuple = (-0.05, 1.05)
+
+    anees_label: str = r&#39;ANEES is $\chi^2$&#39;
+    anees_label_notchi2: str = r&#39;ANEES is not $\chi^2$&#39;
+    annes_errorbar_label: str = &#39;ANEES Bounds&#39;
+    split_label: str = &#39;Region Split&#39;
+    out_of_scope_label: str = &#39;ANEES o.s.&#39;
+    anees_y_label: str = &#39;ANEES&#39;
+
+    x_pos_anees_bar_factor: float = 1/3
+    anees_bar_color: str = &#39;tab:orange&#39;
+    anees_marker_color: str = &#39;tab:blue&#39;
+    anees_marker: str = &#39;x&#39;
+    anees_marker_out_of_scope: str = &#39;^&#39;
+    # diamond marker for regions where ANEES is not chi2 distributed
+    nees_is_not_chi2_marker: str = &#39;D&#39;
+    anees_range: tuple = (-0.05, 2.5)
+    max_anees_factor: float = 0.95</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.alpha_grid"><code class="name">var <span class="ident">alpha_grid</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.anees_bar_color"><code class="name">var <span class="ident">anees_bar_color</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.anees_label"><code class="name">var <span class="ident">anees_label</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.anees_label_notchi2"><code class="name">var <span class="ident">anees_label_notchi2</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.anees_marker"><code class="name">var <span class="ident">anees_marker</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.anees_marker_color"><code class="name">var <span class="ident">anees_marker_color</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.anees_marker_out_of_scope"><code class="name">var <span class="ident">anees_marker_out_of_scope</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.anees_range"><code class="name">var <span class="ident">anees_range</span> : tuple</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.anees_y_label"><code class="name">var <span class="ident">anees_y_label</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.annes_errorbar_label"><code class="name">var <span class="ident">annes_errorbar_label</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.binom_bar_color"><code class="name">var <span class="ident">binom_bar_color</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.binom_errorbar_label"><code class="name">var <span class="ident">binom_errorbar_label</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.binom_marker"><code class="name">var <span class="ident">binom_marker</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.binom_marker_color"><code class="name">var <span class="ident">binom_marker_color</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.binom_p0_label"><code class="name">var <span class="ident">binom_p0_label</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.binom_y_label"><code class="name">var <span class="ident">binom_y_label</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.fmt"><code class="name">var <span class="ident">fmt</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.grid_line_color"><code class="name">var <span class="ident">grid_line_color</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.max_anees_factor"><code class="name">var <span class="ident">max_anees_factor</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.nees_is_not_chi2_marker"><code class="name">var <span class="ident">nees_is_not_chi2_marker</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.out_of_scope_label"><code class="name">var <span class="ident">out_of_scope_label</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.prop_range"><code class="name">var <span class="ident">prop_range</span> : tuple</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.region_x_label"><code class="name">var <span class="ident">region_x_label</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.split_label"><code class="name">var <span class="ident">split_label</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.x_pos_anees_bar_factor"><code class="name">var <span class="ident">x_pos_anees_bar_factor</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.x_pos_binom_bar_factor"><code class="name">var <span class="ident">x_pos_binom_bar_factor</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.z_grid_vlines"><code class="name">var <span class="ident">z_grid_vlines</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.z_order_errorbar"><code class="name">var <span class="ident">z_order_errorbar</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings"><code class="flex name class">
+<span>class <span class="ident">PlotSettings</span></span>
+<span>(</span><span>confidence_interval: float = 0.95, image_format: str = 'svg', model_name: str = 'model', plot_folder: str = '.', first_ax_to_second_ax_ratio: float = 0.5, x_label: str = '$x$', y_label: str = '$y$', wasserstein_label: str = '$W_1$', prediction_plot_settings: <a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings">DistributionPlotSettings</a> = &lt;factory&gt;, ground_truth_plot_settings: <a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings">DistributionPlotSettings</a> = BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings, wasserstein_plot_settings: <a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings">DistributionPlotSettings</a> = BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings, error_bar_plot_settings: <a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings">ErrorbarPlotSettings</a> = BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings, region_opacity: float = 0.5, area_color_over_est: str = 'aquamarine', edge_color_over_est: str = 'black', hatch_over_est: str = '\\', under_est_color: str = 'lightsalmon', edge_color_under_est: str = 'black', hatch_under_est: str = '//', stats_subfolder_name: str = 'stats')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Class representing the settings for plots.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class PlotSettings:
+    &#34;&#34;&#34; Class representing the settings for plots.&#34;&#34;&#34;
+    # confidence interval of predictions that should be plotted in [0, 1]
+    confidence_interval: float = 0.95
+    image_format: str = &#39;svg&#39;  # suppported image format for matplotlib &#39;png&#39;, &#39;svg&#39; or &#39;pdf&#39;
+    model_name: str = &#39;model&#39;
+    plot_folder: str = &#39;.&#39;  # folder where plots should be saved
+
+    first_ax_to_second_ax_ratio: float = 0.5
+
+    x_label: str = r&#39;$x$&#39;
+    y_label: str = r&#39;$y$&#39;
+    wasserstein_label: str = r&#39;$W_1$&#39;
+
+    # prediction plot settings
+    prediction_plot_settings: DistributionPlotSettings = field(
+        default_factory=DistributionPlotSettings)
+
+    # ground truth plot settings
+    ground_truth_plot_settings: DistributionPlotSettings = DistributionPlotSettings
+
+    # wasserstein plot settings
+    wasserstein_plot_settings: DistributionPlotSettings = DistributionPlotSettings
+
+    error_bar_plot_settings: ErrorbarPlotSettings = ErrorbarPlotSettings
+
+    # candidate region plot settings
+    region_opacity: float = 0.5
+    area_color_over_est: str = &#39;aquamarine&#39;
+    edge_color_over_est: str = &#39;black&#39;
+    hatch_over_est: str = &#39;\\&#39;
+    under_est_color: str = &#39;lightsalmon&#39;
+    edge_color_under_est: str = &#39;black&#39;
+    hatch_under_est: str = &#39;//&#39;
+    stats_subfolder_name: str = &#39;stats&#39;
+
+    def __setattr__(self, prop, value):
+        if prop == &#39;plot_folder&#39;:
+            # call method if plot folder is changed
+            value = self._check_plot_folder(value)
+        super().__setattr__(prop, value)
+
+    def _check_plot_folder(self, value: str,):
+        assert isinstance(value, str)
+        # if path does not end with region_ident, add region_ident
+        if not value.endswith(self.stats_subfolder_name):
+            value = os.path.join(value, self.stats_subfolder_name)
+            # Set plot folder for stats and create plot folder if it does not exist.
+        if not os.path.exists(value):
+            os.makedirs(value)
+        return value</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.area_color_over_est"><code class="name">var <span class="ident">area_color_over_est</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.confidence_interval"><code class="name">var <span class="ident">confidence_interval</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.edge_color_over_est"><code class="name">var <span class="ident">edge_color_over_est</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.edge_color_under_est"><code class="name">var <span class="ident">edge_color_under_est</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.error_bar_plot_settings"><code class="name">var <span class="ident">error_bar_plot_settings</span> : <a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings">ErrorbarPlotSettings</a></code></dt>
+<dd>
+<div class="desc"><p>Class representing the settings for error bar plots.</p></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.first_ax_to_second_ax_ratio"><code class="name">var <span class="ident">first_ax_to_second_ax_ratio</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.ground_truth_plot_settings"><code class="name">var <span class="ident">ground_truth_plot_settings</span> : <a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings">DistributionPlotSettings</a></code></dt>
+<dd>
+<div class="desc"><p>Class representing the settings for distribution plots.</p></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.hatch_over_est"><code class="name">var <span class="ident">hatch_over_est</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.hatch_under_est"><code class="name">var <span class="ident">hatch_under_est</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.image_format"><code class="name">var <span class="ident">image_format</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.model_name"><code class="name">var <span class="ident">model_name</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.plot_folder"><code class="name">var <span class="ident">plot_folder</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.prediction_plot_settings"><code class="name">var <span class="ident">prediction_plot_settings</span> : <a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings">DistributionPlotSettings</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.region_opacity"><code class="name">var <span class="ident">region_opacity</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.stats_subfolder_name"><code class="name">var <span class="ident">stats_subfolder_name</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.under_est_color"><code class="name">var <span class="ident">under_est_color</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.wasserstein_label"><code class="name">var <span class="ident">wasserstein_label</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.wasserstein_plot_settings"><code class="name">var <span class="ident">wasserstein_plot_settings</span> : <a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings">DistributionPlotSettings</a></code></dt>
+<dd>
+<div class="desc"><p>Class representing the settings for distribution plots.</p></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.x_label"><code class="name">var <span class="ident">x_label</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.y_label"><code class="name">var <span class="ident">y_label</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSisoCandidateRegions"><code class="flex name class">
+<span>class <span class="ident">PlotSisoCandidateRegions</span></span>
+<span>(</span><span>candidate_regions: <a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions" href="canidate_region.html#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions">CandidateRegions</a>, plot_settings: <a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings">PlotSettings</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Class for plotting the candidate regions and their statistical test results of a SISO model.</p>
+<h1 id="todo-add-docstring">TODO: add docstring</h1></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class PlotSisoCandidateRegions:
+    &#34;&#34;&#34;Class for plotting the candidate regions and their statistical test results of a SISO model.
+
+    # TODO: add docstring
+    &#34;&#34;&#34;
+
+    candidate_regions: CandidateRegions
+    plot_settings: PlotSettings
+
+    def __init__(self,
+                 candidate_regions: CandidateRegions,
+                 plot_settings: PlotSettings):
+
+        self.candidate_regions = candidate_regions
+        self.plot_settings = plot_settings
+
+    def plot_predictions_with_region_results(self,
+                                             predictions: typing.Union[np.ndarray, UnivariateGaussian],
+                                             data: IOData,
+                                             ground_truth: typing.Union[np.ndarray,
+                                                                        UnivariateGaussian] = None,
+                                             test_type: str = &#39;anees&#39;,
+                                             ):
+        &#34;&#34;&#34; Plot predictions and candidate regions with their statistical test results.
+
+        :param predictions: predictions of a model
+        :type predictions: typing.Union[np.ndarray, UnivariateGaussian]
+        :param data: data used for predictions
+        :type data: IOData
+        :param ground_truth: ground truth distribution
+        :type ground_truth: typing.Union[np.ndarray, UnivariateGaussian]
+        :param test_type: type of statistical test, either &#39;anees&#39; or &#39;binom&#39;
+        :type test_type: str
+        &#34;&#34;&#34;
+
+        fig, ax = plt.subplots(constrained_layout=True)
+        self._plot_predictions(predictions=predictions,
+                               data=data,
+                               ax=ax,
+                               distribution_plot_settings=self.plot_settings.prediction_plot_settings)
+        if ground_truth is not None:
+            self._plot_predictions(predictions=ground_truth,
+                                   data=data,
+                                   ax=ax,
+                                   distribution_plot_settings=self.plot_settings.ground_truth_plot_settings)
+
+        self._plot_regions(ax=ax, test_type=test_type)
+
+        assert isinstance(ax, plt.Axes)  # only for type hints
+        ax.legend()
+        ax.set_xlabel(self.plot_settings.x_label)
+        ax.set_ylabel(self.plot_settings.y_label)
+
+        plot_type = &#39;pred&#39;
+        plot_path = self._plot_path(plot_type)
+        fig.savefig(plot_path)
+        plt.close(fig)
+
+    def plot_stats_per_region(self, ):
+        &#34;&#34;&#34;
+        The function plots results of the statistical tests per input region and saves the plot as an image.
+        &#34;&#34;&#34;
+
+        fig, ax = plt.subplots(constrained_layout=True)
+
+        # set x axis limits to min and max of data
+        ax.set_xlim(self.candidate_regions.regions[0].x_min,
+                    self.candidate_regions.regions[-1].x_max)
+        self._plot_stat_error_bar(ax)
+
+        plot_type = &#39;stats&#39;
+        plot_path = self._plot_path(plot_type)
+        fig.savefig(plot_path)
+
+        self._save_legend_as_separate_image(fig, plot_type)
+        plt.close(fig)
+
+    def plot_stats_and_predictions(self, data, predictions: typing.Union[np.ndarray, UnivariateGaussian],
+                                   test_type: str = &#39;anees&#39;,):
+        &#34;&#34;&#34;
+        Plot statistical test results and predictions.
+
+        :param data: data used for predictions
+        :type data: IOData
+        :param predictions: predictions of a model
+        :type predictions: typing.Union[np.ndarray, UnivariateGaussian]
+        :param test_type: type of statistical test, either &#39;anees&#39; or &#39;binom&#39;
+        :type test_type: str
+        &#34;&#34;&#34;
+
+        fig, ax = plt.subplots(
+            2, constrained_layout=True, sharex=True,
+            gridspec_kw={&#39;height_ratios&#39;: [self.plot_settings.first_ax_to_second_ax_ratio, 1.]})
+
+        # set x axis limits to min and max of data
+        ax[0].set_xlim(self.candidate_regions.regions[0].x_min,
+                       self.candidate_regions.regions[-1].x_max)
+
+        # ax[0] and ax[1] should have the same x axis scaling
+        ax[1].set_xlim(ax[0].get_xlim())
+
+        self._plot_stat_error_bar(ax[1])
+        self._plot_predictions(predictions=predictions,
+                               data=data,
+                               ax=ax[0],
+                               distribution_plot_settings=self.plot_settings.prediction_plot_settings)
+
+        self._plot_regions(ax=ax[0], test_type=test_type)
+
+        ax[0].set_xlabel(self.plot_settings.x_label)
+        ax[0].set_ylabel(self.plot_settings.y_label)
+
+        plot_type = &#39;stat_pred&#39;
+        plot_path = self._plot_path(plot_type)
+        fig.savefig(plot_path)
+
+        self._save_legend_as_separate_image(fig, plot_type)
+        plt.close(fig)
+
+    def plot_stats_and_ground_truth_dist(self, data, dist_to_ground_truth: np.ndarray,
+                                         test_type: str = &#39;anees&#39;,):
+        &#34;&#34;&#34; 
+        Plot statistical test results and ground truth distribution.
+
+        :param data: data used for predictions
+        :type data: IOData
+        :param dist_to_ground_truth: distance to ground truth distribution
+        :type dist_to_ground_truth: np.ndarray
+        :param test_type: type of statistical test, either &#39;anees&#39; or &#39;binom&#39;
+        :type test_type: str
+
+
+        &#34;&#34;&#34;
+
+        # set ratio of first axis to second axis
+        fig, ax = plt.subplots(
+            2, constrained_layout=True, sharex=True,
+            gridspec_kw={&#39;height_ratios&#39;: [self.plot_settings.first_ax_to_second_ax_ratio, 1.]})
+
+        # set x axis limits to min and max of data
+        ax[0].set_xlim(self.candidate_regions.regions[0].x_min,
+                       self.candidate_regions.regions[-1].x_max)
+
+        # ax[0] and ax[1] should have the same x axis scaling
+        ax[1].set_xlim(ax[0].get_xlim())
+
+        ax[0].set_xlabel(self.plot_settings.x_label)
+        ax[0].set_ylabel(self.plot_settings.wasserstein_label)
+
+        self._plot_stat_error_bar(ax[1])
+        self._plot_predictions(predictions=dist_to_ground_truth,
+                               data=data,
+                               ax=ax[0],
+                               distribution_plot_settings=self.plot_settings.wasserstein_plot_settings)
+
+        # plot test results as colered areas
+        self._plot_regions(ax=ax[0], test_type=test_type)
+
+        plot_type = &#39;stat_gt&#39;
+        plot_path = self._plot_path(plot_type)
+        fig.savefig(plot_path)
+        self._save_legend_as_separate_image(fig, plot_type)
+        plt.close(fig)
+
+    def _get_legend_of_different_axes(self, ax_list: typing.List[plt.Axes], ):
+        &#34;&#34;&#34; Combine legend of different axes. 
+        :param ax: list of axis instances
+        :type ax: typing.List[plt.Axes]
+        &#34;&#34;&#34;
+
+        if not isinstance(ax_list, list):
+            handles, labels = ax_list.get_legend_handles_labels()
+            return handles, labels
+
+        handles_list = []
+        labels_list = []
+        for ax_ in ax_list:
+            # if ax contains list of axes instances, loop over them
+            if isinstance(ax_, list):
+                handles, labels = self._get_legend_of_different_axes(ax_)
+                handles_list = handles_list + handles
+                labels_list = labels_list + labels
+                continue
+
+            # get handles and labels
+            handles, labels = ax_.get_legend_handles_labels()
+            handles_list = handles_list + handles
+            labels_list = labels_list + labels
+
+        return handles_list, labels_list
+
+    def _combine_legend_of_different_axes(self, fig: plt.Figure, ):
+
+        ax_list = fig.get_axes()
+
+        handles_list, labels_list = self._get_legend_of_different_axes(ax_list)
+        # specify default order of items in legend
+        order = range(len(handles_list))
+        # switch last and second last item in order
+        order = list(order)
+
+        return handles_list, labels_list, order
+
+    def _save_legend_as_separate_image(self, fig: plt.Figure, plot_type: str):
+
+        plot_type += &#39;_legend&#39;
+        plot_path = self._plot_path(plot_type)
+
+        # get handles and labels
+        handles_list, labels_list, order = self._combine_legend_of_different_axes(fig)
+
+        # change order of legend items
+        order[-1], order[-2] = order[-2], order[-1]
+
+        # add legend to plot
+        lgd = fig.legend([handles_list[idx] for idx in order], [labels_list[idx]
+                                                                for idx in order],
+                         loc=&#39;upper right&#39;, bbox_to_anchor=(10, 0),
+                         ncols=math.ceil(len(labels_list)/2))
+
+        fig.savefig(plot_path,
+                    bbox_inches=lgd.get_window_extent().transformed(fig.dpi_scale_trans.inverted()),)
+        plt.close(fig)
+
+    def _plot_predictions(self, predictions: typing.Union[np.ndarray, UnivariateGaussian],
+                          data: IOData,
+                          ax: plt.Axes,
+                          distribution_plot_settings: DistributionPlotSettings,
+                          ):
+        &#34;&#34;&#34; Plot predictions of a model.
+
+        :param predictions: predictions of a model
+        :type predictions: typing.Union[np.ndarray, UnivariateGaussian]
+        :param data: data used for predictions
+        :type data: IOData
+        :param confidence_interval: confidence interval of predictions that should be plotted in [0, 1]
+        :type confidence_interval: float
+        :param ax: axis instance
+        :type ax: plt.Axes
+        :return: axis instance with predictions
+        :rtype: plt.Axes
+        &#34;&#34;&#34;
+
+        plt_settings = distribution_plot_settings
+
+        mean_predictions, quantile_predictions = calc_mean_and_quantiles(
+            predictions, self.plot_settings.confidence_interval)
+
+        ax.plot(data.input, mean_predictions, label=plt_settings.mean_label,
+                color=plt_settings.mean_color, linestyle=plt_settings.mean_linestyle,
+                zorder=plt_settings.mean_zorder)
+        if quantile_predictions is None:
+            return ax
+
+        ci_label = f&#39;{100*self.plot_settings.confidence_interval:0.1f}&#39; + r&#39; $\%$ CI&#39;
+
+        # plot quantiles as filled area
+        ax.fill_between(data.input[:, 0], quantile_predictions[0, :], quantile_predictions[1, :],
+                        color=plt_settings.ci_area_color,
+                        alpha=plt_settings.ci_area_opacity,
+                        label=ci_label, zorder=plt_settings.ci_area_zorder)
+        return ax
+
+    def _plot_regions(self, ax: plt.Axes, test_type: str = &#39;anees&#39;):
+        &#34;&#34;&#34; Plot candidate regions and their statistical test results.
+
+        :param ax: axis instance
+        :type ax: plt.Axes
+        :param test_type: type of statistical test, either &#39;anees&#39; or &#39;binom&#39;
+        :type test_type: str
+
+        :return: axis instance with candidate regions and their statistical test results
+        :rtype: plt.Axes
+        &#34;&#34;&#34;
+
+        plt_settings = self.plot_settings
+
+        # plot candidate regions
+        for region in self.candidate_regions.regions:
+            # fill between x values
+            if test_type == &#39;anees&#39;:
+                uncertainty_over_est = region.anees_test_result.over_estimation
+                uncertainty_under_est = region.anees_test_result.under_estimation
+            elif test_type == &#39;binom&#39;:
+                uncertainty_over_est = region.binom_test_result.over_estimation
+                uncertainty_under_est = region.binom_test_result.under_estimation
+            else:
+                raise ValueError(&#34;test__type must be either &#39;anees&#39; or &#39;binom&#39;&#34;)
+
+            if uncertainty_over_est:
+                ax.axvspan(region.x_min, region.x_max, alpha=plt_settings.region_opacity,
+                           facecolor=plt_settings.area_color_over_est,
+                           edgecolor=plt_settings.edge_color_over_est, hatch=plt_settings.hatch_over_est)
+            elif uncertainty_under_est:
+                ax.axvspan(region.x_min, region.x_max, alpha=plt_settings.region_opacity,
+                           facecolor=plt_settings.under_est_color,
+                           edgecolor=plt_settings.edge_color_under_est, hatch=plt_settings.hatch_under_est)
+            else:
+                # calibrated region
+                # anything to visualize?
+                pass
+
+        return ax
+
+    def _plot_stat_error_bar(self, ax: plt.Axes):
+        &#34;&#34;&#34; Plot statistical test results per region.
+
+        :return: axis instance with statistical test results per region
+        :rtype: plt.Axes
+        &#34;&#34;&#34;
+
+        plt_settings = self.plot_settings.error_bar_plot_settings
+
+        ax2 = ax.twinx()
+
+        x_pos_bar_binom, x_pos_bar_anees, x_label_position, x_region_split_points = \
+            self._get_x_positons_for_errorbars(
+                plt_settings.x_pos_binom_bar_factor, plt_settings.x_pos_anees_bar_factor)
+        binom_stat, binom_bounds, tested_proportion, _ = self.candidate_regions.get_binom_results()
+        anees_stat, anees_crit_deviations_from_1, nees_is_chi2, _ = self.candidate_regions.get_anees_results()
+
+        binom_p0_label = plt_settings.binom_p0_label + r&#39;$&#39; + f&#39;{tested_proportion:0.2f}&#39; + r&#39;$&#39;
+
+        # anees test results
+        max_anees = plt_settings.max_anees_factor * plt_settings.anees_range[1]
+        anees_greater_max = anees_stat &gt; max_anees  # plot with different markers when value is out of scope
+        anees_lower_max_and_chi2 = np.logical_and(anees_stat &lt;= max_anees, nees_is_chi2)
+        anees_lower_max_and_not_chi2 = np.logical_and(
+            anees_stat &lt;= max_anees, np.logical_not(nees_is_chi2))
+
+        ax.errorbar(x=x_pos_bar_anees,
+                    y=np.ones_like(x_pos_bar_anees),  # perfect calibration is ANEES=1
+                    yerr=anees_crit_deviations_from_1,
+                    label=plt_settings.annes_errorbar_label,
+                    # capsize=plt_settings.errorbar_capsize,  # set capsize
+                    fmt=plt_settings.fmt, color=plt_settings.anees_bar_color, zorder=plt_settings.z_order_errorbar)
+
+        # plot anees if its lower than max_anees and is chi2 distributed
+        ax.plot(x_pos_bar_anees[anees_lower_max_and_chi2], anees_stat[anees_lower_max_and_chi2],
+                marker=plt_settings.anees_marker, zorder=plt_settings.z_order_errorbar,
+                color=plt_settings.anees_marker_color, label=plt_settings.anees_label,
+                linestyle=&#39;None&#39;)
+        # plot anees if its lower than max_anees and is not chi2 distributed
+        ax.plot(x_pos_bar_anees[anees_lower_max_and_not_chi2], anees_stat[anees_lower_max_and_not_chi2],
+                marker=plt_settings.nees_is_not_chi2_marker, zorder=plt_settings.z_order_errorbar,
+                color=plt_settings.anees_marker_color, label=plt_settings.anees_label_notchi2,
+                linestyle=&#39;None&#39;)
+        # number of anees values &gt; max as integer
+        num_anees_greater_max = np.sum(anees_greater_max)
+        # plot anees if its greater than max_anees
+        ax.plot(x_pos_bar_anees[anees_greater_max], max_anees * np.ones((num_anees_greater_max,)),
+                marker=plt_settings.anees_marker_out_of_scope, zorder=plt_settings.z_order_errorbar,
+                color=plt_settings.anees_marker_color, label=plt_settings.out_of_scope_label,
+                linestyle=&#39;None&#39;)
+
+        # binomial test results
+        assert isinstance(ax, plt.Axes)  # only for type hints
+        ax2.errorbar(x=x_pos_bar_binom,
+                     y=binom_stat,
+                     yerr=binom_bounds,
+                     label=plt_settings.binom_errorbar_label,
+                     #  capsize=plt_settings.errorbar_capsize,  # set capsize
+                     fmt=plt_settings.fmt, color=plt_settings.binom_bar_color, zorder=plt_settings.z_order_errorbar)
+
+        ax2.plot(x_pos_bar_binom, tested_proportion * np.ones_like(x_pos_bar_binom),
+                 label=binom_p0_label,
+                 marker=plt_settings.binom_marker, zorder=plt_settings.z_order_errorbar,
+                 color=plt_settings.binom_marker_color, linestyle=&#39;None&#39;)
+
+        # grid lines for binomial errorbar and scatter points
+        ax2.vlines(x_pos_bar_binom,
+                   ymin=plt_settings.prop_range[0], ymax=plt_settings.prop_range[1],
+                   color=plt_settings.grid_line_color, linestyles=&#39;dotted&#39;,
+                   alpha=plt_settings.alpha_grid, zorder=plt_settings.z_grid_vlines)
+        # grid lines for anees errorbars and scatter points
+        ax2.vlines(x_pos_bar_anees,
+                   ymin=plt_settings.prop_range[0], ymax=plt_settings.prop_range[1],
+                   color=plt_settings.grid_line_color, linestyles=&#39;dotted&#39;,
+                   alpha=plt_settings.alpha_grid, zorder=plt_settings.z_grid_vlines)
+
+        # grid lines for regions
+        # add vertical lines to mark regions
+        ax2.vlines(x_region_split_points[1:-1],  # splitting points without first and last data points
+                   ymin=plt_settings.prop_range[0], ymax=plt_settings.prop_range[1],
+                   color=plt_settings.grid_line_color, linestyles=&#39;dashed&#39;,
+                   label=plt_settings.split_label)
+
+        x_label = [f&#39;{x:n}&#39; for x in range(len(x_label_position))]
+
+        if len(x_label) &gt;= 13:
+            # ax.set_xticks(x_label_position, minor=True)
+            # use every second label
+            ax.set_xticks(x_label_position[::2], minor=False)
+            ax.set_xticklabels(x_label[::2])
+        else:
+            ax.set_xticks(x_label_position)
+            ax.set_xticklabels(x_label)
+
+        ax.set_xlabel(plt_settings.region_x_label)
+        ax.set_ylabel(plt_settings.anees_y_label)
+        ax.set_ylim(plt_settings.anees_range)
+
+        ax2.set_ylabel(plt_settings.binom_y_label)
+        ax2.set_ylim(plt_settings.prop_range)
+
+        # ax = [ax, ax2]
+        return ax
+
+        # plot marker for regions w
+
+    def _get_x_positons_for_errorbars(self, x_pos_binom_bar_factor: float, x_pos_anees_bar_factor: float):
+        # initialize array for x position of error bar
+        x_pos_bar_binom = np.empty((self.candidate_regions.get_num_regions(), ))
+        x_pos_bar_anees = np.empty_like(x_pos_bar_binom)
+        x_label_position = np.empty_like(x_pos_bar_binom)
+        # initialize array for x position of vertical line which split the regions
+        # add one more element to array to plot vertical line at the end of the last region
+        x_region_split_points = np.empty((self.candidate_regions.get_num_regions()+1, ))
+
+        # plot stat confidence interval per region as error bar
+        for idx, region in enumerate(self.candidate_regions.regions):
+
+            max_min_diff = region.x_max - region.x_min
+
+            # calculate x position of binom error bar
+            x_pos_bar_binom[idx] = region.x_min + max_min_diff * x_pos_binom_bar_factor
+            x_pos_bar_anees[idx] = region.x_min + max_min_diff * x_pos_anees_bar_factor
+            x_label_position[idx] = region.x_min + max_min_diff * 0.5
+
+            x_region_split_points[idx] = region.x_min
+
+        # add last region x_max to array
+        x_region_split_points[-1] = self.candidate_regions.regions[-1].x_max
+
+        return x_pos_bar_binom, x_pos_bar_anees, x_label_position, x_region_split_points
+
+    def _plot_path(self, plot_type: str):
+        &#34;&#34;&#34; get path to save plot 
+        :param plot_type: name which is used in the plot file name
+        :type plot_type: str
+        &#34;&#34;&#34;
+        return os.path.join(self.plot_settings.plot_folder, self.plot_settings.model_name + &#39;_&#39; +
+                            plot_type + &#39;.&#39; + self.plot_settings.image_format)</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSisoCandidateRegions.candidate_regions"><code class="name">var <span class="ident">candidate_regions</span> : <a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions" href="canidate_region.html#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions">CandidateRegions</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSisoCandidateRegions.plot_settings"><code class="name">var <span class="ident">plot_settings</span> : <a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings">PlotSettings</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSisoCandidateRegions.plot_predictions_with_region_results"><code class="name flex">
+<span>def <span class="ident">plot_predictions_with_region_results</span></span>(<span>self, predictions: Union[numpy.ndarray, <a title="BNN_trust_regions.bnn_trust_regions.gaussian.UnivariateGaussian" href="gaussian.html#BNN_trust_regions.bnn_trust_regions.gaussian.UnivariateGaussian">UnivariateGaussian</a>], data: <a title="BNN_trust_regions.bnn_trust_regions.io_data.IOData" href="io_data.html#BNN_trust_regions.bnn_trust_regions.io_data.IOData">IOData</a>, ground_truth: Union[numpy.ndarray, <a title="BNN_trust_regions.bnn_trust_regions.gaussian.UnivariateGaussian" href="gaussian.html#BNN_trust_regions.bnn_trust_regions.gaussian.UnivariateGaussian">UnivariateGaussian</a>] = None, test_type: str = 'anees')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Plot predictions and candidate regions with their statistical test results.</p>
+<p>:param predictions: predictions of a model
+:type predictions: typing.Union[np.ndarray, UnivariateGaussian]
+:param data: data used for predictions
+:type data: IOData
+:param ground_truth: ground truth distribution
+:type ground_truth: typing.Union[np.ndarray, UnivariateGaussian]
+:param test_type: type of statistical test, either 'anees' or 'binom'
+:type test_type: str</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def plot_predictions_with_region_results(self,
+                                         predictions: typing.Union[np.ndarray, UnivariateGaussian],
+                                         data: IOData,
+                                         ground_truth: typing.Union[np.ndarray,
+                                                                    UnivariateGaussian] = None,
+                                         test_type: str = &#39;anees&#39;,
+                                         ):
+    &#34;&#34;&#34; Plot predictions and candidate regions with their statistical test results.
+
+    :param predictions: predictions of a model
+    :type predictions: typing.Union[np.ndarray, UnivariateGaussian]
+    :param data: data used for predictions
+    :type data: IOData
+    :param ground_truth: ground truth distribution
+    :type ground_truth: typing.Union[np.ndarray, UnivariateGaussian]
+    :param test_type: type of statistical test, either &#39;anees&#39; or &#39;binom&#39;
+    :type test_type: str
+    &#34;&#34;&#34;
+
+    fig, ax = plt.subplots(constrained_layout=True)
+    self._plot_predictions(predictions=predictions,
+                           data=data,
+                           ax=ax,
+                           distribution_plot_settings=self.plot_settings.prediction_plot_settings)
+    if ground_truth is not None:
+        self._plot_predictions(predictions=ground_truth,
+                               data=data,
+                               ax=ax,
+                               distribution_plot_settings=self.plot_settings.ground_truth_plot_settings)
+
+    self._plot_regions(ax=ax, test_type=test_type)
+
+    assert isinstance(ax, plt.Axes)  # only for type hints
+    ax.legend()
+    ax.set_xlabel(self.plot_settings.x_label)
+    ax.set_ylabel(self.plot_settings.y_label)
+
+    plot_type = &#39;pred&#39;
+    plot_path = self._plot_path(plot_type)
+    fig.savefig(plot_path)
+    plt.close(fig)</code></pre>
+</details>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSisoCandidateRegions.plot_stats_and_ground_truth_dist"><code class="name flex">
+<span>def <span class="ident">plot_stats_and_ground_truth_dist</span></span>(<span>self, data, dist_to_ground_truth: numpy.ndarray, test_type: str = 'anees')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Plot statistical test results and ground truth distribution.</p>
+<p>:param data: data used for predictions
+:type data: IOData
+:param dist_to_ground_truth: distance to ground truth distribution
+:type dist_to_ground_truth: np.ndarray
+:param test_type: type of statistical test, either 'anees' or 'binom'
+:type test_type: str</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def plot_stats_and_ground_truth_dist(self, data, dist_to_ground_truth: np.ndarray,
+                                     test_type: str = &#39;anees&#39;,):
+    &#34;&#34;&#34; 
+    Plot statistical test results and ground truth distribution.
+
+    :param data: data used for predictions
+    :type data: IOData
+    :param dist_to_ground_truth: distance to ground truth distribution
+    :type dist_to_ground_truth: np.ndarray
+    :param test_type: type of statistical test, either &#39;anees&#39; or &#39;binom&#39;
+    :type test_type: str
+
+
+    &#34;&#34;&#34;
+
+    # set ratio of first axis to second axis
+    fig, ax = plt.subplots(
+        2, constrained_layout=True, sharex=True,
+        gridspec_kw={&#39;height_ratios&#39;: [self.plot_settings.first_ax_to_second_ax_ratio, 1.]})
+
+    # set x axis limits to min and max of data
+    ax[0].set_xlim(self.candidate_regions.regions[0].x_min,
+                   self.candidate_regions.regions[-1].x_max)
+
+    # ax[0] and ax[1] should have the same x axis scaling
+    ax[1].set_xlim(ax[0].get_xlim())
+
+    ax[0].set_xlabel(self.plot_settings.x_label)
+    ax[0].set_ylabel(self.plot_settings.wasserstein_label)
+
+    self._plot_stat_error_bar(ax[1])
+    self._plot_predictions(predictions=dist_to_ground_truth,
+                           data=data,
+                           ax=ax[0],
+                           distribution_plot_settings=self.plot_settings.wasserstein_plot_settings)
+
+    # plot test results as colered areas
+    self._plot_regions(ax=ax[0], test_type=test_type)
+
+    plot_type = &#39;stat_gt&#39;
+    plot_path = self._plot_path(plot_type)
+    fig.savefig(plot_path)
+    self._save_legend_as_separate_image(fig, plot_type)
+    plt.close(fig)</code></pre>
+</details>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSisoCandidateRegions.plot_stats_and_predictions"><code class="name flex">
+<span>def <span class="ident">plot_stats_and_predictions</span></span>(<span>self, data, predictions: Union[numpy.ndarray, <a title="BNN_trust_regions.bnn_trust_regions.gaussian.UnivariateGaussian" href="gaussian.html#BNN_trust_regions.bnn_trust_regions.gaussian.UnivariateGaussian">UnivariateGaussian</a>], test_type: str = 'anees')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Plot statistical test results and predictions.</p>
+<p>:param data: data used for predictions
+:type data: IOData
+:param predictions: predictions of a model
+:type predictions: typing.Union[np.ndarray, UnivariateGaussian]
+:param test_type: type of statistical test, either 'anees' or 'binom'
+:type test_type: str</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def plot_stats_and_predictions(self, data, predictions: typing.Union[np.ndarray, UnivariateGaussian],
+                               test_type: str = &#39;anees&#39;,):
+    &#34;&#34;&#34;
+    Plot statistical test results and predictions.
+
+    :param data: data used for predictions
+    :type data: IOData
+    :param predictions: predictions of a model
+    :type predictions: typing.Union[np.ndarray, UnivariateGaussian]
+    :param test_type: type of statistical test, either &#39;anees&#39; or &#39;binom&#39;
+    :type test_type: str
+    &#34;&#34;&#34;
+
+    fig, ax = plt.subplots(
+        2, constrained_layout=True, sharex=True,
+        gridspec_kw={&#39;height_ratios&#39;: [self.plot_settings.first_ax_to_second_ax_ratio, 1.]})
+
+    # set x axis limits to min and max of data
+    ax[0].set_xlim(self.candidate_regions.regions[0].x_min,
+                   self.candidate_regions.regions[-1].x_max)
+
+    # ax[0] and ax[1] should have the same x axis scaling
+    ax[1].set_xlim(ax[0].get_xlim())
+
+    self._plot_stat_error_bar(ax[1])
+    self._plot_predictions(predictions=predictions,
+                           data=data,
+                           ax=ax[0],
+                           distribution_plot_settings=self.plot_settings.prediction_plot_settings)
+
+    self._plot_regions(ax=ax[0], test_type=test_type)
+
+    ax[0].set_xlabel(self.plot_settings.x_label)
+    ax[0].set_ylabel(self.plot_settings.y_label)
+
+    plot_type = &#39;stat_pred&#39;
+    plot_path = self._plot_path(plot_type)
+    fig.savefig(plot_path)
+
+    self._save_legend_as_separate_image(fig, plot_type)
+    plt.close(fig)</code></pre>
+</details>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSisoCandidateRegions.plot_stats_per_region"><code class="name flex">
+<span>def <span class="ident">plot_stats_per_region</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function plots results of the statistical tests per input region and saves the plot as an image.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def plot_stats_per_region(self, ):
+    &#34;&#34;&#34;
+    The function plots results of the statistical tests per input region and saves the plot as an image.
+    &#34;&#34;&#34;
+
+    fig, ax = plt.subplots(constrained_layout=True)
+
+    # set x axis limits to min and max of data
+    ax.set_xlim(self.candidate_regions.regions[0].x_min,
+                self.candidate_regions.regions[-1].x_max)
+    self._plot_stat_error_bar(ax)
+
+    plot_type = &#39;stats&#39;
+    plot_path = self._plot_path(plot_type)
+    fig.savefig(plot_path)
+
+    self._save_legend_as_separate_image(fig, plot_type)
+    plt.close(fig)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions" href="index.html">BNN_trust_regions.bnn_trust_regions</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings">DistributionPlotSettings</a></code></h4>
+<ul class="two-column">
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings.ci_area_color" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings.ci_area_color">ci_area_color</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings.ci_area_opacity" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings.ci_area_opacity">ci_area_opacity</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings.ci_area_zorder" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings.ci_area_zorder">ci_area_zorder</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings.mean_color" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings.mean_color">mean_color</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings.mean_label" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings.mean_label">mean_label</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings.mean_linestyle" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings.mean_linestyle">mean_linestyle</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings.mean_zorder" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings.mean_zorder">mean_zorder</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings.quantile_label" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.DistributionPlotSettings.quantile_label">quantile_label</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings">ErrorbarPlotSettings</a></code></h4>
+<ul class="">
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.alpha_grid" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.alpha_grid">alpha_grid</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.anees_bar_color" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.anees_bar_color">anees_bar_color</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.anees_label" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.anees_label">anees_label</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.anees_label_notchi2" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.anees_label_notchi2">anees_label_notchi2</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.anees_marker" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.anees_marker">anees_marker</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.anees_marker_color" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.anees_marker_color">anees_marker_color</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.anees_marker_out_of_scope" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.anees_marker_out_of_scope">anees_marker_out_of_scope</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.anees_range" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.anees_range">anees_range</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.anees_y_label" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.anees_y_label">anees_y_label</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.annes_errorbar_label" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.annes_errorbar_label">annes_errorbar_label</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.binom_bar_color" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.binom_bar_color">binom_bar_color</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.binom_errorbar_label" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.binom_errorbar_label">binom_errorbar_label</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.binom_marker" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.binom_marker">binom_marker</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.binom_marker_color" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.binom_marker_color">binom_marker_color</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.binom_p0_label" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.binom_p0_label">binom_p0_label</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.binom_y_label" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.binom_y_label">binom_y_label</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.fmt" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.fmt">fmt</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.grid_line_color" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.grid_line_color">grid_line_color</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.max_anees_factor" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.max_anees_factor">max_anees_factor</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.nees_is_not_chi2_marker" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.nees_is_not_chi2_marker">nees_is_not_chi2_marker</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.out_of_scope_label" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.out_of_scope_label">out_of_scope_label</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.prop_range" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.prop_range">prop_range</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.region_x_label" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.region_x_label">region_x_label</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.split_label" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.split_label">split_label</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.x_pos_anees_bar_factor" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.x_pos_anees_bar_factor">x_pos_anees_bar_factor</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.x_pos_binom_bar_factor" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.x_pos_binom_bar_factor">x_pos_binom_bar_factor</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.z_grid_vlines" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.z_grid_vlines">z_grid_vlines</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.z_order_errorbar" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.ErrorbarPlotSettings.z_order_errorbar">z_order_errorbar</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings">PlotSettings</a></code></h4>
+<ul class="">
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.area_color_over_est" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.area_color_over_est">area_color_over_est</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.confidence_interval" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.confidence_interval">confidence_interval</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.edge_color_over_est" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.edge_color_over_est">edge_color_over_est</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.edge_color_under_est" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.edge_color_under_est">edge_color_under_est</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.error_bar_plot_settings" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.error_bar_plot_settings">error_bar_plot_settings</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.first_ax_to_second_ax_ratio" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.first_ax_to_second_ax_ratio">first_ax_to_second_ax_ratio</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.ground_truth_plot_settings" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.ground_truth_plot_settings">ground_truth_plot_settings</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.hatch_over_est" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.hatch_over_est">hatch_over_est</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.hatch_under_est" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.hatch_under_est">hatch_under_est</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.image_format" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.image_format">image_format</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.model_name" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.model_name">model_name</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.plot_folder" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.plot_folder">plot_folder</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.prediction_plot_settings" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.prediction_plot_settings">prediction_plot_settings</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.region_opacity" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.region_opacity">region_opacity</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.stats_subfolder_name" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.stats_subfolder_name">stats_subfolder_name</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.under_est_color" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.under_est_color">under_est_color</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.wasserstein_label" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.wasserstein_label">wasserstein_label</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.wasserstein_plot_settings" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.wasserstein_plot_settings">wasserstein_plot_settings</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.x_label" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.x_label">x_label</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.y_label" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings.y_label">y_label</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSisoCandidateRegions" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSisoCandidateRegions">PlotSisoCandidateRegions</a></code></h4>
+<ul class="">
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSisoCandidateRegions.candidate_regions" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSisoCandidateRegions.candidate_regions">candidate_regions</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSisoCandidateRegions.plot_predictions_with_region_results" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSisoCandidateRegions.plot_predictions_with_region_results">plot_predictions_with_region_results</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSisoCandidateRegions.plot_settings" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSisoCandidateRegions.plot_settings">plot_settings</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSisoCandidateRegions.plot_stats_and_ground_truth_dist" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSisoCandidateRegions.plot_stats_and_ground_truth_dist">plot_stats_and_ground_truth_dist</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSisoCandidateRegions.plot_stats_and_predictions" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSisoCandidateRegions.plot_stats_and_predictions">plot_stats_and_predictions</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSisoCandidateRegions.plot_stats_per_region" href="#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSisoCandidateRegions.plot_stats_per_region">plot_stats_per_region</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

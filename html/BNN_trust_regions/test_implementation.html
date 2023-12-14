@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>BNN_trust_regions.test_implementation API documentation</title>
+<meta name="description" content="Test some functionality of the bnn_trust_regions package." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>BNN_trust_regions.test_implementation</code></h1>
+</header>
+<section id="section-intro">
+<p>Test some functionality of the bnn_trust_regions package.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34; Test some functionality of the bnn_trust_regions package.&#34;&#34;&#34;
+
+
+# from email.mime import image
+# from os import error
+# from matplotlib.pyplot import errorbar
+import numpy as np
+
+from bnn_trust_regions.candidate_region_identification import IdentGifSettings, SisoCandidateRegionIdentification
+from bnn_trust_regions.gaussian import UnivariateGaussian
+from bnn_trust_regions.io_data import IOData
+from bnn_trust_regions.model_evaluator import ModelEvaluator
+from bnn_trust_regions.plot_candidate_regions import ErrorbarPlotSettings, PlotSettings, DistributionPlotSettings
+from bnn_trust_regions.stat_test_settings import StatTestSettings
+from bnn_trust_regions.utils import save_load, matplotlib_settings
+from bnn_trust_regions.wasserstein_dist import WassersteinDistance
+
+np.random.seed(42)
+matplotlib_settings.init_settings()
+
+
+def test_functionality():
+    &#34;&#34;&#34; Test some functionality of the bnn_trust_regions package.&#34;&#34;&#34;
+
+    ########################################################################################################
+    # load test data
+    ########################################################################################################
+    # folder with some example data and predictions
+    data_folder = &#34;example_data&#34;
+    # load test data
+    test_data_file_name = &#34;nn_test&#34;
+    test_input, test_output = save_load.load_io_data(data_folder, test_data_file_name)
+    test_data = IOData(input=test_input, output=test_output)
+
+    # load training data
+    # train_data_file_name = &#34;nn_train&#34;
+    # train_input, train_output = save_load.load_io_data(data_folder, train_data_file_name)
+    # train_data = IOData(input=train_input, output=train_output)
+
+    # load predictions
+    mcmc_file_name = &#34;mcmc_test&#34;
+    pred_mcmc = save_load.load_sampled_predictions(data_folder, mcmc_file_name)
+    svi_file_name = &#34;meanfield_svi_test&#34;
+    pred_svi = save_load.load_sampled_predictions(data_folder, svi_file_name)
+    pbp_file_name = &#34;pbp_test&#34;
+    pred_pbp_mean, pred_pbp_var = save_load.load_sampled_predictions(data_folder, pbp_file_name)
+    pred_pbp = UnivariateGaussian(mean=pred_pbp_mean, var=pred_pbp_var)
+    ########################################################################################################
+
+    ########################################################################################################
+    #  change predictions and test data and hyperparameters
+    # for region identification and statistical testing here
+    ########################################################################################################
+    # set wasserstein distance settings
+    p_norm = 1
+    parallel_computing = True
+    verbose = False
+    ws_dist_settings1 = WassersteinDistance(
+        p_norm=p_norm, parallel_computing=parallel_computing, verbose=verbose)
+
+    # candidate region identification settings
+    min_points_per_region = 200
+    smoothing_window_size = 50
+    plot_gif = True
+
+    # display gif of regions identification critical distance
+    plot_folder1 = &#34;eval1_plots&#34;
+    plot_folder2 = &#34;eval2_plots&#34;
+    file_name = &#34;crit_dist&#34;
+    dpi = 200
+    fps = 2
+    loop = 0  # 0 for infinite loop
+    gif_settings1 = IdentGifSettings(
+        path=plot_folder1, file_name=file_name, dpi=dpi, fps=fps, loop=loop)
+
+    region_ident1 = SisoCandidateRegionIdentification(
+        min_points_per_region=min_points_per_region, smoothing_window_size=smoothing_window_size,
+        verbose=plot_gif, gif_settings=gif_settings1)
+
+    # statistical test settings
+    alpha = 0.01  # significance level of 1%
+    confidence_interval = 0.95  # test the 95% confidence interval
+    stat_test_settings = StatTestSettings(alpha=alpha, confidence_interval=confidence_interval)
+
+    # test model A or B
+    ########################################################################################################
+
+    ########################################################################################################
+    # ground truth used for plotting
+    ########################################################################################################
+    # mean ground truth
+    ground_truth_mean = np.power(test_data.input, 3).reshape(1, -1)
+    ground_truth_distribution = UnivariateGaussian(mean=ground_truth_mean.squeeze(), var=9.)
+    ########################################################################################################
+
+    ########################################################################################################
+    # set plot settings
+    # more Settings can be found in the classes:
+    #   ``PlotSettings`` ``ErrorbarPlotSettings`` ``DistributionPlotSettings``
+    ########################################################################################################
+    error_bar_plot_settings = ErrorbarPlotSettings(
+        # label
+        anees_label=r&#39;ANEES is $\chi^2$&#39;,
+        anees_label_notchi2=r&#39;ANEES is not $\chi^2$&#39;,
+        annes_errorbar_label=&#39;ANEES Bounds&#39;,
+        split_label=&#39;Region Split&#39;,
+        out_of_scope_label=&#39;ANEES o.s.&#39;,
+        anees_y_label=&#39;ANEES&#39;,
+        # colors
+        anees_bar_color=&#39;tab:orange&#39;,
+        anees_marker_color=&#39;tab:blue&#39;,
+        binom_bar_color=&#39;tab:purple&#39;,
+        binom_marker_color=&#39;tab:red&#39;,
+    )
+    plot_settings = PlotSettings(
+        image_format=&#39;svg&#39;,  # image format of the plots
+        # plot_folder=&#39;eval1_plots&#39;,  # folder where the plots are saved
+        confidence_interval=0.95,
+        # settings to plot the predictions and the mean of the ground truth
+        ground_truth_plot_settings=DistributionPlotSettings(
+            mean_color=&#39;tab:orange&#39;,
+            mean_linestyle=&#39;-&#39;,
+            mean_label=r&#39;$y=x^3$&#39;,),  # label for mean value of ground truth
+        wasserstein_plot_settings=DistributionPlotSettings(
+            mean_color=&#39;k&#39;,
+            mean_linestyle=&#39;-&#39;,
+            mean_label=r&#39;$W_1^\text{GT}$&#39;,),  # label for wasserstein distance between ground truth distribution and predictive distribution
+        error_bar_plot_settings=error_bar_plot_settings,
+    )
+
+    ########################################################################################################
+    # only testing
+    # shuffling test data and their predictions
+    ########################################################################################################
+    # num_test_points = len(test_data.input)
+    # idx = np.arange(num_test_points)
+    # np.random.shuffle(idx)
+
+    # test_data.input = test_data.input[idx]
+    # test_data.output = test_data.output[idx]
+
+    # pred_a = pred_a[:, idx]
+    # pred_b1 = pred_b1[:, idx]
+    # pred_b2 = UnivariateGaussian(mean=pred_b2.mean[idx], var=pred_b2.var[idx])
+    ########################################################################################################
+
+    ########################################################################################################
+    # evaluate predictions from mcmc and svi and pbp
+    ########################################################################################################
+    pred_a = pred_mcmc  # reference model
+    pred_b = [pred_svi, pred_pbp]  # list of models to compare with reference model
+    plot_folder = [plot_folder1, plot_folder2]  # list of folders where the plots are saved
+    model_a_names = &#39;MCMC&#39;  # name of reference model
+    model_b_names = [&#39;SVI&#39;, &#39;PBP&#39;]  # list of model names
+
+    for idx, preds in enumerate(pred_b):
+        # use different plot folder for each model
+        plot_settings.plot_folder = plot_folder[idx]
+        region_ident1.gif_settings.path = plot_folder[idx]
+
+        # set model names
+        model_names = (model_a_names, model_b_names[idx])
+
+        # set the models and get the wasserstein distance between the predictions
+        model_evaluator1 = ModelEvaluator(
+            predictions_a=pred_a, predictions_b=preds,
+            wasserstein_distance=ws_dist_settings1, test_data=test_data)
+        model_evaluator1.calc_wasserstein_distance()
+
+        # calculate candidate regions and plot gif of critical distance
+        model_evaluator1.calc_canidate_regions(region_ident=region_ident1)
+
+        # calculate statistical tests (ANEES and binomial test)
+        model_evaluator1.calc_statistical_tests(
+            stat_test_settings=stat_test_settings, )
+
+        # print results to console
+        model_evaluator1.print_statistical_tests(model_names=model_names)
+
+        # plot results to files
+        model_evaluator1.plot_statistical_tests(
+            plot_settings=plot_settings,
+            ground_truth=ground_truth_distribution,
+            model_names=model_names)
+
+    ########################################################################################################
+
+
+if __name__ == &#34;__main__&#34;:
+    # test some functionality
+    test_functionality()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-functions">Functions</h2>
+<dl>
+<dt id="BNN_trust_regions.test_implementation.test_functionality"><code class="name flex">
+<span>def <span class="ident">test_functionality</span></span>(<span>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Test some functionality of the bnn_trust_regions package.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_functionality():
+    &#34;&#34;&#34; Test some functionality of the bnn_trust_regions package.&#34;&#34;&#34;
+
+    ########################################################################################################
+    # load test data
+    ########################################################################################################
+    # folder with some example data and predictions
+    data_folder = &#34;example_data&#34;
+    # load test data
+    test_data_file_name = &#34;nn_test&#34;
+    test_input, test_output = save_load.load_io_data(data_folder, test_data_file_name)
+    test_data = IOData(input=test_input, output=test_output)
+
+    # load training data
+    # train_data_file_name = &#34;nn_train&#34;
+    # train_input, train_output = save_load.load_io_data(data_folder, train_data_file_name)
+    # train_data = IOData(input=train_input, output=train_output)
+
+    # load predictions
+    mcmc_file_name = &#34;mcmc_test&#34;
+    pred_mcmc = save_load.load_sampled_predictions(data_folder, mcmc_file_name)
+    svi_file_name = &#34;meanfield_svi_test&#34;
+    pred_svi = save_load.load_sampled_predictions(data_folder, svi_file_name)
+    pbp_file_name = &#34;pbp_test&#34;
+    pred_pbp_mean, pred_pbp_var = save_load.load_sampled_predictions(data_folder, pbp_file_name)
+    pred_pbp = UnivariateGaussian(mean=pred_pbp_mean, var=pred_pbp_var)
+    ########################################################################################################
+
+    ########################################################################################################
+    #  change predictions and test data and hyperparameters
+    # for region identification and statistical testing here
+    ########################################################################################################
+    # set wasserstein distance settings
+    p_norm = 1
+    parallel_computing = True
+    verbose = False
+    ws_dist_settings1 = WassersteinDistance(
+        p_norm=p_norm, parallel_computing=parallel_computing, verbose=verbose)
+
+    # candidate region identification settings
+    min_points_per_region = 200
+    smoothing_window_size = 50
+    plot_gif = True
+
+    # display gif of regions identification critical distance
+    plot_folder1 = &#34;eval1_plots&#34;
+    plot_folder2 = &#34;eval2_plots&#34;
+    file_name = &#34;crit_dist&#34;
+    dpi = 200
+    fps = 2
+    loop = 0  # 0 for infinite loop
+    gif_settings1 = IdentGifSettings(
+        path=plot_folder1, file_name=file_name, dpi=dpi, fps=fps, loop=loop)
+
+    region_ident1 = SisoCandidateRegionIdentification(
+        min_points_per_region=min_points_per_region, smoothing_window_size=smoothing_window_size,
+        verbose=plot_gif, gif_settings=gif_settings1)
+
+    # statistical test settings
+    alpha = 0.01  # significance level of 1%
+    confidence_interval = 0.95  # test the 95% confidence interval
+    stat_test_settings = StatTestSettings(alpha=alpha, confidence_interval=confidence_interval)
+
+    # test model A or B
+    ########################################################################################################
+
+    ########################################################################################################
+    # ground truth used for plotting
+    ########################################################################################################
+    # mean ground truth
+    ground_truth_mean = np.power(test_data.input, 3).reshape(1, -1)
+    ground_truth_distribution = UnivariateGaussian(mean=ground_truth_mean.squeeze(), var=9.)
+    ########################################################################################################
+
+    ########################################################################################################
+    # set plot settings
+    # more Settings can be found in the classes:
+    #   ``PlotSettings`` ``ErrorbarPlotSettings`` ``DistributionPlotSettings``
+    ########################################################################################################
+    error_bar_plot_settings = ErrorbarPlotSettings(
+        # label
+        anees_label=r&#39;ANEES is $\chi^2$&#39;,
+        anees_label_notchi2=r&#39;ANEES is not $\chi^2$&#39;,
+        annes_errorbar_label=&#39;ANEES Bounds&#39;,
+        split_label=&#39;Region Split&#39;,
+        out_of_scope_label=&#39;ANEES o.s.&#39;,
+        anees_y_label=&#39;ANEES&#39;,
+        # colors
+        anees_bar_color=&#39;tab:orange&#39;,
+        anees_marker_color=&#39;tab:blue&#39;,
+        binom_bar_color=&#39;tab:purple&#39;,
+        binom_marker_color=&#39;tab:red&#39;,
+    )
+    plot_settings = PlotSettings(
+        image_format=&#39;svg&#39;,  # image format of the plots
+        # plot_folder=&#39;eval1_plots&#39;,  # folder where the plots are saved
+        confidence_interval=0.95,
+        # settings to plot the predictions and the mean of the ground truth
+        ground_truth_plot_settings=DistributionPlotSettings(
+            mean_color=&#39;tab:orange&#39;,
+            mean_linestyle=&#39;-&#39;,
+            mean_label=r&#39;$y=x^3$&#39;,),  # label for mean value of ground truth
+        wasserstein_plot_settings=DistributionPlotSettings(
+            mean_color=&#39;k&#39;,
+            mean_linestyle=&#39;-&#39;,
+            mean_label=r&#39;$W_1^\text{GT}$&#39;,),  # label for wasserstein distance between ground truth distribution and predictive distribution
+        error_bar_plot_settings=error_bar_plot_settings,
+    )
+
+    ########################################################################################################
+    # only testing
+    # shuffling test data and their predictions
+    ########################################################################################################
+    # num_test_points = len(test_data.input)
+    # idx = np.arange(num_test_points)
+    # np.random.shuffle(idx)
+
+    # test_data.input = test_data.input[idx]
+    # test_data.output = test_data.output[idx]
+
+    # pred_a = pred_a[:, idx]
+    # pred_b1 = pred_b1[:, idx]
+    # pred_b2 = UnivariateGaussian(mean=pred_b2.mean[idx], var=pred_b2.var[idx])
+    ########################################################################################################
+
+    ########################################################################################################
+    # evaluate predictions from mcmc and svi and pbp
+    ########################################################################################################
+    pred_a = pred_mcmc  # reference model
+    pred_b = [pred_svi, pred_pbp]  # list of models to compare with reference model
+    plot_folder = [plot_folder1, plot_folder2]  # list of folders where the plots are saved
+    model_a_names = &#39;MCMC&#39;  # name of reference model
+    model_b_names = [&#39;SVI&#39;, &#39;PBP&#39;]  # list of model names
+
+    for idx, preds in enumerate(pred_b):
+        # use different plot folder for each model
+        plot_settings.plot_folder = plot_folder[idx]
+        region_ident1.gif_settings.path = plot_folder[idx]
+
+        # set model names
+        model_names = (model_a_names, model_b_names[idx])
+
+        # set the models and get the wasserstein distance between the predictions
+        model_evaluator1 = ModelEvaluator(
+            predictions_a=pred_a, predictions_b=preds,
+            wasserstein_distance=ws_dist_settings1, test_data=test_data)
+        model_evaluator1.calc_wasserstein_distance()
+
+        # calculate candidate regions and plot gif of critical distance
+        model_evaluator1.calc_canidate_regions(region_ident=region_ident1)
+
+        # calculate statistical tests (ANEES and binomial test)
+        model_evaluator1.calc_statistical_tests(
+            stat_test_settings=stat_test_settings, )
+
+        # print results to console
+        model_evaluator1.print_statistical_tests(model_names=model_names)
+
+        # plot results to files
+        model_evaluator1.plot_statistical_tests(
+            plot_settings=plot_settings,
+            ground_truth=ground_truth_distribution,
+            model_names=model_names)
+
+    ########################################################################################################</code></pre>
+</details>
+</dd>
+</dl>
+</section>
+<section>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="BNN_trust_regions" href="index.html">BNN_trust_regions</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-functions">Functions</a></h3>
+<ul class="">
+<li><code><a title="BNN_trust_regions.test_implementation.test_functionality" href="#BNN_trust_regions.test_implementation.test_functionality">test_functionality</a></code></li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

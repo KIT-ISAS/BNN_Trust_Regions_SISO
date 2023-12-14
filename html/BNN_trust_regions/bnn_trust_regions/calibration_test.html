@@ -1,0 +1,1306 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>BNN_trust_regions.bnn_trust_regions.calibration_test API documentation</title>
+<meta name="description" content="This module contains classes for statistical tests for evaluating the quality of uncertainty estimates." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>BNN_trust_regions.bnn_trust_regions.calibration_test</code></h1>
+</header>
+<section id="section-intro">
+<p>This module contains classes for statistical tests for evaluating the quality of uncertainty estimates.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34; This module contains classes for statistical tests for evaluating the quality of uncertainty estimates.&#34;&#34;&#34;
+import abc
+from dataclasses import dataclass
+import typing
+
+import numpy as np
+import scipy.stats
+
+from .distance_measures import squared_mahalanobis_distance
+from .gaussian import UnivariateGaussian
+
+
+# @dataclass
+class TestResult:
+    &#34;&#34;&#34; Base class for test results
+    :param accept_stat: The `accept_stat` parameter is a boolean that represents whether the null hypothesis is rejected or not.
+    :type accept_stat: bool
+    :param pvalue: The `pvalue` parameter is a float that represents the p-value of the test.
+    :type pvalue: float
+    &#34;&#34;&#34;
+    accept_stat: bool
+    pvalue: float
+    over_estimation_flag: bool = None
+
+    def __init__(self, accept_stat: bool, pvalue: float):
+        self.accept_stat = accept_stat
+        self.pvalue = pvalue
+
+    @property
+    def over_estimation(self):
+        &#34;&#34;&#34;
+        The function returns whether the null hypothesis is rejected because of overestimated uncertainty.
+        :return: `True` if the null hypothesis is rejected because of overestimated uncertainty, `False` otherwise.
+        &#34;&#34;&#34;
+        if self.over_estimation_flag is None:
+            raise ValueError(
+                &#34;The over_estimation_flag is not set. Please set the over_estimation_flag.&#34;)
+        return self.over_estimation_flag and not self.accept_stat
+
+    @property
+    def under_estimation(self):
+        &#34;&#34;&#34;
+        The function returns whether the null hypothesis is rejected because of underestimated uncertainty.
+        :return: `True` if the null hypothesis is rejected because of underestimated uncertainty, `False` otherwise.
+        &#34;&#34;&#34;
+        if self.over_estimation_flag is None:
+            raise ValueError(
+                &#34;The over_estimation_flag is not set. Please set the over_estimation_flag.&#34;)
+        return not self.over_estimation_flag and not self.accept_stat
+
+    @abc.abstractmethod
+    def _is_over_estimating(self):
+        &#34;&#34;&#34;
+        The function checks if the uncertainty is overestimated.
+        &#34;&#34;&#34;
+        raise NotImplementedError
+
+
+@dataclass
+class BinomTestResult(TestResult):
+    &#34;&#34;&#34; test result for binomial test
+    :param prop_inside: The `prop_inside` parameter is a float that represents the proportion of
+    predictions inside the confidence interval.
+    :type prop_inside: float
+    :param pvalue: The `pvalue` parameter is a float that represents the p-value of the binomial test.
+    :type pvalue: float
+    :param prop_ci: The `prop_ci` parameter is a numpy array that represents the confidence interval
+    for the proportion of predictions inside the confidence interval. It has a shape of `(2,)` and
+    contains the lower and upper bound for the confidence interval.
+    :type prop_ci: np.ndarray
+    :param accept_stat: The `accept_stat` parameter is a boolean that represents whether the null
+    hypothesis is rejected or not.
+    :type accept_stat: bool
+    &#34;&#34;&#34;
+
+    # Other instance variables
+    prop_inside: float
+    prop_ci: np.ndarray  # [0] is lower bound, [1] is upper bound
+
+    # Class variable (static variable)
+    tested_proportion: float = None
+
+    def __init__(self, prop_inside: float, pvalue: float, prop_ci: np.ndarray, accept_stat: bool):
+        super().__init__(accept_stat=accept_stat, pvalue=pvalue)
+        self.prop_inside = prop_inside
+        self.prop_ci = prop_ci
+        self._is_over_estimating()
+
+    def _is_over_estimating(self):
+        &#34;&#34;&#34;
+        check if uncertainty is overestimated based on the proportion confidence interval
+        &#34;&#34;&#34;
+        # is the proportion to be tested lower than the lower bound of the proportion confidence interval?
+        self.over_estimation_flag = self.prop_ci_low() &gt; self.tested_proportion
+
+    def prop_ci_low(self):
+        &#34;&#34;&#34;
+        The function returns the lower bound of the confidence interval for a proportion.
+        :return: The lower bound of the confidence interval for the proportion.
+        &#34;&#34;&#34;
+        return self.prop_ci[0]
+
+    def prop_ci_high(self):
+        &#34;&#34;&#34;
+        The function returns the upper bound of the confidence interval for a proportion.
+        :return: the second element of the `prop_ci` list.
+        &#34;&#34;&#34;
+        return self.prop_ci[1]
+
+
+class AneesTestResult(TestResult):
+    &#34;&#34;&#34; test result for ANEES test
+    :param anees: The `anees` parameter is a float that represents the ANEES (Average Normalized
+    Estimation Error Squared) value.
+    :type anees: float
+    :param anees_crit_bounds: The `anees_crit_bounds` parameter is a numpy array that represents the critical bounds for ANEES.
+    It has a shape of `(2,)` and contains the lower and upper bound for ANEES.
+    :type anees_crit_bounds: np.ndarray
+    :param pvalue: The `pvalue` parameter is a float that represents the p-value of the ANEES test.
+    :type pvalue: float
+    :param accept_stat: The `accept_stat` parameter is a boolean that represents whether the null hypothesis is rejected or not.
+    :type accept_stat: bool
+    :param nees_is_chi2: The `nees_is_chi2` parameter is a boolean that represents whether 
+    the normalized estimation error squared (NEES) is chi2 distributed.
+    :type nees_is_chi2: bool
+    &#34;&#34;&#34;
+    anees: float
+    anees_crit_bounds: np.ndarray
+    nees_is_chi2: bool
+
+    def __init__(self, anees: float, anees_crit_bounds: np.ndarray, pvalue: float, accept_stat: bool, nees_is_chi2: bool):
+        super().__init__(accept_stat=accept_stat, pvalue=pvalue)
+        self.anees = anees
+        self.anees_crit_bounds = anees_crit_bounds
+        self.nees_is_chi2 = nees_is_chi2
+        self._is_over_estimating()
+
+    def anees_crit_bound_low(self):
+        &#34;&#34;&#34;
+        The function returns the lower bound of the ANEES (Average Normalized Estimation Error Squared)
+        critical bounds.
+        :return: the first element of the `anees_crit_bounds` list.
+        &#34;&#34;&#34;
+        return self.anees_crit_bounds[0]
+
+    def anees_crit_bound_high(self):
+        &#34;&#34;&#34;
+        The function returns the upper bound of the critical value for ANEES.
+        :return: the second element of the list `self.anees_crit_bounds`.
+        &#34;&#34;&#34;
+        return self.anees_crit_bounds[1]
+
+    def _is_over_estimating(self):
+        &#34;&#34;&#34;
+        check if uncertainty is overestimated based on the ANEES critical bounds
+        &#34;&#34;&#34;
+        # is the ANEES value lower than the lower bound of the ANEES critical bounds?
+        self.over_estimation_flag = self.anees &lt; self.anees_crit_bound_low()
+
+
+@dataclass
+class StatTest:
+    &#34;&#34;&#34; Base class for statistical tests
+
+    :param alpha: The `alpha` parameter is a float that represents the significance level of the test.
+    :type alpha: float
+    &#34;&#34;&#34;
+    alpha: float
+
+
+@dataclass
+class BinomialTest(StatTest):
+    &#34;&#34;&#34; Binomial test
+
+    :param confidence_interval: The `confidence_interval` parameter is a float that represents the
+    confidence interval to be tested by the binomial test. Defaults to 0.95.
+    :type confidence_interval: float, optional 
+    :param alpha: The `alpha` parameter is a float that represents the significance level of the test.
+    &#34;&#34;&#34;
+    confidence_interval: float  # e.g. 0.95 for testing of 95% confidence interval
+    # e.g. [0.025 0.975] for testing of 95% confidence interval
+    _two_tailed_ci_levels: np.ndarray
+
+    # alpha: float  # e.g. 0.05 for significance level of 5%
+
+    def __init__(self, confidence_interval: float, alpha: float):
+        # constructor of parent class
+        super().__init__(alpha=alpha)
+        self.confidence_interval = confidence_interval
+        # self.alpha = alpha
+        BinomTestResult.tested_proportion = confidence_interval
+
+        two_tailed = (1 - self.confidence_interval) / 2
+        self._two_tailed_ci_levels = np.array([two_tailed, 1-two_tailed])
+
+    def calc_two_sided_binomial_test(self, prediction: typing.Union[np.ndarray, UnivariateGaussian], output_data: np.ndarray):
+        &#34;&#34;&#34;
+        The function calculates a two-sided binomial test to determine if the proportion of successes in
+        a prediction is significantly different from a null hypothesis proportion.
+
+        :param prediction: The `prediction` parameter can be either a numpy array or an instance of the
+        `UnivariateGaussian` class. It represents the predicted values or the distribution of predicted
+        values
+        :type prediction: typing.Union[np.ndarray, UnivariateGaussian]
+        :param output_data: The `output_data` parameter is a numpy array that contains the observed data
+        or outcomes. It represents the results of a binary event, where each element in the array is
+        either a success (1) or a failure (0)
+        :type output_data: np.ndarray
+        :return: a `BinomTestResult` object.
+        &#34;&#34;&#34;
+
+        # num_outputs = output_data.shape[0]
+        proportion_inside_ci, k_inside, n_predictions = self.proportion_inside(
+            prediction, output_data)
+        binom_test = scipy.stats.binomtest(
+            k_inside,  # number of successes from n bernoulli trials
+            n_predictions,  # number of bernoulli trials
+            self.confidence_interval,  # null hypothesis proportion
+            alternative=&#39;two-sided&#39;)
+        # dont reject null hypothesis if p-value is greater than alpha
+        accept_stat = binom_test.pvalue &gt;= self.alpha
+        # confidence interval for proportion of successes
+        stat_confidence_interval = np.array(binom_test.proportion_ci(confidence_level=1-self.alpha))
+        return BinomTestResult(
+            prop_inside=proportion_inside_ci,
+            pvalue=binom_test.pvalue,
+            prop_ci=stat_confidence_interval,
+            accept_stat=accept_stat)
+
+    def proportion_inside(self, prediction: typing.Union[np.ndarray, UnivariateGaussian], output_data: np.ndarray):
+        &#34;&#34;&#34;
+        The function calculates the proportion of predictions that fall within a confidence interval.
+
+        :param prediction: The `prediction` parameter can be either a numpy array or an instance of the
+        `UnivariateGaussian` class. It represents the predicted values or the predicted probability
+        distribution for a particular output variable
+        :type prediction: typing.Union[np.ndarray, UnivariateGaussian]
+        :param output_data: The `output_data` parameter is a numpy array that represents the observed
+        output data. It should have shape `(num_outputs, num_predictions)`, where `num_outputs` is the
+        number of output variables and `num_predictions` is the number of prediction samples. Each
+        column of `output_data` represents
+        :type output_data: np.ndarray
+        :return: three values: proportion_inside_ci, k_inside, and n_predictions.
+        &#34;&#34;&#34;
+        output_data = output_data.transpose()
+        n_predictions = output_data.shape[1]
+
+        two_tailed_percentiles = 100. * self._two_tailed_ci_levels
+
+        if isinstance(prediction, UnivariateGaussian):
+            percentiles = prediction.get_gaussian_quantiles(
+                quantiles_lower_tail_probability=two_tailed_percentiles/100.)
+        # samped predictions
+        else:
+            percentiles = np.percentile(prediction, two_tailed_percentiles, axis=0)
+            # num_prediction_samples = prediction.shape[0] * num_outputs
+
+        output_lower_than_lower_bound = np.sum(np.less(output_data[0, :], percentiles[0, :]))
+        output_greater_than_upper_bound = np.sum(np.greater(output_data[0, :], percentiles[1, :]))
+
+        # number of predictions inside confidence interval
+        k_inside = n_predictions - \
+            (output_lower_than_lower_bound + output_greater_than_upper_bound)
+        proportion_inside_ci = k_inside / n_predictions
+
+        return proportion_inside_ci, k_inside, n_predictions
+
+
+@dataclass
+class AneesTest(StatTest):
+    &#34;&#34;&#34; Average Normalized Estimation Error Squared (ANEES) test
+
+    The ANEES test is a statistical test for evaluating the performance of a filter. It is based on the
+    Average Normalized Estimation Error Squared (ANEES) metric. 
+
+    Uses Chi2 distribution to calculate confidence interval for ANEES.
+
+    :param alpha: The `alpha` parameter is a float that represents the significance level of the test.
+    :type alpha: float
+    &#34;&#34;&#34;
+    # _alpha_lower: float
+    # _alpha_upper: float
+
+    _alpha_lower_upper: np.ndarray
+
+    def __init__(self, alpha: float):
+        # constructor of parent class
+        super().__init__(alpha=alpha)
+
+        alpha_lower = alpha / 2
+        alpha_upper = 1 - alpha_lower
+
+        self._alpha_lower_upper = np.array([alpha_lower, alpha_upper])
+
+    def calc_anees_test(self, prediction: typing.Union[np.ndarray, UnivariateGaussian], output_data: np.ndarray) -&gt; AneesTestResult:
+        &#34;&#34;&#34;
+        The function calculates the Average Normalized Estimation Error Squared (ANEES) test for a given
+        prediction and output data.
+
+        :param prediction: The `prediction` parameter can be either a numpy array (`np.ndarray`) or an
+        instance of the `UnivariateGaussian` class. It represents the predicted values or the estimated
+        distribution of the output data
+        :type prediction: typing.Union[np.ndarray, UnivariateGaussian]
+        :param output_data: The `output_data` parameter is a numpy array that represents the actual
+        output data. It has a shape of `(num_predictions, dim_output)`, where `num_predictions` is the
+        number of predictions and `dim_output` is the dimension of the output
+        :type output_data: np.ndarray
+        :return: an instance of the `AneesTestResult` class. The `AneesTestResult` object contains the
+        following attributes:
+        &#34;&#34;&#34;
+
+        # number of predictions and dimension of output
+        num_predictions, dim_output = output_data.shape
+
+        # normalized estimation error squared (NEES)
+        nees = squared_mahalanobis_distance(prediction, output_data)
+
+        # average NEES
+        anees = np.mean(nees)
+        degrees_of_freedom = num_predictions * dim_output
+
+        # confidence interval for NEES based on alpha, chi2 distribution, and degrees of freedom
+        anees_confidence_interval = 1/num_predictions * \
+            scipy.stats.chi2.ppf(self._alpha_lower_upper, degrees_of_freedom)
+
+        accept_anees = anees_confidence_interval[0] &lt;= anees &lt;= anees_confidence_interval[1]
+        sum_nees = anees * num_predictions
+        pvalue_lower = scipy.stats.chi2.cdf(sum_nees, df=degrees_of_freedom)
+        pvalue_upper = 1 - pvalue_lower
+        pvalue = 2 * min([pvalue_lower, pvalue_upper])
+
+        # check if NEES is chi2 distributed
+        ks_stat = scipy.stats.ks_1samp(nees,
+                                       scipy.stats.chi2.cdf, args=(dim_output,),
+                                       alternative=&#39;two-sided&#39;)
+        is_chi2 = ks_stat[1] &gt;= self.alpha
+
+        return AneesTestResult(
+            anees=anees,
+            anees_crit_bounds=anees_confidence_interval,
+            pvalue=pvalue,
+            accept_stat=accept_anees,
+            nees_is_chi2=is_chi2)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTest"><code class="flex name class">
+<span>class <span class="ident">AneesTest</span></span>
+<span>(</span><span>alpha: float)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Average Normalized Estimation Error Squared (ANEES) test</p>
+<p>The ANEES test is a statistical test for evaluating the performance of a filter. It is based on the
+Average Normalized Estimation Error Squared (ANEES) metric. </p>
+<p>Uses Chi2 distribution to calculate confidence interval for ANEES.</p>
+<p>:param alpha: The <code>alpha</code> parameter is a float that represents the significance level of the test.
+:type alpha: float</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class AneesTest(StatTest):
+    &#34;&#34;&#34; Average Normalized Estimation Error Squared (ANEES) test
+
+    The ANEES test is a statistical test for evaluating the performance of a filter. It is based on the
+    Average Normalized Estimation Error Squared (ANEES) metric. 
+
+    Uses Chi2 distribution to calculate confidence interval for ANEES.
+
+    :param alpha: The `alpha` parameter is a float that represents the significance level of the test.
+    :type alpha: float
+    &#34;&#34;&#34;
+    # _alpha_lower: float
+    # _alpha_upper: float
+
+    _alpha_lower_upper: np.ndarray
+
+    def __init__(self, alpha: float):
+        # constructor of parent class
+        super().__init__(alpha=alpha)
+
+        alpha_lower = alpha / 2
+        alpha_upper = 1 - alpha_lower
+
+        self._alpha_lower_upper = np.array([alpha_lower, alpha_upper])
+
+    def calc_anees_test(self, prediction: typing.Union[np.ndarray, UnivariateGaussian], output_data: np.ndarray) -&gt; AneesTestResult:
+        &#34;&#34;&#34;
+        The function calculates the Average Normalized Estimation Error Squared (ANEES) test for a given
+        prediction and output data.
+
+        :param prediction: The `prediction` parameter can be either a numpy array (`np.ndarray`) or an
+        instance of the `UnivariateGaussian` class. It represents the predicted values or the estimated
+        distribution of the output data
+        :type prediction: typing.Union[np.ndarray, UnivariateGaussian]
+        :param output_data: The `output_data` parameter is a numpy array that represents the actual
+        output data. It has a shape of `(num_predictions, dim_output)`, where `num_predictions` is the
+        number of predictions and `dim_output` is the dimension of the output
+        :type output_data: np.ndarray
+        :return: an instance of the `AneesTestResult` class. The `AneesTestResult` object contains the
+        following attributes:
+        &#34;&#34;&#34;
+
+        # number of predictions and dimension of output
+        num_predictions, dim_output = output_data.shape
+
+        # normalized estimation error squared (NEES)
+        nees = squared_mahalanobis_distance(prediction, output_data)
+
+        # average NEES
+        anees = np.mean(nees)
+        degrees_of_freedom = num_predictions * dim_output
+
+        # confidence interval for NEES based on alpha, chi2 distribution, and degrees of freedom
+        anees_confidence_interval = 1/num_predictions * \
+            scipy.stats.chi2.ppf(self._alpha_lower_upper, degrees_of_freedom)
+
+        accept_anees = anees_confidence_interval[0] &lt;= anees &lt;= anees_confidence_interval[1]
+        sum_nees = anees * num_predictions
+        pvalue_lower = scipy.stats.chi2.cdf(sum_nees, df=degrees_of_freedom)
+        pvalue_upper = 1 - pvalue_lower
+        pvalue = 2 * min([pvalue_lower, pvalue_upper])
+
+        # check if NEES is chi2 distributed
+        ks_stat = scipy.stats.ks_1samp(nees,
+                                       scipy.stats.chi2.cdf, args=(dim_output,),
+                                       alternative=&#39;two-sided&#39;)
+        is_chi2 = ks_stat[1] &gt;= self.alpha
+
+        return AneesTestResult(
+            anees=anees,
+            anees_crit_bounds=anees_confidence_interval,
+            pvalue=pvalue,
+            accept_stat=accept_anees,
+            nees_is_chi2=is_chi2)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.StatTest" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.StatTest">StatTest</a></li>
+</ul>
+<h3>Methods</h3>
+<dl>
+<dt id="BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTest.calc_anees_test"><code class="name flex">
+<span>def <span class="ident">calc_anees_test</span></span>(<span>self, prediction: Union[numpy.ndarray, <a title="BNN_trust_regions.bnn_trust_regions.gaussian.UnivariateGaussian" href="gaussian.html#BNN_trust_regions.bnn_trust_regions.gaussian.UnivariateGaussian">UnivariateGaussian</a>], output_data: numpy.ndarray) ‑> <a title="BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTestResult" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTestResult">AneesTestResult</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function calculates the Average Normalized Estimation Error Squared (ANEES) test for a given
+prediction and output data.</p>
+<p>:param prediction: The <code>prediction</code> parameter can be either a numpy array (<code>np.ndarray</code>) or an
+instance of the <code>UnivariateGaussian</code> class. It represents the predicted values or the estimated
+distribution of the output data
+:type prediction: typing.Union[np.ndarray, UnivariateGaussian]
+:param output_data: The <code>output_data</code> parameter is a numpy array that represents the actual
+output data. It has a shape of <code>(num_predictions, dim_output)</code>, where <code>num_predictions</code> is the
+number of predictions and <code>dim_output</code> is the dimension of the output
+:type output_data: np.ndarray
+:return: an instance of the <code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTestResult" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTestResult">AneesTestResult</a></code> class. The <code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTestResult" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTestResult">AneesTestResult</a></code> object contains the
+following attributes:</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def calc_anees_test(self, prediction: typing.Union[np.ndarray, UnivariateGaussian], output_data: np.ndarray) -&gt; AneesTestResult:
+    &#34;&#34;&#34;
+    The function calculates the Average Normalized Estimation Error Squared (ANEES) test for a given
+    prediction and output data.
+
+    :param prediction: The `prediction` parameter can be either a numpy array (`np.ndarray`) or an
+    instance of the `UnivariateGaussian` class. It represents the predicted values or the estimated
+    distribution of the output data
+    :type prediction: typing.Union[np.ndarray, UnivariateGaussian]
+    :param output_data: The `output_data` parameter is a numpy array that represents the actual
+    output data. It has a shape of `(num_predictions, dim_output)`, where `num_predictions` is the
+    number of predictions and `dim_output` is the dimension of the output
+    :type output_data: np.ndarray
+    :return: an instance of the `AneesTestResult` class. The `AneesTestResult` object contains the
+    following attributes:
+    &#34;&#34;&#34;
+
+    # number of predictions and dimension of output
+    num_predictions, dim_output = output_data.shape
+
+    # normalized estimation error squared (NEES)
+    nees = squared_mahalanobis_distance(prediction, output_data)
+
+    # average NEES
+    anees = np.mean(nees)
+    degrees_of_freedom = num_predictions * dim_output
+
+    # confidence interval for NEES based on alpha, chi2 distribution, and degrees of freedom
+    anees_confidence_interval = 1/num_predictions * \
+        scipy.stats.chi2.ppf(self._alpha_lower_upper, degrees_of_freedom)
+
+    accept_anees = anees_confidence_interval[0] &lt;= anees &lt;= anees_confidence_interval[1]
+    sum_nees = anees * num_predictions
+    pvalue_lower = scipy.stats.chi2.cdf(sum_nees, df=degrees_of_freedom)
+    pvalue_upper = 1 - pvalue_lower
+    pvalue = 2 * min([pvalue_lower, pvalue_upper])
+
+    # check if NEES is chi2 distributed
+    ks_stat = scipy.stats.ks_1samp(nees,
+                                   scipy.stats.chi2.cdf, args=(dim_output,),
+                                   alternative=&#39;two-sided&#39;)
+    is_chi2 = ks_stat[1] &gt;= self.alpha
+
+    return AneesTestResult(
+        anees=anees,
+        anees_crit_bounds=anees_confidence_interval,
+        pvalue=pvalue,
+        accept_stat=accept_anees,
+        nees_is_chi2=is_chi2)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTestResult"><code class="flex name class">
+<span>class <span class="ident">AneesTestResult</span></span>
+<span>(</span><span>anees: float, anees_crit_bounds: numpy.ndarray, pvalue: float, accept_stat: bool, nees_is_chi2: bool)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>test result for ANEES test
+:param anees: The <code>anees</code> parameter is a float that represents the ANEES (Average Normalized
+Estimation Error Squared) value.
+:type anees: float
+:param anees_crit_bounds: The <code>anees_crit_bounds</code> parameter is a numpy array that represents the critical bounds for ANEES.
+It has a shape of <code>(2,)</code> and contains the lower and upper bound for ANEES.
+:type anees_crit_bounds: np.ndarray
+:param pvalue: The <code>pvalue</code> parameter is a float that represents the p-value of the ANEES test.
+:type pvalue: float
+:param accept_stat: The <code>accept_stat</code> parameter is a boolean that represents whether the null hypothesis is rejected or not.
+:type accept_stat: bool
+:param nees_is_chi2: The <code>nees_is_chi2</code> parameter is a boolean that represents whether
+the normalized estimation error squared (NEES) is chi2 distributed.
+:type nees_is_chi2: bool</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class AneesTestResult(TestResult):
+    &#34;&#34;&#34; test result for ANEES test
+    :param anees: The `anees` parameter is a float that represents the ANEES (Average Normalized
+    Estimation Error Squared) value.
+    :type anees: float
+    :param anees_crit_bounds: The `anees_crit_bounds` parameter is a numpy array that represents the critical bounds for ANEES.
+    It has a shape of `(2,)` and contains the lower and upper bound for ANEES.
+    :type anees_crit_bounds: np.ndarray
+    :param pvalue: The `pvalue` parameter is a float that represents the p-value of the ANEES test.
+    :type pvalue: float
+    :param accept_stat: The `accept_stat` parameter is a boolean that represents whether the null hypothesis is rejected or not.
+    :type accept_stat: bool
+    :param nees_is_chi2: The `nees_is_chi2` parameter is a boolean that represents whether 
+    the normalized estimation error squared (NEES) is chi2 distributed.
+    :type nees_is_chi2: bool
+    &#34;&#34;&#34;
+    anees: float
+    anees_crit_bounds: np.ndarray
+    nees_is_chi2: bool
+
+    def __init__(self, anees: float, anees_crit_bounds: np.ndarray, pvalue: float, accept_stat: bool, nees_is_chi2: bool):
+        super().__init__(accept_stat=accept_stat, pvalue=pvalue)
+        self.anees = anees
+        self.anees_crit_bounds = anees_crit_bounds
+        self.nees_is_chi2 = nees_is_chi2
+        self._is_over_estimating()
+
+    def anees_crit_bound_low(self):
+        &#34;&#34;&#34;
+        The function returns the lower bound of the ANEES (Average Normalized Estimation Error Squared)
+        critical bounds.
+        :return: the first element of the `anees_crit_bounds` list.
+        &#34;&#34;&#34;
+        return self.anees_crit_bounds[0]
+
+    def anees_crit_bound_high(self):
+        &#34;&#34;&#34;
+        The function returns the upper bound of the critical value for ANEES.
+        :return: the second element of the list `self.anees_crit_bounds`.
+        &#34;&#34;&#34;
+        return self.anees_crit_bounds[1]
+
+    def _is_over_estimating(self):
+        &#34;&#34;&#34;
+        check if uncertainty is overestimated based on the ANEES critical bounds
+        &#34;&#34;&#34;
+        # is the ANEES value lower than the lower bound of the ANEES critical bounds?
+        self.over_estimation_flag = self.anees &lt; self.anees_crit_bound_low()</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult">TestResult</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTestResult.anees"><code class="name">var <span class="ident">anees</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTestResult.anees_crit_bounds"><code class="name">var <span class="ident">anees_crit_bounds</span> : numpy.ndarray</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTestResult.nees_is_chi2"><code class="name">var <span class="ident">nees_is_chi2</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTestResult.anees_crit_bound_high"><code class="name flex">
+<span>def <span class="ident">anees_crit_bound_high</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function returns the upper bound of the critical value for ANEES.
+:return: the second element of the list <code>self.anees_crit_bounds</code>.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def anees_crit_bound_high(self):
+    &#34;&#34;&#34;
+    The function returns the upper bound of the critical value for ANEES.
+    :return: the second element of the list `self.anees_crit_bounds`.
+    &#34;&#34;&#34;
+    return self.anees_crit_bounds[1]</code></pre>
+</details>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTestResult.anees_crit_bound_low"><code class="name flex">
+<span>def <span class="ident">anees_crit_bound_low</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function returns the lower bound of the ANEES (Average Normalized Estimation Error Squared)
+critical bounds.
+:return: the first element of the <code>anees_crit_bounds</code> list.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def anees_crit_bound_low(self):
+    &#34;&#34;&#34;
+    The function returns the lower bound of the ANEES (Average Normalized Estimation Error Squared)
+    critical bounds.
+    :return: the first element of the `anees_crit_bounds` list.
+    &#34;&#34;&#34;
+    return self.anees_crit_bounds[0]</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult">TestResult</a></b></code>:
+<ul class="hlist">
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult.over_estimation" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult.over_estimation">over_estimation</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult.under_estimation" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult.under_estimation">under_estimation</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.calibration_test.BinomTestResult"><code class="flex name class">
+<span>class <span class="ident">BinomTestResult</span></span>
+<span>(</span><span>prop_inside: float, pvalue: float, prop_ci: numpy.ndarray, accept_stat: bool)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>test result for binomial test
+:param prop_inside: The <code>prop_inside</code> parameter is a float that represents the proportion of
+predictions inside the confidence interval.
+:type prop_inside: float
+:param pvalue: The <code>pvalue</code> parameter is a float that represents the p-value of the binomial test.
+:type pvalue: float
+:param prop_ci: The <code>prop_ci</code> parameter is a numpy array that represents the confidence interval
+for the proportion of predictions inside the confidence interval. It has a shape of <code>(2,)</code> and
+contains the lower and upper bound for the confidence interval.
+:type prop_ci: np.ndarray
+:param accept_stat: The <code>accept_stat</code> parameter is a boolean that represents whether the null
+hypothesis is rejected or not.
+:type accept_stat: bool</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class BinomTestResult(TestResult):
+    &#34;&#34;&#34; test result for binomial test
+    :param prop_inside: The `prop_inside` parameter is a float that represents the proportion of
+    predictions inside the confidence interval.
+    :type prop_inside: float
+    :param pvalue: The `pvalue` parameter is a float that represents the p-value of the binomial test.
+    :type pvalue: float
+    :param prop_ci: The `prop_ci` parameter is a numpy array that represents the confidence interval
+    for the proportion of predictions inside the confidence interval. It has a shape of `(2,)` and
+    contains the lower and upper bound for the confidence interval.
+    :type prop_ci: np.ndarray
+    :param accept_stat: The `accept_stat` parameter is a boolean that represents whether the null
+    hypothesis is rejected or not.
+    :type accept_stat: bool
+    &#34;&#34;&#34;
+
+    # Other instance variables
+    prop_inside: float
+    prop_ci: np.ndarray  # [0] is lower bound, [1] is upper bound
+
+    # Class variable (static variable)
+    tested_proportion: float = None
+
+    def __init__(self, prop_inside: float, pvalue: float, prop_ci: np.ndarray, accept_stat: bool):
+        super().__init__(accept_stat=accept_stat, pvalue=pvalue)
+        self.prop_inside = prop_inside
+        self.prop_ci = prop_ci
+        self._is_over_estimating()
+
+    def _is_over_estimating(self):
+        &#34;&#34;&#34;
+        check if uncertainty is overestimated based on the proportion confidence interval
+        &#34;&#34;&#34;
+        # is the proportion to be tested lower than the lower bound of the proportion confidence interval?
+        self.over_estimation_flag = self.prop_ci_low() &gt; self.tested_proportion
+
+    def prop_ci_low(self):
+        &#34;&#34;&#34;
+        The function returns the lower bound of the confidence interval for a proportion.
+        :return: The lower bound of the confidence interval for the proportion.
+        &#34;&#34;&#34;
+        return self.prop_ci[0]
+
+    def prop_ci_high(self):
+        &#34;&#34;&#34;
+        The function returns the upper bound of the confidence interval for a proportion.
+        :return: the second element of the `prop_ci` list.
+        &#34;&#34;&#34;
+        return self.prop_ci[1]</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult">TestResult</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="BNN_trust_regions.bnn_trust_regions.calibration_test.BinomTestResult.prop_ci"><code class="name">var <span class="ident">prop_ci</span> : numpy.ndarray</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.calibration_test.BinomTestResult.prop_inside"><code class="name">var <span class="ident">prop_inside</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.calibration_test.BinomTestResult.tested_proportion"><code class="name">var <span class="ident">tested_proportion</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="BNN_trust_regions.bnn_trust_regions.calibration_test.BinomTestResult.prop_ci_high"><code class="name flex">
+<span>def <span class="ident">prop_ci_high</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function returns the upper bound of the confidence interval for a proportion.
+:return: the second element of the <code>prop_ci</code> list.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def prop_ci_high(self):
+    &#34;&#34;&#34;
+    The function returns the upper bound of the confidence interval for a proportion.
+    :return: the second element of the `prop_ci` list.
+    &#34;&#34;&#34;
+    return self.prop_ci[1]</code></pre>
+</details>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.calibration_test.BinomTestResult.prop_ci_low"><code class="name flex">
+<span>def <span class="ident">prop_ci_low</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function returns the lower bound of the confidence interval for a proportion.
+:return: The lower bound of the confidence interval for the proportion.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def prop_ci_low(self):
+    &#34;&#34;&#34;
+    The function returns the lower bound of the confidence interval for a proportion.
+    :return: The lower bound of the confidence interval for the proportion.
+    &#34;&#34;&#34;
+    return self.prop_ci[0]</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Inherited members</h3>
+<ul class="hlist">
+<li><code><b><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult">TestResult</a></b></code>:
+<ul class="hlist">
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult.over_estimation" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult.over_estimation">over_estimation</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult.under_estimation" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult.under_estimation">under_estimation</a></code></li>
+</ul>
+</li>
+</ul>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.calibration_test.BinomialTest"><code class="flex name class">
+<span>class <span class="ident">BinomialTest</span></span>
+<span>(</span><span>confidence_interval: float, alpha: float)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Binomial test</p>
+<p>:param confidence_interval: The <code>confidence_interval</code> parameter is a float that represents the
+confidence interval to be tested by the binomial test. Defaults to 0.95.
+:type confidence_interval: float, optional
+:param alpha: The <code>alpha</code> parameter is a float that represents the significance level of the test.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class BinomialTest(StatTest):
+    &#34;&#34;&#34; Binomial test
+
+    :param confidence_interval: The `confidence_interval` parameter is a float that represents the
+    confidence interval to be tested by the binomial test. Defaults to 0.95.
+    :type confidence_interval: float, optional 
+    :param alpha: The `alpha` parameter is a float that represents the significance level of the test.
+    &#34;&#34;&#34;
+    confidence_interval: float  # e.g. 0.95 for testing of 95% confidence interval
+    # e.g. [0.025 0.975] for testing of 95% confidence interval
+    _two_tailed_ci_levels: np.ndarray
+
+    # alpha: float  # e.g. 0.05 for significance level of 5%
+
+    def __init__(self, confidence_interval: float, alpha: float):
+        # constructor of parent class
+        super().__init__(alpha=alpha)
+        self.confidence_interval = confidence_interval
+        # self.alpha = alpha
+        BinomTestResult.tested_proportion = confidence_interval
+
+        two_tailed = (1 - self.confidence_interval) / 2
+        self._two_tailed_ci_levels = np.array([two_tailed, 1-two_tailed])
+
+    def calc_two_sided_binomial_test(self, prediction: typing.Union[np.ndarray, UnivariateGaussian], output_data: np.ndarray):
+        &#34;&#34;&#34;
+        The function calculates a two-sided binomial test to determine if the proportion of successes in
+        a prediction is significantly different from a null hypothesis proportion.
+
+        :param prediction: The `prediction` parameter can be either a numpy array or an instance of the
+        `UnivariateGaussian` class. It represents the predicted values or the distribution of predicted
+        values
+        :type prediction: typing.Union[np.ndarray, UnivariateGaussian]
+        :param output_data: The `output_data` parameter is a numpy array that contains the observed data
+        or outcomes. It represents the results of a binary event, where each element in the array is
+        either a success (1) or a failure (0)
+        :type output_data: np.ndarray
+        :return: a `BinomTestResult` object.
+        &#34;&#34;&#34;
+
+        # num_outputs = output_data.shape[0]
+        proportion_inside_ci, k_inside, n_predictions = self.proportion_inside(
+            prediction, output_data)
+        binom_test = scipy.stats.binomtest(
+            k_inside,  # number of successes from n bernoulli trials
+            n_predictions,  # number of bernoulli trials
+            self.confidence_interval,  # null hypothesis proportion
+            alternative=&#39;two-sided&#39;)
+        # dont reject null hypothesis if p-value is greater than alpha
+        accept_stat = binom_test.pvalue &gt;= self.alpha
+        # confidence interval for proportion of successes
+        stat_confidence_interval = np.array(binom_test.proportion_ci(confidence_level=1-self.alpha))
+        return BinomTestResult(
+            prop_inside=proportion_inside_ci,
+            pvalue=binom_test.pvalue,
+            prop_ci=stat_confidence_interval,
+            accept_stat=accept_stat)
+
+    def proportion_inside(self, prediction: typing.Union[np.ndarray, UnivariateGaussian], output_data: np.ndarray):
+        &#34;&#34;&#34;
+        The function calculates the proportion of predictions that fall within a confidence interval.
+
+        :param prediction: The `prediction` parameter can be either a numpy array or an instance of the
+        `UnivariateGaussian` class. It represents the predicted values or the predicted probability
+        distribution for a particular output variable
+        :type prediction: typing.Union[np.ndarray, UnivariateGaussian]
+        :param output_data: The `output_data` parameter is a numpy array that represents the observed
+        output data. It should have shape `(num_outputs, num_predictions)`, where `num_outputs` is the
+        number of output variables and `num_predictions` is the number of prediction samples. Each
+        column of `output_data` represents
+        :type output_data: np.ndarray
+        :return: three values: proportion_inside_ci, k_inside, and n_predictions.
+        &#34;&#34;&#34;
+        output_data = output_data.transpose()
+        n_predictions = output_data.shape[1]
+
+        two_tailed_percentiles = 100. * self._two_tailed_ci_levels
+
+        if isinstance(prediction, UnivariateGaussian):
+            percentiles = prediction.get_gaussian_quantiles(
+                quantiles_lower_tail_probability=two_tailed_percentiles/100.)
+        # samped predictions
+        else:
+            percentiles = np.percentile(prediction, two_tailed_percentiles, axis=0)
+            # num_prediction_samples = prediction.shape[0] * num_outputs
+
+        output_lower_than_lower_bound = np.sum(np.less(output_data[0, :], percentiles[0, :]))
+        output_greater_than_upper_bound = np.sum(np.greater(output_data[0, :], percentiles[1, :]))
+
+        # number of predictions inside confidence interval
+        k_inside = n_predictions - \
+            (output_lower_than_lower_bound + output_greater_than_upper_bound)
+        proportion_inside_ci = k_inside / n_predictions
+
+        return proportion_inside_ci, k_inside, n_predictions</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.StatTest" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.StatTest">StatTest</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="BNN_trust_regions.bnn_trust_regions.calibration_test.BinomialTest.confidence_interval"><code class="name">var <span class="ident">confidence_interval</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="BNN_trust_regions.bnn_trust_regions.calibration_test.BinomialTest.calc_two_sided_binomial_test"><code class="name flex">
+<span>def <span class="ident">calc_two_sided_binomial_test</span></span>(<span>self, prediction: Union[numpy.ndarray, <a title="BNN_trust_regions.bnn_trust_regions.gaussian.UnivariateGaussian" href="gaussian.html#BNN_trust_regions.bnn_trust_regions.gaussian.UnivariateGaussian">UnivariateGaussian</a>], output_data: numpy.ndarray)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function calculates a two-sided binomial test to determine if the proportion of successes in
+a prediction is significantly different from a null hypothesis proportion.</p>
+<p>:param prediction: The <code>prediction</code> parameter can be either a numpy array or an instance of the
+<code>UnivariateGaussian</code> class. It represents the predicted values or the distribution of predicted
+values
+:type prediction: typing.Union[np.ndarray, UnivariateGaussian]
+:param output_data: The <code>output_data</code> parameter is a numpy array that contains the observed data
+or outcomes. It represents the results of a binary event, where each element in the array is
+either a success (1) or a failure (0)
+:type output_data: np.ndarray
+:return: a <code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.BinomTestResult" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.BinomTestResult">BinomTestResult</a></code> object.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def calc_two_sided_binomial_test(self, prediction: typing.Union[np.ndarray, UnivariateGaussian], output_data: np.ndarray):
+    &#34;&#34;&#34;
+    The function calculates a two-sided binomial test to determine if the proportion of successes in
+    a prediction is significantly different from a null hypothesis proportion.
+
+    :param prediction: The `prediction` parameter can be either a numpy array or an instance of the
+    `UnivariateGaussian` class. It represents the predicted values or the distribution of predicted
+    values
+    :type prediction: typing.Union[np.ndarray, UnivariateGaussian]
+    :param output_data: The `output_data` parameter is a numpy array that contains the observed data
+    or outcomes. It represents the results of a binary event, where each element in the array is
+    either a success (1) or a failure (0)
+    :type output_data: np.ndarray
+    :return: a `BinomTestResult` object.
+    &#34;&#34;&#34;
+
+    # num_outputs = output_data.shape[0]
+    proportion_inside_ci, k_inside, n_predictions = self.proportion_inside(
+        prediction, output_data)
+    binom_test = scipy.stats.binomtest(
+        k_inside,  # number of successes from n bernoulli trials
+        n_predictions,  # number of bernoulli trials
+        self.confidence_interval,  # null hypothesis proportion
+        alternative=&#39;two-sided&#39;)
+    # dont reject null hypothesis if p-value is greater than alpha
+    accept_stat = binom_test.pvalue &gt;= self.alpha
+    # confidence interval for proportion of successes
+    stat_confidence_interval = np.array(binom_test.proportion_ci(confidence_level=1-self.alpha))
+    return BinomTestResult(
+        prop_inside=proportion_inside_ci,
+        pvalue=binom_test.pvalue,
+        prop_ci=stat_confidence_interval,
+        accept_stat=accept_stat)</code></pre>
+</details>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.calibration_test.BinomialTest.proportion_inside"><code class="name flex">
+<span>def <span class="ident">proportion_inside</span></span>(<span>self, prediction: Union[numpy.ndarray, <a title="BNN_trust_regions.bnn_trust_regions.gaussian.UnivariateGaussian" href="gaussian.html#BNN_trust_regions.bnn_trust_regions.gaussian.UnivariateGaussian">UnivariateGaussian</a>], output_data: numpy.ndarray)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function calculates the proportion of predictions that fall within a confidence interval.</p>
+<p>:param prediction: The <code>prediction</code> parameter can be either a numpy array or an instance of the
+<code>UnivariateGaussian</code> class. It represents the predicted values or the predicted probability
+distribution for a particular output variable
+:type prediction: typing.Union[np.ndarray, UnivariateGaussian]
+:param output_data: The <code>output_data</code> parameter is a numpy array that represents the observed
+output data. It should have shape <code>(num_outputs, num_predictions)</code>, where <code>num_outputs</code> is the
+number of output variables and <code>num_predictions</code> is the number of prediction samples. Each
+column of <code>output_data</code> represents
+:type output_data: np.ndarray
+:return: three values: proportion_inside_ci, k_inside, and n_predictions.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def proportion_inside(self, prediction: typing.Union[np.ndarray, UnivariateGaussian], output_data: np.ndarray):
+    &#34;&#34;&#34;
+    The function calculates the proportion of predictions that fall within a confidence interval.
+
+    :param prediction: The `prediction` parameter can be either a numpy array or an instance of the
+    `UnivariateGaussian` class. It represents the predicted values or the predicted probability
+    distribution for a particular output variable
+    :type prediction: typing.Union[np.ndarray, UnivariateGaussian]
+    :param output_data: The `output_data` parameter is a numpy array that represents the observed
+    output data. It should have shape `(num_outputs, num_predictions)`, where `num_outputs` is the
+    number of output variables and `num_predictions` is the number of prediction samples. Each
+    column of `output_data` represents
+    :type output_data: np.ndarray
+    :return: three values: proportion_inside_ci, k_inside, and n_predictions.
+    &#34;&#34;&#34;
+    output_data = output_data.transpose()
+    n_predictions = output_data.shape[1]
+
+    two_tailed_percentiles = 100. * self._two_tailed_ci_levels
+
+    if isinstance(prediction, UnivariateGaussian):
+        percentiles = prediction.get_gaussian_quantiles(
+            quantiles_lower_tail_probability=two_tailed_percentiles/100.)
+    # samped predictions
+    else:
+        percentiles = np.percentile(prediction, two_tailed_percentiles, axis=0)
+        # num_prediction_samples = prediction.shape[0] * num_outputs
+
+    output_lower_than_lower_bound = np.sum(np.less(output_data[0, :], percentiles[0, :]))
+    output_greater_than_upper_bound = np.sum(np.greater(output_data[0, :], percentiles[1, :]))
+
+    # number of predictions inside confidence interval
+    k_inside = n_predictions - \
+        (output_lower_than_lower_bound + output_greater_than_upper_bound)
+    proportion_inside_ci = k_inside / n_predictions
+
+    return proportion_inside_ci, k_inside, n_predictions</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.calibration_test.StatTest"><code class="flex name class">
+<span>class <span class="ident">StatTest</span></span>
+<span>(</span><span>alpha: float)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Base class for statistical tests</p>
+<p>:param alpha: The <code>alpha</code> parameter is a float that represents the significance level of the test.
+:type alpha: float</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class StatTest:
+    &#34;&#34;&#34; Base class for statistical tests
+
+    :param alpha: The `alpha` parameter is a float that represents the significance level of the test.
+    :type alpha: float
+    &#34;&#34;&#34;
+    alpha: float</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTest" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTest">AneesTest</a></li>
+<li><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.BinomialTest" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.BinomialTest">BinomialTest</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="BNN_trust_regions.bnn_trust_regions.calibration_test.StatTest.alpha"><code class="name">var <span class="ident">alpha</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult"><code class="flex name class">
+<span>class <span class="ident">TestResult</span></span>
+<span>(</span><span>accept_stat: bool, pvalue: float)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Base class for test results
+:param accept_stat: The <code>accept_stat</code> parameter is a boolean that represents whether the null hypothesis is rejected or not.
+:type accept_stat: bool
+:param pvalue: The <code>pvalue</code> parameter is a float that represents the p-value of the test.
+:type pvalue: float</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class TestResult:
+    &#34;&#34;&#34; Base class for test results
+    :param accept_stat: The `accept_stat` parameter is a boolean that represents whether the null hypothesis is rejected or not.
+    :type accept_stat: bool
+    :param pvalue: The `pvalue` parameter is a float that represents the p-value of the test.
+    :type pvalue: float
+    &#34;&#34;&#34;
+    accept_stat: bool
+    pvalue: float
+    over_estimation_flag: bool = None
+
+    def __init__(self, accept_stat: bool, pvalue: float):
+        self.accept_stat = accept_stat
+        self.pvalue = pvalue
+
+    @property
+    def over_estimation(self):
+        &#34;&#34;&#34;
+        The function returns whether the null hypothesis is rejected because of overestimated uncertainty.
+        :return: `True` if the null hypothesis is rejected because of overestimated uncertainty, `False` otherwise.
+        &#34;&#34;&#34;
+        if self.over_estimation_flag is None:
+            raise ValueError(
+                &#34;The over_estimation_flag is not set. Please set the over_estimation_flag.&#34;)
+        return self.over_estimation_flag and not self.accept_stat
+
+    @property
+    def under_estimation(self):
+        &#34;&#34;&#34;
+        The function returns whether the null hypothesis is rejected because of underestimated uncertainty.
+        :return: `True` if the null hypothesis is rejected because of underestimated uncertainty, `False` otherwise.
+        &#34;&#34;&#34;
+        if self.over_estimation_flag is None:
+            raise ValueError(
+                &#34;The over_estimation_flag is not set. Please set the over_estimation_flag.&#34;)
+        return not self.over_estimation_flag and not self.accept_stat
+
+    @abc.abstractmethod
+    def _is_over_estimating(self):
+        &#34;&#34;&#34;
+        The function checks if the uncertainty is overestimated.
+        &#34;&#34;&#34;
+        raise NotImplementedError</code></pre>
+</details>
+<h3>Subclasses</h3>
+<ul class="hlist">
+<li><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTestResult" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTestResult">AneesTestResult</a></li>
+<li><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.BinomTestResult" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.BinomTestResult">BinomTestResult</a></li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult.accept_stat"><code class="name">var <span class="ident">accept_stat</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult.over_estimation_flag"><code class="name">var <span class="ident">over_estimation_flag</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult.pvalue"><code class="name">var <span class="ident">pvalue</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Instance variables</h3>
+<dl>
+<dt id="BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult.over_estimation"><code class="name">var <span class="ident">over_estimation</span></code></dt>
+<dd>
+<div class="desc"><p>The function returns whether the null hypothesis is rejected because of overestimated uncertainty.
+:return: <code>True</code> if the null hypothesis is rejected because of overestimated uncertainty, <code>False</code> otherwise.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def over_estimation(self):
+    &#34;&#34;&#34;
+    The function returns whether the null hypothesis is rejected because of overestimated uncertainty.
+    :return: `True` if the null hypothesis is rejected because of overestimated uncertainty, `False` otherwise.
+    &#34;&#34;&#34;
+    if self.over_estimation_flag is None:
+        raise ValueError(
+            &#34;The over_estimation_flag is not set. Please set the over_estimation_flag.&#34;)
+    return self.over_estimation_flag and not self.accept_stat</code></pre>
+</details>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult.under_estimation"><code class="name">var <span class="ident">under_estimation</span></code></dt>
+<dd>
+<div class="desc"><p>The function returns whether the null hypothesis is rejected because of underestimated uncertainty.
+:return: <code>True</code> if the null hypothesis is rejected because of underestimated uncertainty, <code>False</code> otherwise.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@property
+def under_estimation(self):
+    &#34;&#34;&#34;
+    The function returns whether the null hypothesis is rejected because of underestimated uncertainty.
+    :return: `True` if the null hypothesis is rejected because of underestimated uncertainty, `False` otherwise.
+    &#34;&#34;&#34;
+    if self.over_estimation_flag is None:
+        raise ValueError(
+            &#34;The over_estimation_flag is not set. Please set the over_estimation_flag.&#34;)
+    return not self.over_estimation_flag and not self.accept_stat</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions" href="index.html">BNN_trust_regions.bnn_trust_regions</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTest" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTest">AneesTest</a></code></h4>
+<ul class="">
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTest.calc_anees_test" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTest.calc_anees_test">calc_anees_test</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTestResult" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTestResult">AneesTestResult</a></code></h4>
+<ul class="">
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTestResult.anees" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTestResult.anees">anees</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTestResult.anees_crit_bound_high" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTestResult.anees_crit_bound_high">anees_crit_bound_high</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTestResult.anees_crit_bound_low" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTestResult.anees_crit_bound_low">anees_crit_bound_low</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTestResult.anees_crit_bounds" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTestResult.anees_crit_bounds">anees_crit_bounds</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTestResult.nees_is_chi2" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.AneesTestResult.nees_is_chi2">nees_is_chi2</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.BinomTestResult" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.BinomTestResult">BinomTestResult</a></code></h4>
+<ul class="">
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.BinomTestResult.prop_ci" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.BinomTestResult.prop_ci">prop_ci</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.BinomTestResult.prop_ci_high" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.BinomTestResult.prop_ci_high">prop_ci_high</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.BinomTestResult.prop_ci_low" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.BinomTestResult.prop_ci_low">prop_ci_low</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.BinomTestResult.prop_inside" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.BinomTestResult.prop_inside">prop_inside</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.BinomTestResult.tested_proportion" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.BinomTestResult.tested_proportion">tested_proportion</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.BinomialTest" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.BinomialTest">BinomialTest</a></code></h4>
+<ul class="">
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.BinomialTest.calc_two_sided_binomial_test" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.BinomialTest.calc_two_sided_binomial_test">calc_two_sided_binomial_test</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.BinomialTest.confidence_interval" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.BinomialTest.confidence_interval">confidence_interval</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.BinomialTest.proportion_inside" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.BinomialTest.proportion_inside">proportion_inside</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.StatTest" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.StatTest">StatTest</a></code></h4>
+<ul class="">
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.StatTest.alpha" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.StatTest.alpha">alpha</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult">TestResult</a></code></h4>
+<ul class="">
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult.accept_stat" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult.accept_stat">accept_stat</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult.over_estimation" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult.over_estimation">over_estimation</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult.over_estimation_flag" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult.over_estimation_flag">over_estimation_flag</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult.pvalue" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult.pvalue">pvalue</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult.under_estimation" href="#BNN_trust_regions.bnn_trust_regions.calibration_test.TestResult.under_estimation">under_estimation</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

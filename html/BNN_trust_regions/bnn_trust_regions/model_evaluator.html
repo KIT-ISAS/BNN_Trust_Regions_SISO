@@ -1,0 +1,896 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>BNN_trust_regions.bnn_trust_regions.model_evaluator API documentation</title>
+<meta name="description" content="Class for evaluating models by comparing a reference model to an approximation model." />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>BNN_trust_regions.bnn_trust_regions.model_evaluator</code></h1>
+</header>
+<section id="section-intro">
+<p>Class for evaluating models by comparing a reference model to an approximation model.</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34; Class for evaluating models by comparing a reference model to an approximation model.&#34;&#34;&#34;
+
+
+import copy
+import dataclasses
+import enum
+import typing
+
+
+import numpy as np
+
+from bnn_trust_regions.utils.ci_prediction import calc_mean_and_quantiles
+
+from .plot_candidate_regions import PlotSettings, PlotSisoCandidateRegions
+
+from .canidate_region import CandidateRegions
+from .candidate_region_identification import SisoCandidateRegionIdentification
+from .gaussian import UnivariateGaussian
+from .io_data import IOData
+from .wasserstein_dist import WassersteinDistance
+from .stat_test_settings import StatTestSettings
+
+from .utils.sort_predictions import sort_predictions
+
+
+class UseAorB(enum.Enum):
+    &#34;&#34;&#34;Enum for selecting which model to use for calculating the statistics per regions&#34;&#34;&#34;
+    A = 1
+    B = 2
+
+
+@dataclasses.dataclass  # needed?
+class ModelEvaluator:
+    &#34;&#34;&#34;Class for evaluating models by comparing a reference model to an approximation model.&#34;&#34;&#34;
+    predictions_a: typing.Union[np.ndarray, UnivariateGaussian]  # reference model
+    predictions_b: typing.Union[np.ndarray, UnivariateGaussian]  # approximation model
+
+    test_data: IOData  # test data, IOData Instance
+    num_distributions: int  # number of distributions
+
+    distance: np.ndarray  # distance information
+
+    region_ident: SisoCandidateRegionIdentification  # instance for candidate region identification
+    candidate_regions_model_a: CandidateRegions  # candidate regions
+    candidate_regions_model_b: CandidateRegions  # candidate regions
+
+    # critical_distance: float  # critical distance
+    wasserstein: WassersteinDistance  # instance to calculate the Wasserstein distance
+
+    stat_test_settings: None  # create dict or class for settings  # settings for statistical tests
+
+    def __init__(self,
+                 predictions_a: typing.Union[np.ndarray, UnivariateGaussian],
+                 predictions_b: typing.Union[np.ndarray, UnivariateGaussian],
+                 test_data: IOData,
+                 wasserstein_distance: WassersteinDistance = None,):
+
+        self.predictions_a = copy.deepcopy(predictions_a)
+        self.predictions_b = copy.deepcopy(predictions_b)
+        self.test_data = copy.deepcopy(test_data)
+        self.num_distributions = test_data.output.shape[0]
+
+        # sort according to input values
+        self.sort_test_data_and_predictions()
+
+        self.set_distance_settings(wasserstein_distance)
+
+    def sort_test_data_and_predictions(self):
+        &#34;&#34;&#34;
+        The function sorts the test data and predictions according to the input values.
+        &#34;&#34;&#34;
+        # sort input values and get indices
+        idx = np.argsort(self.test_data.input, axis=None)
+        # is idx equal to np.arange(len(idx))?
+        if np.array_equal(idx, np.arange(len(idx))):
+            # no need to sort
+            return
+
+        # sort predictions according to indices
+        self.test_data.input = self.test_data.input[idx]
+        self.test_data.output = self.test_data.output[idx]
+
+        # sort deep copy of predictions
+        self.predictions_a = sort_predictions(self.predictions_a, idx)
+        self.predictions_b = sort_predictions(self.predictions_b, idx)
+
+    def set_distance_settings(self,
+                              wasserstein_distance: WassersteinDistance,
+                              p_norm: int = 1,
+                              parallel_computing: bool = True,
+                              verbose: bool = False):
+        &#34;&#34;&#34;
+        The function sets the distance settings for the Wasserstein distance metric, allowing for
+        customization of the p-norm, parallel computing, and verbosity.
+
+        :param wasserstein_distance: The `wasserstein_distance` parameter is an instance of the
+        `WassersteinDistance` class. It represents the distance metric used for calculating the Wasserstein
+        distance. If no custom distance metric is provided, the method will use the default settings and
+        create a new instance of the `Wasserstein
+        :type wasserstein_distance: WassersteinDistance
+        :param p_norm: The p_norm parameter is an integer that specifies the norm to be used in the
+        Wasserstein distance calculation. It determines the type of distance metric used. The default value
+        is 1.
+        :type p_norm: int (optional)
+        :param parallel_computing: The `parallel_computing` parameter is a boolean flag that determines
+        whether or not to use parallel computing for calculating the Wasserstein distance. If set to `True`,
+        parallel computing will be used, which can potentially speed up the computation. If set to `False`,
+        the computation will be done sequentially, defaults to True
+        :type parallel_computing: bool (optional)
+        :param verbose: The `verbose` parameter is a boolean flag that determines whether or not to print
+        additional information during the computation. If `verbose` is set to `True`, then additional
+        information will be printed. If `verbose` is set to `False`, then no additional information will be
+        printed, defaults to False
+        :type verbose: bool (optional)
+        :return: nothing.
+        &#34;&#34;&#34;
+        # default Wasserstein distance settings
+        if wasserstein_distance is None:
+            self.wasserstein = WassersteinDistance(
+                p_norm, parallel_computing, verbose)
+            return
+        # custom Wasserstein distance settings
+        self.wasserstein = wasserstein_distance
+
+    def calc_wasserstein_distance(self):
+        &#34;&#34;&#34;
+        The function calculates the Wasserstein distance between two sets of predictions.
+        &#34;&#34;&#34;
+        if self.wasserstein is None:
+            raise ValueError(&#34;Wasserstein distance settings are not set.&#34;)
+        self.distance = self.wasserstein.calc_wasserstein_distance(
+            self.predictions_a, self.predictions_b)
+
+    def calc_canidate_regions(self, region_ident: SisoCandidateRegionIdentification):
+        &#34;&#34;&#34;
+        The function calculates the candidate regions based on th Wasserstein distance.
+        &#34;&#34;&#34;
+        self.region_ident = region_ident
+
+        if region_ident.raw_distances is None:
+            self.region_ident.raw_distances = self.distance
+        if region_ident.test_data is None:
+            self.region_ident.test_data = self.test_data
+
+        self.region_ident.smooth_distances()
+        self.region_ident.calc_critical_distance()
+        self.region_ident.subsplit_candidate_regions()
+
+    def calc_statistical_tests(self, stat_test_settings: StatTestSettings,
+
+                               ):
+        &#34;&#34;&#34;
+        The function calculates statistical tests on candidate regions based on the given settings and
+        predictions.
+
+        :param stat_test_settings: The `stat_test_settings` parameter is an instance of the
+        `StatTestSettings` class. It contains the settings for the statistical tests, including the
+        alpha value (significance level) and the confidence interval which should be tested by the binomial test.
+        :type stat_test_settings: StatTestSettings
+        :param use_a_or_b: The parameter &#34;use_a_or_b&#34; is an optional parameter that determines whether
+        to use the predictions from group A or group B for the statistical tests. It can take two
+        possible values: UseAorB.A or UseAorB.B
+        :type use_a_or_b: UseAorB
+        &#34;&#34;&#34;
+
+        alpha = stat_test_settings.alpha
+        confidence_interval = stat_test_settings.confidence_interval
+
+        self.candidate_regions_model_a = self.region_ident.split_data_in_regions(self.predictions_a)
+        self.candidate_regions_model_a.binomial_test(
+            confidence_interval=confidence_interval, alpha=alpha)
+        self.candidate_regions_model_a.anees_test(alpha=alpha)
+
+        self.candidate_regions_model_b = self.region_ident.split_data_in_regions(self.predictions_b)
+        self.candidate_regions_model_b.binomial_test(
+            confidence_interval=confidence_interval, alpha=alpha)
+        self.candidate_regions_model_b.anees_test(alpha=alpha)
+
+    def print_statistical_tests(self, model_names: typing.Tuple[str, str] = (&#39;reference model&#39;, &#39;approximation model&#39;)):
+        &#34;&#34;&#34;
+        The function &#34;print_statistical_tests&#34; prints the results of binomial and ANEES tests for each
+        candidate regions to console.
+        &#34;&#34;&#34;
+        self._print_one_model_stat_test(
+            candidate_regions=self.candidate_regions_model_a, model_name=model_names[0])
+        self._print_one_model_stat_test(
+            candidate_regions=self.candidate_regions_model_b, model_name=model_names[1])
+
+    def plot_statistical_tests(self, plot_settings: PlotSettings, ground_truth:
+                               typing.Union[np.ndarray, UnivariateGaussian] = None,
+                               model_names: typing.Tuple[str, str] = (&#39;MCMC&#39;, &#39;SVI&#39;)):
+        &#34;&#34;&#34;
+        The function &#34;plot_statistical_tests&#34; plots the results of binomial and ANEES tests for
+        candidate regions.
+        &#34;&#34;&#34;
+
+        # plot settings for model a and b
+        plot_settings_a = copy.deepcopy(plot_settings)
+        plot_settings_a.model_name = model_names[0] + &#39;_a&#39;
+        plot_settings_b = copy.deepcopy(plot_settings)
+        plot_settings_b.model_name = model_names[1] + &#39;_b&#39;
+
+        self._plot_one_model(candidate_regions=self.candidate_regions_model_a,
+                             predictions=self.predictions_a,
+                             plot_settings=plot_settings_a,
+                             ground_truth=ground_truth)
+
+        self._plot_one_model(candidate_regions=self.candidate_regions_model_b,
+                             predictions=self.predictions_b,
+                             plot_settings=plot_settings_b,
+                             ground_truth=ground_truth)
+
+    def _print_one_model_stat_test(self, candidate_regions: CandidateRegions, model_name: str):
+        print(f&#34;Model {model_name}:&#34;)
+        candidate_regions.print_binomial_test_results()
+        print(f&#34;Model {model_name}:&#34;)
+        candidate_regions.print_anees_test_results()
+
+    def _plot_one_model(self, candidate_regions: CandidateRegions, predictions: typing.Union[np.ndarray, UnivariateGaussian],
+                        plot_settings: PlotSettings, ground_truth: typing.Union[np.ndarray, UnivariateGaussian] = None):
+        &#34;&#34;&#34;&#34;&#34;&#34;
+
+        plot_instance = PlotSisoCandidateRegions(
+            candidate_regions=candidate_regions,
+            plot_settings=plot_settings,)
+
+        if ground_truth is None:
+            ground_truth_mean = None
+        else:
+            ground_truth_mean, _ = calc_mean_and_quantiles(
+                ground_truth, plot_settings.confidence_interval)
+
+        plot_instance.plot_predictions_with_region_results(
+            predictions=predictions,
+            data=self.test_data,
+            ground_truth=ground_truth_mean,
+        )
+        plot_instance.plot_stats_per_region()
+        plot_instance.plot_stats_and_predictions(data=self.test_data,
+                                                 predictions=predictions,)
+
+        if not isinstance(ground_truth, UnivariateGaussian):
+            return
+
+        ws_dist_gt = self.wasserstein.calc_wasserstein_distance(
+            predictions, ground_truth).reshape(1, -1)
+        plot_instance.plot_stats_and_ground_truth_dist(data=self.test_data,
+                                                       dist_to_ground_truth=ws_dist_gt)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator"><code class="flex name class">
+<span>class <span class="ident">ModelEvaluator</span></span>
+<span>(</span><span>predictions_a: Union[numpy.ndarray, <a title="BNN_trust_regions.bnn_trust_regions.gaussian.UnivariateGaussian" href="gaussian.html#BNN_trust_regions.bnn_trust_regions.gaussian.UnivariateGaussian">UnivariateGaussian</a>], predictions_b: Union[numpy.ndarray, <a title="BNN_trust_regions.bnn_trust_regions.gaussian.UnivariateGaussian" href="gaussian.html#BNN_trust_regions.bnn_trust_regions.gaussian.UnivariateGaussian">UnivariateGaussian</a>], test_data: <a title="BNN_trust_regions.bnn_trust_regions.io_data.IOData" href="io_data.html#BNN_trust_regions.bnn_trust_regions.io_data.IOData">IOData</a>, wasserstein_distance: <a title="BNN_trust_regions.bnn_trust_regions.wasserstein_dist.WassersteinDistance" href="wasserstein_dist.html#BNN_trust_regions.bnn_trust_regions.wasserstein_dist.WassersteinDistance">WassersteinDistance</a> = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Class for evaluating models by comparing a reference model to an approximation model.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclasses.dataclass  # needed?
+class ModelEvaluator:
+    &#34;&#34;&#34;Class for evaluating models by comparing a reference model to an approximation model.&#34;&#34;&#34;
+    predictions_a: typing.Union[np.ndarray, UnivariateGaussian]  # reference model
+    predictions_b: typing.Union[np.ndarray, UnivariateGaussian]  # approximation model
+
+    test_data: IOData  # test data, IOData Instance
+    num_distributions: int  # number of distributions
+
+    distance: np.ndarray  # distance information
+
+    region_ident: SisoCandidateRegionIdentification  # instance for candidate region identification
+    candidate_regions_model_a: CandidateRegions  # candidate regions
+    candidate_regions_model_b: CandidateRegions  # candidate regions
+
+    # critical_distance: float  # critical distance
+    wasserstein: WassersteinDistance  # instance to calculate the Wasserstein distance
+
+    stat_test_settings: None  # create dict or class for settings  # settings for statistical tests
+
+    def __init__(self,
+                 predictions_a: typing.Union[np.ndarray, UnivariateGaussian],
+                 predictions_b: typing.Union[np.ndarray, UnivariateGaussian],
+                 test_data: IOData,
+                 wasserstein_distance: WassersteinDistance = None,):
+
+        self.predictions_a = copy.deepcopy(predictions_a)
+        self.predictions_b = copy.deepcopy(predictions_b)
+        self.test_data = copy.deepcopy(test_data)
+        self.num_distributions = test_data.output.shape[0]
+
+        # sort according to input values
+        self.sort_test_data_and_predictions()
+
+        self.set_distance_settings(wasserstein_distance)
+
+    def sort_test_data_and_predictions(self):
+        &#34;&#34;&#34;
+        The function sorts the test data and predictions according to the input values.
+        &#34;&#34;&#34;
+        # sort input values and get indices
+        idx = np.argsort(self.test_data.input, axis=None)
+        # is idx equal to np.arange(len(idx))?
+        if np.array_equal(idx, np.arange(len(idx))):
+            # no need to sort
+            return
+
+        # sort predictions according to indices
+        self.test_data.input = self.test_data.input[idx]
+        self.test_data.output = self.test_data.output[idx]
+
+        # sort deep copy of predictions
+        self.predictions_a = sort_predictions(self.predictions_a, idx)
+        self.predictions_b = sort_predictions(self.predictions_b, idx)
+
+    def set_distance_settings(self,
+                              wasserstein_distance: WassersteinDistance,
+                              p_norm: int = 1,
+                              parallel_computing: bool = True,
+                              verbose: bool = False):
+        &#34;&#34;&#34;
+        The function sets the distance settings for the Wasserstein distance metric, allowing for
+        customization of the p-norm, parallel computing, and verbosity.
+
+        :param wasserstein_distance: The `wasserstein_distance` parameter is an instance of the
+        `WassersteinDistance` class. It represents the distance metric used for calculating the Wasserstein
+        distance. If no custom distance metric is provided, the method will use the default settings and
+        create a new instance of the `Wasserstein
+        :type wasserstein_distance: WassersteinDistance
+        :param p_norm: The p_norm parameter is an integer that specifies the norm to be used in the
+        Wasserstein distance calculation. It determines the type of distance metric used. The default value
+        is 1.
+        :type p_norm: int (optional)
+        :param parallel_computing: The `parallel_computing` parameter is a boolean flag that determines
+        whether or not to use parallel computing for calculating the Wasserstein distance. If set to `True`,
+        parallel computing will be used, which can potentially speed up the computation. If set to `False`,
+        the computation will be done sequentially, defaults to True
+        :type parallel_computing: bool (optional)
+        :param verbose: The `verbose` parameter is a boolean flag that determines whether or not to print
+        additional information during the computation. If `verbose` is set to `True`, then additional
+        information will be printed. If `verbose` is set to `False`, then no additional information will be
+        printed, defaults to False
+        :type verbose: bool (optional)
+        :return: nothing.
+        &#34;&#34;&#34;
+        # default Wasserstein distance settings
+        if wasserstein_distance is None:
+            self.wasserstein = WassersteinDistance(
+                p_norm, parallel_computing, verbose)
+            return
+        # custom Wasserstein distance settings
+        self.wasserstein = wasserstein_distance
+
+    def calc_wasserstein_distance(self):
+        &#34;&#34;&#34;
+        The function calculates the Wasserstein distance between two sets of predictions.
+        &#34;&#34;&#34;
+        if self.wasserstein is None:
+            raise ValueError(&#34;Wasserstein distance settings are not set.&#34;)
+        self.distance = self.wasserstein.calc_wasserstein_distance(
+            self.predictions_a, self.predictions_b)
+
+    def calc_canidate_regions(self, region_ident: SisoCandidateRegionIdentification):
+        &#34;&#34;&#34;
+        The function calculates the candidate regions based on th Wasserstein distance.
+        &#34;&#34;&#34;
+        self.region_ident = region_ident
+
+        if region_ident.raw_distances is None:
+            self.region_ident.raw_distances = self.distance
+        if region_ident.test_data is None:
+            self.region_ident.test_data = self.test_data
+
+        self.region_ident.smooth_distances()
+        self.region_ident.calc_critical_distance()
+        self.region_ident.subsplit_candidate_regions()
+
+    def calc_statistical_tests(self, stat_test_settings: StatTestSettings,
+
+                               ):
+        &#34;&#34;&#34;
+        The function calculates statistical tests on candidate regions based on the given settings and
+        predictions.
+
+        :param stat_test_settings: The `stat_test_settings` parameter is an instance of the
+        `StatTestSettings` class. It contains the settings for the statistical tests, including the
+        alpha value (significance level) and the confidence interval which should be tested by the binomial test.
+        :type stat_test_settings: StatTestSettings
+        :param use_a_or_b: The parameter &#34;use_a_or_b&#34; is an optional parameter that determines whether
+        to use the predictions from group A or group B for the statistical tests. It can take two
+        possible values: UseAorB.A or UseAorB.B
+        :type use_a_or_b: UseAorB
+        &#34;&#34;&#34;
+
+        alpha = stat_test_settings.alpha
+        confidence_interval = stat_test_settings.confidence_interval
+
+        self.candidate_regions_model_a = self.region_ident.split_data_in_regions(self.predictions_a)
+        self.candidate_regions_model_a.binomial_test(
+            confidence_interval=confidence_interval, alpha=alpha)
+        self.candidate_regions_model_a.anees_test(alpha=alpha)
+
+        self.candidate_regions_model_b = self.region_ident.split_data_in_regions(self.predictions_b)
+        self.candidate_regions_model_b.binomial_test(
+            confidence_interval=confidence_interval, alpha=alpha)
+        self.candidate_regions_model_b.anees_test(alpha=alpha)
+
+    def print_statistical_tests(self, model_names: typing.Tuple[str, str] = (&#39;reference model&#39;, &#39;approximation model&#39;)):
+        &#34;&#34;&#34;
+        The function &#34;print_statistical_tests&#34; prints the results of binomial and ANEES tests for each
+        candidate regions to console.
+        &#34;&#34;&#34;
+        self._print_one_model_stat_test(
+            candidate_regions=self.candidate_regions_model_a, model_name=model_names[0])
+        self._print_one_model_stat_test(
+            candidate_regions=self.candidate_regions_model_b, model_name=model_names[1])
+
+    def plot_statistical_tests(self, plot_settings: PlotSettings, ground_truth:
+                               typing.Union[np.ndarray, UnivariateGaussian] = None,
+                               model_names: typing.Tuple[str, str] = (&#39;MCMC&#39;, &#39;SVI&#39;)):
+        &#34;&#34;&#34;
+        The function &#34;plot_statistical_tests&#34; plots the results of binomial and ANEES tests for
+        candidate regions.
+        &#34;&#34;&#34;
+
+        # plot settings for model a and b
+        plot_settings_a = copy.deepcopy(plot_settings)
+        plot_settings_a.model_name = model_names[0] + &#39;_a&#39;
+        plot_settings_b = copy.deepcopy(plot_settings)
+        plot_settings_b.model_name = model_names[1] + &#39;_b&#39;
+
+        self._plot_one_model(candidate_regions=self.candidate_regions_model_a,
+                             predictions=self.predictions_a,
+                             plot_settings=plot_settings_a,
+                             ground_truth=ground_truth)
+
+        self._plot_one_model(candidate_regions=self.candidate_regions_model_b,
+                             predictions=self.predictions_b,
+                             plot_settings=plot_settings_b,
+                             ground_truth=ground_truth)
+
+    def _print_one_model_stat_test(self, candidate_regions: CandidateRegions, model_name: str):
+        print(f&#34;Model {model_name}:&#34;)
+        candidate_regions.print_binomial_test_results()
+        print(f&#34;Model {model_name}:&#34;)
+        candidate_regions.print_anees_test_results()
+
+    def _plot_one_model(self, candidate_regions: CandidateRegions, predictions: typing.Union[np.ndarray, UnivariateGaussian],
+                        plot_settings: PlotSettings, ground_truth: typing.Union[np.ndarray, UnivariateGaussian] = None):
+        &#34;&#34;&#34;&#34;&#34;&#34;
+
+        plot_instance = PlotSisoCandidateRegions(
+            candidate_regions=candidate_regions,
+            plot_settings=plot_settings,)
+
+        if ground_truth is None:
+            ground_truth_mean = None
+        else:
+            ground_truth_mean, _ = calc_mean_and_quantiles(
+                ground_truth, plot_settings.confidence_interval)
+
+        plot_instance.plot_predictions_with_region_results(
+            predictions=predictions,
+            data=self.test_data,
+            ground_truth=ground_truth_mean,
+        )
+        plot_instance.plot_stats_per_region()
+        plot_instance.plot_stats_and_predictions(data=self.test_data,
+                                                 predictions=predictions,)
+
+        if not isinstance(ground_truth, UnivariateGaussian):
+            return
+
+        ws_dist_gt = self.wasserstein.calc_wasserstein_distance(
+            predictions, ground_truth).reshape(1, -1)
+        plot_instance.plot_stats_and_ground_truth_dist(data=self.test_data,
+                                                       dist_to_ground_truth=ws_dist_gt)</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.candidate_regions_model_a"><code class="name">var <span class="ident">candidate_regions_model_a</span> : <a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions" href="canidate_region.html#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions">CandidateRegions</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.candidate_regions_model_b"><code class="name">var <span class="ident">candidate_regions_model_b</span> : <a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions" href="canidate_region.html#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions">CandidateRegions</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.distance"><code class="name">var <span class="ident">distance</span> : numpy.ndarray</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.num_distributions"><code class="name">var <span class="ident">num_distributions</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.predictions_a"><code class="name">var <span class="ident">predictions_a</span> : Union[numpy.ndarray, <a title="BNN_trust_regions.bnn_trust_regions.gaussian.UnivariateGaussian" href="gaussian.html#BNN_trust_regions.bnn_trust_regions.gaussian.UnivariateGaussian">UnivariateGaussian</a>]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.predictions_b"><code class="name">var <span class="ident">predictions_b</span> : Union[numpy.ndarray, <a title="BNN_trust_regions.bnn_trust_regions.gaussian.UnivariateGaussian" href="gaussian.html#BNN_trust_regions.bnn_trust_regions.gaussian.UnivariateGaussian">UnivariateGaussian</a>]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.region_ident"><code class="name">var <span class="ident">region_ident</span> : <a title="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification" href="candidate_region_identification.html#BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification">SisoCandidateRegionIdentification</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.stat_test_settings"><code class="name">var <span class="ident">stat_test_settings</span> : None</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.test_data"><code class="name">var <span class="ident">test_data</span> : <a title="BNN_trust_regions.bnn_trust_regions.io_data.IOData" href="io_data.html#BNN_trust_regions.bnn_trust_regions.io_data.IOData">IOData</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.wasserstein"><code class="name">var <span class="ident">wasserstein</span> : <a title="BNN_trust_regions.bnn_trust_regions.wasserstein_dist.WassersteinDistance" href="wasserstein_dist.html#BNN_trust_regions.bnn_trust_regions.wasserstein_dist.WassersteinDistance">WassersteinDistance</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.calc_canidate_regions"><code class="name flex">
+<span>def <span class="ident">calc_canidate_regions</span></span>(<span>self, region_ident: <a title="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification" href="candidate_region_identification.html#BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification">SisoCandidateRegionIdentification</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function calculates the candidate regions based on th Wasserstein distance.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def calc_canidate_regions(self, region_ident: SisoCandidateRegionIdentification):
+    &#34;&#34;&#34;
+    The function calculates the candidate regions based on th Wasserstein distance.
+    &#34;&#34;&#34;
+    self.region_ident = region_ident
+
+    if region_ident.raw_distances is None:
+        self.region_ident.raw_distances = self.distance
+    if region_ident.test_data is None:
+        self.region_ident.test_data = self.test_data
+
+    self.region_ident.smooth_distances()
+    self.region_ident.calc_critical_distance()
+    self.region_ident.subsplit_candidate_regions()</code></pre>
+</details>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.calc_statistical_tests"><code class="name flex">
+<span>def <span class="ident">calc_statistical_tests</span></span>(<span>self, stat_test_settings: <a title="BNN_trust_regions.bnn_trust_regions.stat_test_settings.StatTestSettings" href="stat_test_settings.html#BNN_trust_regions.bnn_trust_regions.stat_test_settings.StatTestSettings">StatTestSettings</a>)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function calculates statistical tests on candidate regions based on the given settings and
+predictions.</p>
+<p>:param stat_test_settings: The <code>stat_test_settings</code> parameter is an instance of the
+<code>StatTestSettings</code> class. It contains the settings for the statistical tests, including the
+alpha value (significance level) and the confidence interval which should be tested by the binomial test.
+:type stat_test_settings: StatTestSettings
+:param use_a_or_b: The parameter "use_a_or_b" is an optional parameter that determines whether
+to use the predictions from group A or group B for the statistical tests. It can take two
+possible values: UseAorB.A or UseAorB.B
+:type use_a_or_b: UseAorB</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def calc_statistical_tests(self, stat_test_settings: StatTestSettings,
+
+                           ):
+    &#34;&#34;&#34;
+    The function calculates statistical tests on candidate regions based on the given settings and
+    predictions.
+
+    :param stat_test_settings: The `stat_test_settings` parameter is an instance of the
+    `StatTestSettings` class. It contains the settings for the statistical tests, including the
+    alpha value (significance level) and the confidence interval which should be tested by the binomial test.
+    :type stat_test_settings: StatTestSettings
+    :param use_a_or_b: The parameter &#34;use_a_or_b&#34; is an optional parameter that determines whether
+    to use the predictions from group A or group B for the statistical tests. It can take two
+    possible values: UseAorB.A or UseAorB.B
+    :type use_a_or_b: UseAorB
+    &#34;&#34;&#34;
+
+    alpha = stat_test_settings.alpha
+    confidence_interval = stat_test_settings.confidence_interval
+
+    self.candidate_regions_model_a = self.region_ident.split_data_in_regions(self.predictions_a)
+    self.candidate_regions_model_a.binomial_test(
+        confidence_interval=confidence_interval, alpha=alpha)
+    self.candidate_regions_model_a.anees_test(alpha=alpha)
+
+    self.candidate_regions_model_b = self.region_ident.split_data_in_regions(self.predictions_b)
+    self.candidate_regions_model_b.binomial_test(
+        confidence_interval=confidence_interval, alpha=alpha)
+    self.candidate_regions_model_b.anees_test(alpha=alpha)</code></pre>
+</details>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.calc_wasserstein_distance"><code class="name flex">
+<span>def <span class="ident">calc_wasserstein_distance</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function calculates the Wasserstein distance between two sets of predictions.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def calc_wasserstein_distance(self):
+    &#34;&#34;&#34;
+    The function calculates the Wasserstein distance between two sets of predictions.
+    &#34;&#34;&#34;
+    if self.wasserstein is None:
+        raise ValueError(&#34;Wasserstein distance settings are not set.&#34;)
+    self.distance = self.wasserstein.calc_wasserstein_distance(
+        self.predictions_a, self.predictions_b)</code></pre>
+</details>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.plot_statistical_tests"><code class="name flex">
+<span>def <span class="ident">plot_statistical_tests</span></span>(<span>self, plot_settings: <a title="BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings" href="plot_candidate_regions.html#BNN_trust_regions.bnn_trust_regions.plot_candidate_regions.PlotSettings">PlotSettings</a>, ground_truth: Union[numpy.ndarray, <a title="BNN_trust_regions.bnn_trust_regions.gaussian.UnivariateGaussian" href="gaussian.html#BNN_trust_regions.bnn_trust_regions.gaussian.UnivariateGaussian">UnivariateGaussian</a>] = None, model_names: Tuple[str, str] = ('MCMC', 'SVI'))</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function "plot_statistical_tests" plots the results of binomial and ANEES tests for
+candidate regions.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def plot_statistical_tests(self, plot_settings: PlotSettings, ground_truth:
+                           typing.Union[np.ndarray, UnivariateGaussian] = None,
+                           model_names: typing.Tuple[str, str] = (&#39;MCMC&#39;, &#39;SVI&#39;)):
+    &#34;&#34;&#34;
+    The function &#34;plot_statistical_tests&#34; plots the results of binomial and ANEES tests for
+    candidate regions.
+    &#34;&#34;&#34;
+
+    # plot settings for model a and b
+    plot_settings_a = copy.deepcopy(plot_settings)
+    plot_settings_a.model_name = model_names[0] + &#39;_a&#39;
+    plot_settings_b = copy.deepcopy(plot_settings)
+    plot_settings_b.model_name = model_names[1] + &#39;_b&#39;
+
+    self._plot_one_model(candidate_regions=self.candidate_regions_model_a,
+                         predictions=self.predictions_a,
+                         plot_settings=plot_settings_a,
+                         ground_truth=ground_truth)
+
+    self._plot_one_model(candidate_regions=self.candidate_regions_model_b,
+                         predictions=self.predictions_b,
+                         plot_settings=plot_settings_b,
+                         ground_truth=ground_truth)</code></pre>
+</details>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.print_statistical_tests"><code class="name flex">
+<span>def <span class="ident">print_statistical_tests</span></span>(<span>self, model_names: Tuple[str, str] = ('reference model', 'approximation model'))</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function "print_statistical_tests" prints the results of binomial and ANEES tests for each
+candidate regions to console.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def print_statistical_tests(self, model_names: typing.Tuple[str, str] = (&#39;reference model&#39;, &#39;approximation model&#39;)):
+    &#34;&#34;&#34;
+    The function &#34;print_statistical_tests&#34; prints the results of binomial and ANEES tests for each
+    candidate regions to console.
+    &#34;&#34;&#34;
+    self._print_one_model_stat_test(
+        candidate_regions=self.candidate_regions_model_a, model_name=model_names[0])
+    self._print_one_model_stat_test(
+        candidate_regions=self.candidate_regions_model_b, model_name=model_names[1])</code></pre>
+</details>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.set_distance_settings"><code class="name flex">
+<span>def <span class="ident">set_distance_settings</span></span>(<span>self, wasserstein_distance: <a title="BNN_trust_regions.bnn_trust_regions.wasserstein_dist.WassersteinDistance" href="wasserstein_dist.html#BNN_trust_regions.bnn_trust_regions.wasserstein_dist.WassersteinDistance">WassersteinDistance</a>, p_norm: int = 1, parallel_computing: bool = True, verbose: bool = False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function sets the distance settings for the Wasserstein distance metric, allowing for
+customization of the p-norm, parallel computing, and verbosity.</p>
+<p>:param wasserstein_distance: The <code>wasserstein_distance</code> parameter is an instance of the
+<code>WassersteinDistance</code> class. It represents the distance metric used for calculating the Wasserstein
+distance. If no custom distance metric is provided, the method will use the default settings and
+create a new instance of the `Wasserstein
+:type wasserstein_distance: WassersteinDistance
+:param p_norm: The p_norm parameter is an integer that specifies the norm to be used in the
+Wasserstein distance calculation. It determines the type of distance metric used. The default value
+is 1.
+:type p_norm: int (optional)
+:param parallel_computing: The <code>parallel_computing</code> parameter is a boolean flag that determines
+whether or not to use parallel computing for calculating the Wasserstein distance. If set to <code>True</code>,
+parallel computing will be used, which can potentially speed up the computation. If set to <code>False</code>,
+the computation will be done sequentially, defaults to True
+:type parallel_computing: bool (optional)
+:param verbose: The <code>verbose</code> parameter is a boolean flag that determines whether or not to print
+additional information during the computation. If <code>verbose</code> is set to <code>True</code>, then additional
+information will be printed. If <code>verbose</code> is set to <code>False</code>, then no additional information will be
+printed, defaults to False
+:type verbose: bool (optional)
+:return: nothing.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_distance_settings(self,
+                          wasserstein_distance: WassersteinDistance,
+                          p_norm: int = 1,
+                          parallel_computing: bool = True,
+                          verbose: bool = False):
+    &#34;&#34;&#34;
+    The function sets the distance settings for the Wasserstein distance metric, allowing for
+    customization of the p-norm, parallel computing, and verbosity.
+
+    :param wasserstein_distance: The `wasserstein_distance` parameter is an instance of the
+    `WassersteinDistance` class. It represents the distance metric used for calculating the Wasserstein
+    distance. If no custom distance metric is provided, the method will use the default settings and
+    create a new instance of the `Wasserstein
+    :type wasserstein_distance: WassersteinDistance
+    :param p_norm: The p_norm parameter is an integer that specifies the norm to be used in the
+    Wasserstein distance calculation. It determines the type of distance metric used. The default value
+    is 1.
+    :type p_norm: int (optional)
+    :param parallel_computing: The `parallel_computing` parameter is a boolean flag that determines
+    whether or not to use parallel computing for calculating the Wasserstein distance. If set to `True`,
+    parallel computing will be used, which can potentially speed up the computation. If set to `False`,
+    the computation will be done sequentially, defaults to True
+    :type parallel_computing: bool (optional)
+    :param verbose: The `verbose` parameter is a boolean flag that determines whether or not to print
+    additional information during the computation. If `verbose` is set to `True`, then additional
+    information will be printed. If `verbose` is set to `False`, then no additional information will be
+    printed, defaults to False
+    :type verbose: bool (optional)
+    :return: nothing.
+    &#34;&#34;&#34;
+    # default Wasserstein distance settings
+    if wasserstein_distance is None:
+        self.wasserstein = WassersteinDistance(
+            p_norm, parallel_computing, verbose)
+        return
+    # custom Wasserstein distance settings
+    self.wasserstein = wasserstein_distance</code></pre>
+</details>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.sort_test_data_and_predictions"><code class="name flex">
+<span>def <span class="ident">sort_test_data_and_predictions</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function sorts the test data and predictions according to the input values.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def sort_test_data_and_predictions(self):
+    &#34;&#34;&#34;
+    The function sorts the test data and predictions according to the input values.
+    &#34;&#34;&#34;
+    # sort input values and get indices
+    idx = np.argsort(self.test_data.input, axis=None)
+    # is idx equal to np.arange(len(idx))?
+    if np.array_equal(idx, np.arange(len(idx))):
+        # no need to sort
+        return
+
+    # sort predictions according to indices
+    self.test_data.input = self.test_data.input[idx]
+    self.test_data.output = self.test_data.output[idx]
+
+    # sort deep copy of predictions
+    self.predictions_a = sort_predictions(self.predictions_a, idx)
+    self.predictions_b = sort_predictions(self.predictions_b, idx)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.model_evaluator.UseAorB"><code class="flex name class">
+<span>class <span class="ident">UseAorB</span></span>
+<span>(</span><span>*args, **kwds)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Enum for selecting which model to use for calculating the statistics per regions</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class UseAorB(enum.Enum):
+    &#34;&#34;&#34;Enum for selecting which model to use for calculating the statistics per regions&#34;&#34;&#34;
+    A = 1
+    B = 2</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>enum.Enum</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="BNN_trust_regions.bnn_trust_regions.model_evaluator.UseAorB.A"><code class="name">var <span class="ident">A</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.model_evaluator.UseAorB.B"><code class="name">var <span class="ident">B</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions" href="index.html">BNN_trust_regions.bnn_trust_regions</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator" href="#BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator">ModelEvaluator</a></code></h4>
+<ul class="">
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.calc_canidate_regions" href="#BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.calc_canidate_regions">calc_canidate_regions</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.calc_statistical_tests" href="#BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.calc_statistical_tests">calc_statistical_tests</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.calc_wasserstein_distance" href="#BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.calc_wasserstein_distance">calc_wasserstein_distance</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.candidate_regions_model_a" href="#BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.candidate_regions_model_a">candidate_regions_model_a</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.candidate_regions_model_b" href="#BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.candidate_regions_model_b">candidate_regions_model_b</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.distance" href="#BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.distance">distance</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.num_distributions" href="#BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.num_distributions">num_distributions</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.plot_statistical_tests" href="#BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.plot_statistical_tests">plot_statistical_tests</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.predictions_a" href="#BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.predictions_a">predictions_a</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.predictions_b" href="#BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.predictions_b">predictions_b</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.print_statistical_tests" href="#BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.print_statistical_tests">print_statistical_tests</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.region_ident" href="#BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.region_ident">region_ident</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.set_distance_settings" href="#BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.set_distance_settings">set_distance_settings</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.sort_test_data_and_predictions" href="#BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.sort_test_data_and_predictions">sort_test_data_and_predictions</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.stat_test_settings" href="#BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.stat_test_settings">stat_test_settings</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.test_data" href="#BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.test_data">test_data</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.wasserstein" href="#BNN_trust_regions.bnn_trust_regions.model_evaluator.ModelEvaluator.wasserstein">wasserstein</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="BNN_trust_regions.bnn_trust_regions.model_evaluator.UseAorB" href="#BNN_trust_regions.bnn_trust_regions.model_evaluator.UseAorB">UseAorB</a></code></h4>
+<ul class="">
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.model_evaluator.UseAorB.A" href="#BNN_trust_regions.bnn_trust_regions.model_evaluator.UseAorB.A">A</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.model_evaluator.UseAorB.B" href="#BNN_trust_regions.bnn_trust_regions.model_evaluator.UseAorB.B">B</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

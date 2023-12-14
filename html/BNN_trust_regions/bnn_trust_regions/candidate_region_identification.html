@@ -1,0 +1,1236 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>BNN_trust_regions.bnn_trust_regions.candidate_region_identification API documentation</title>
+<meta name="description" content="class CandidateRegionIdentification to identify candidate regions in the input space" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>BNN_trust_regions.bnn_trust_regions.candidate_region_identification</code></h1>
+</header>
+<section id="section-intro">
+<p>class CandidateRegionIdentification to identify candidate regions in the input space</p>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">&#34;&#34;&#34; class CandidateRegionIdentification to identify candidate regions in the input space &#34;&#34;&#34;
+
+
+import copy
+from dataclasses import dataclass
+import os
+import typing
+
+import imageio
+from matplotlib import pyplot as plt
+
+import numpy as np
+import numpy.typing
+import scipy.signal
+
+from .canidate_region import CandidateRegion, CandidateRegions
+from .io_data import IOData
+from .gaussian import UnivariateGaussian
+
+
+@dataclass
+class IdentGifSettings:
+    &#34;&#34;&#34; Settings for creating a gif of the critical distance selection.
+    :param path: The `path` parameter is a string that specifies the path where the gif should be saved.
+    :type path: str, optional
+    :param file_name: The `file_name` parameter is a string that specifies the name of the gif file.
+    :type file_name: str, optional
+    :param dpi: The `dpi` parameter is an integer that specifies the resolution of the gif.
+    :type dpi: int, optional
+    :param fps: The `fps` parameter is an integer that specifies the number of frames per second.
+    :type fps: int, optional
+    :param loop: The `loop` parameter is an integer that specifies the number of times the gif should loop.
+    :type loop: int, optional&#34;&#34;&#34;
+    path: str = &#39;.&#39;
+    file_name: str = &#39;crit_dist.gif&#39;
+    dpi: int = 200
+    fps: int = 2
+    loop: int = 0  # 0 means infinite loop, 1 means no loop
+    region_ident_subfolder_name: str = &#39;region_ident&#39;
+
+    # def __init__(self, path: str = &#39;.&#39;, file_name: str = &#39;crit_dist.gif&#39;, dpi: int = 200, fps: int = 2, loop: int = 0):
+    #     self.path = path
+    #     self.file_name = file_name
+    #     self.dpi = dpi
+    #     self.fps = fps
+    #     self.loop = loop
+
+    # if path is changed, call method to create new folder
+    def __setattr__(self, prop, value):
+        if prop == &#39;path&#39;:
+            value = self._check_path(value)
+        super().__setattr__(prop, value)
+
+    def _check_path(self, value: str,):
+        &#34;&#34;&#34; Check if path exists. If not, create it.&#34;&#34;&#34;
+        assert isinstance(value, str)
+        # if path does not end with region_ident, add region_ident
+        if not value.endswith(self.region_ident_subfolder_name):
+            value = os.path.join(value, self.region_ident_subfolder_name)
+        # Set plot folder for stats and create plot folder if it does not exist.
+        if not os.path.exists(value):
+            os.makedirs(value)
+        return value
+
+
+@dataclass
+class SisoCandidateRegionIdentification:
+    &#34;&#34;&#34;
+    SISO candidate region identification class.
+    &#34;&#34;&#34;
+
+    # used data
+    raw_distances: np.ndarray
+    test_data: IOData
+
+    # hyperparameters
+    smoothing_window_size: int
+    min_points_per_region: int
+
+    # only internal use?
+    smoothed_distances: np.ndarray
+
+    # identified candidate regions
+    critical_distance: float
+    switching_idxs: np.ndarray  # switching index of candeidate regions
+    extendend_switching_idxs: np.ndarray  # same as switching_idxs but with first and last index added
+    candidate_region_list: typing.List[CandidateRegion]
+
+    # only for plotting
+    gif_settings: IdentGifSettings
+    verbose: bool = False
+
+    def __init__(self,
+                 raw_distances: typing.Union[np.ndarray, None] = None,
+                 test_data: typing.Union[IOData, None] = None,
+                 min_points_per_region: int = 200,
+                 smoothing_window_size: int = 50,
+                 verbose: bool = False,
+                 gif_settings: typing.Union[IdentGifSettings, None] = None
+                 ):
+        &#34;&#34;&#34;
+        The function initializes the CandidateRegionIdentification class.
+
+        :param raw_distances: The `raw_distances` parameter is a numpy array that contains the raw distances
+        between the reference model and the approximation model.
+        :type raw_distances: np.ndarray
+        :param smoothing_window_size: The `smoothing_window_size` parameter is an integer that specifies the
+        window size used for smoothing the raw distances. The default value is 5.
+        :type smoothing_window_size: int (optional)
+        :param critical_distance: The `critical_distance` parameter is a float that specifies the critical
+        distance used for identifying candidate regions. The default value is 0.5.
+        :type critical_distance: float (optional)
+        &#34;&#34;&#34;
+        self.raw_distances = raw_distances
+        self.smoothing_window_size = smoothing_window_size
+        self.test_data = test_data
+        self.min_points_per_region = min_points_per_region
+
+        # if test_data is not None:
+        #     self.num_distributions = test_data.output.shape[0]
+
+        self.verbose = verbose
+        self.gif_settings = gif_settings
+
+    def smooth_distances(self):
+        &#34;&#34;&#34;
+        The function smooths the raw distances using a moving average filter.
+
+        :return: The smoothed distances.
+        :rtype: numpy.ndarray
+        &#34;&#34;&#34;
+        window_size = self.smoothing_window_size
+        distances = copy.deepcopy(self.raw_distances)
+        if window_size % 2 == 0:
+            pad_width = (int((window_size-1) / 2), int((window_size-1) / 2) + 1)
+        else:
+            pad_width = int((window_size-1) / 2)
+        padded = np.pad(
+            distances, (pad_width,), mode=&#39;edge&#39;)
+        self.smoothed_distances = scipy.signal.convolve(
+            padded, np.ones((window_size,))/window_size, mode=&#39;valid&#39;)
+
+    def calc_critical_distance(self, ):
+        &#34;&#34;&#34;
+        Calculate the critical distance.
+
+        :param verbose: Whether to create a gif of critical distance selection.
+        :type verbose: bool, optional
+        :param gif_settings: The gif settings.
+        :type gif_settings: IdentGifSettings, optional
+        &#34;&#34;&#34;
+
+        # if verbose, create gif of critical distance selection
+        if self.verbose:
+            frames = []
+            if self.gif_settings is None:
+                self.gif_settings = IdentGifSettings()
+        gif_settings = self.gif_settings
+        verbose = self.verbose
+
+        distance = self.smoothed_distances
+        sorted_distance = np.sort(self.smoothed_distances)
+        crit_value = sorted_distance[0]
+
+        last_num_slices = 0
+        max_slices = 0
+
+        required_min_points = self.min_points_per_region
+        for idx, crit_value in enumerate(sorted_distance):
+
+            lower_crit = np.array(distance &lt;= crit_value)
+
+            # get switching indices
+            valid_invalid_switching = np.where(lower_crit[:-1] != lower_crit[1:])[0]
+
+            # only for plots
+            if verbose and (idx % 100 == 0):
+                frame = _create_frame(self.test_data.input, crit_value, valid_invalid_switching,
+                                      dist=distance, gif_settings=gif_settings, idx=idx, )
+                frames.append(frame)
+
+            # count switching frequency
+            num_slices = valid_invalid_switching.shape[0] + 1
+            splited_output = np.split(self.test_data.output, valid_invalid_switching, axis=0)
+            # list of lengths of each region
+            list_of_lengths = [len(item) for item in splited_output]
+
+            min_points_per_region = min(
+                list_of_lengths[1:-1]) if len(list_of_lengths) &gt; 2 else min(list_of_lengths)
+            max_slices = max(num_slices, max_slices)
+
+            # logging.debug
+            # if verbose:
+            #     print(
+            #         f&#39;Number of slices: {num_slices}, last num slices: {last_num_slices}, max num slices: {max_slices}&#39;)
+
+            # stopp increasing of critical value when following conditions are satisfied
+            # min_num_cluster_condition = num_slices &gt; 1  # use more than one cluster
+            # min_points_per_cluster_condition = min_points_per_region \
+            #     &gt;= required_min_points  # min cluster size
+
+            if ((num_slices &gt; 1) and ((min_points_per_region &gt;= required_min_points))):
+                self.critical_distance = crit_value
+                self.switching_idxs = valid_invalid_switching
+
+                # final frame with chosen crit value
+                if verbose:
+                    frame = _create_frame(self.test_data.input, crit_value, valid_invalid_switching,
+                                          dist=distance, gif_settings=gif_settings, idx=idx, )
+                    frames.append(frame)
+                    frames.append(frame)  # add last frame twice to make gif loop nicer
+                    if gif_settings.path is None:
+                        gif_settings.path = &#39;.&#39;  # save in current directory
+                    file_path = os.path.join(gif_settings.path, f&#39;{gif_settings.file_name}.gif&#39;)
+                    imageio.mimsave(file_path, frames, format=&#39;GIF&#39;,
+                                    fps=gif_settings.fps, loop=gif_settings.loop)
+
+                return
+
+            last_num_slices = num_slices
+            _ = last_num_slices  # only for debugging?
+
+        raise ValueError(
+            &#39;No critical value found. Please check if the data and predictions are sorted according to the input data.&#39; +
+            &#39;If the data is sorted, try smaller min_points_per_region.&#39;)
+
+    def subsplit_candidate_regions(self,):
+        &#34;&#34;&#34;
+        The function `subsplit_candidate_regions` takes a range of indices and splits it into finer candidate regions of a minimum
+        size, returning the indices that belong to the canidate regions and the full list of indices.
+
+        &#34;&#34;&#34;
+        valid_invalid_switching = self.switching_idxs
+
+        num_predictions = self.test_data.output.shape[0]
+        # Add the bounds of the range to the list
+        extended_switching_range = [0, *valid_invalid_switching, num_predictions - 1]
+        # remove duplicates, if first or last index is already in list
+        extended_switching_range = list(dict.fromkeys(extended_switching_range))
+
+        # Calculate the sizes of each cluster in the range
+        sizes_of_clusters = np.diff(extended_switching_range)
+
+        # Create a copy of the range to add new indices to
+        new_extended_switching_range = copy.deepcopy(extended_switching_range)
+
+        # Calculate the number of subclusters to create for each cluster
+        num_create_split_points = np.floor(
+            sizes_of_clusters / self.min_points_per_region).astype(int)-1
+
+        # Add new indices to the range for each cluster that needs to be split
+        adapted_index = 0
+        for index, num_add_cluster in enumerate(num_create_split_points):
+            if num_add_cluster &gt; 0:
+                start_index = extended_switching_range[index]
+
+                # Calculate the indices of the new subclusters
+                add_indices = start_index \
+                    + np.ceil((sizes_of_clusters[index] / (num_add_cluster+1)) *  # index scaling factor
+                              np.arange(start=1, stop=num_add_cluster+1, step=1)).astype(int)  # interval [1, num_add_cluster]
+
+                # Insert the new subclusters into the range
+                new_extended_switching_range = np.insert(
+                    new_extended_switching_range, index+adapted_index+1, add_indices)
+                adapted_index = adapted_index + num_add_cluster  # increase counter
+
+        # Remove the bounds of the range from the list
+        valid_invalid_switching = new_extended_switching_range[1:-1]
+        self.switching_idxs = valid_invalid_switching
+        self.extendend_switching_idxs = new_extended_switching_range
+
+        if self.verbose:
+            _create_frame(self.test_data.input, self.critical_distance, valid_invalid_switching,
+                          dist=self.smoothed_distances, gif_settings=self.gif_settings, idx=&#39;final&#39;)
+
+    def split_data_in_regions(self, predictions: typing.Union[np.ndarray, UnivariateGaussian],
+                              ) -&gt; CandidateRegions:
+        &#34;&#34;&#34;
+        The function `split_in_local_clusters` splits prediction and output data into valid and invalid
+        intervals based on an invalid range.
+
+        :param prediction: An array of predictions
+        :param output_data: The `output_data` parameter is an array of output data. It is of type
+        `numpy.ndarray`
+        :type output_data: np.ndarray
+        :param invalid_range: An array of boolean values indicating invalid intervals. Each element in the
+        array corresponds to a prediction, and a value of True indicates that the prediction is invalid
+        :type invalid_range: np.ndarray
+        :param min_points_per_cluster: The parameter `min_points_per_cluster` is an integer that specifies
+        the minimum number of points required for a cluster to be considered valid. If a cluster has fewer
+        points than this threshold, it will be considered invalid
+        :type min_points_per_cluster: int
+        :return: a tuple containing three elements: `splited_prediction`, `splited_output`, and
+        `extended_switching_range`.
+        &#34;&#34;&#34;
+
+        # num_predictions = self.num_distributions
+        output_data = self.test_data.output
+
+        switching_idxs = self.switching_idxs
+        extendend_switching_idxs = self.extendend_switching_idxs
+
+        # get input values which define the regions
+        region_bounds = self.test_data.input[extendend_switching_idxs]
+        candidate_region_list = []
+
+        # if all prediction are valid or invalid -&gt; dont split
+        if 0 &lt; switching_idxs.size &lt; output_data.size:
+
+            splited_outputs = np.split(output_data, switching_idxs, axis=0)
+            if isinstance(predictions, UnivariateGaussian):
+
+                splitted_means = np.split(predictions.mean, switching_idxs, axis=0)
+                splitted_vars = np.split(predictions.var, switching_idxs, axis=0)
+                splited_predictions = []
+                for idx, (mean, var, splited_output) in enumerate(zip(splitted_means, splitted_vars, splited_outputs)):
+                    predictions_in_region = UnivariateGaussian(mean=mean, var=var)
+                    # splited_predictions.append(predictions_in_region)
+
+                    candidate_region = CandidateRegion(predictions_in_region=predictions_in_region,
+                                                       outputs_in_region=splited_output,
+                                                       x_min=region_bounds[idx], x_max=region_bounds[idx+1],)
+                    candidate_region_list.append(candidate_region)
+
+            else:
+                splited_predictions = np.split(predictions, switching_idxs, axis=1)
+
+                for idx, (splitted_prediction, splited_output) in enumerate(zip(splited_predictions, splited_outputs)):
+                    candidate_region = CandidateRegion(
+                        predictions_in_region=splitted_prediction,
+                        outputs_in_region=splited_output,
+                        x_min=region_bounds[idx],
+                        x_max=region_bounds[idx+1],)
+                    candidate_region_list.append(candidate_region)
+        else:
+            candidate_region = CandidateRegion(predictions_in_region=predictions,
+                                               outputs_in_region=output_data,
+                                               x_min=region_bounds[0],
+                                               x_max=region_bounds[-1],)
+            candidate_region_list.append(candidate_region)
+
+        self.candidate_region_list = candidate_region_list
+        # return list of candidate regions
+        return CandidateRegions(candidate_region_list)
+
+
+def _create_frame(input_data: np.ndarray, crit_value: float,
+                  valid_invalid_switching: list, dist: np.ndarray,
+                  gif_settings: IdentGifSettings, idx: int = None) -&gt; numpy.typing.ArrayLike:
+    &#34;&#34;&#34;
+    The `_create_frame` function creates a frame for an animation by plotting data and saving it as an
+    image.
+
+    :param input_data: The `input_data` parameter is a numpy array containing the input data for the
+    plot. It represents the x-axis values of the plot
+    :type input_data: np.ndarray
+    :param crit_value: The `crit_value` parameter is a float value that represents the critical value
+    for the Wasserstein distance. It is used to determine whether the distance between two points is
+    considered valid or invalid
+    :type crit_value: float
+    :param valid_invalid_switching: The parameter `valid_invalid_switching` is a list that contains the
+    indices of the switching points in the `input_data` array. These switching points represent the
+    points where the data transitions from being valid to invalid or vice versa
+    :type valid_invalid_switching: list
+    :param dist: `dist` is a numpy array representing the Wasserstein distance values. It is used to
+    plot the Wasserstein distance against the input data
+    :type dist: np.ndarray
+    :param gif_settings: The `gif_settings` parameter is an instance of the `IdentGifSettings` class. It
+    contains settings for creating the GIF animation
+    :type gif_settings: IdentGifSettings
+    :param idx: The `idx` parameter is an optional parameter that specifies the iteration index. If it
+    is not provided, the value `&#39;final&#39;` is used as the default value
+    :type idx: int
+    :return: an image file in PNG format.
+    :rtype: numpy.typing.ArrayLike
+    &#34;&#34;&#34;
+    if idx is None:
+        idx = &#39;final&#39;
+    # logging.debug
+    # print(
+    #     f&#39;Iteration: {idx}, crit value: {crit_value}, num switching: {len(valid_invalid_switching)}&#39;)
+    fig, ax = plt.subplots()
+    assert isinstance(ax, plt.Axes)
+    # ax.clear()
+    ax.set(xlabel=r&#39;$x$&#39;, ylabel=&#39;Wasserstein distance&#39;)
+    ax.plot(input_data.squeeze(), dist, color=&#39;b&#39;)
+
+    ax.axhline(y=crit_value, color=&#39;k&#39;, linestyle=&#39;--&#39;)
+
+    # plot vertical lines at switching points
+    for switching_point in valid_invalid_switching:
+        ax.axvline(x=input_data.squeeze()[switching_point], color=&#39;k&#39;, linestyle=&#39;-.&#39;)
+    # fill areas between switching points
+    # the areas should be white if distance is lower than crit value
+    # and red if distance is higher than crit value
+    extended_switching = [0, *valid_invalid_switching, input_data.shape[0]-1]
+    for i in range(0, len(extended_switching)-1):
+        range_start = extended_switching[i]
+        range_end = extended_switching[i+1]
+        mean_raw_distance = np.mean(dist[range_start:range_end])
+        if mean_raw_distance &gt; crit_value:
+            facecolor = &#39;r&#39;
+        else:
+            facecolor = &#39;w&#39;
+        ax.axvspan(input_data.squeeze()[range_start], input_data.squeeze()[
+            range_end], facecolor=facecolor, alpha=0.5)
+    # make dir if .tmp does not exist
+    if not os.path.exists(gif_settings.path):
+        os.makedirs(gif_settings.path)
+
+    file_path = os.path.join(gif_settings.path, f&#39;wasserstein_dist_animation_{idx}.png&#39;)
+    fig.savefig(file_path, dpi=gif_settings.dpi)
+    plt.close()
+    return imageio.v3.imread(file_path)</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.IdentGifSettings"><code class="flex name class">
+<span>class <span class="ident">IdentGifSettings</span></span>
+<span>(</span><span>path: str = '.', file_name: str = 'crit_dist.gif', dpi: int = 200, fps: int = 2, loop: int = 0, region_ident_subfolder_name: str = 'region_ident')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Settings for creating a gif of the critical distance selection.
+:param path: The <code>path</code> parameter is a string that specifies the path where the gif should be saved.
+:type path: str, optional
+:param file_name: The <code>file_name</code> parameter is a string that specifies the name of the gif file.
+:type file_name: str, optional
+:param dpi: The <code>dpi</code> parameter is an integer that specifies the resolution of the gif.
+:type dpi: int, optional
+:param fps: The <code>fps</code> parameter is an integer that specifies the number of frames per second.
+:type fps: int, optional
+:param loop: The <code>loop</code> parameter is an integer that specifies the number of times the gif should loop.
+:type loop: int, optional</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class IdentGifSettings:
+    &#34;&#34;&#34; Settings for creating a gif of the critical distance selection.
+    :param path: The `path` parameter is a string that specifies the path where the gif should be saved.
+    :type path: str, optional
+    :param file_name: The `file_name` parameter is a string that specifies the name of the gif file.
+    :type file_name: str, optional
+    :param dpi: The `dpi` parameter is an integer that specifies the resolution of the gif.
+    :type dpi: int, optional
+    :param fps: The `fps` parameter is an integer that specifies the number of frames per second.
+    :type fps: int, optional
+    :param loop: The `loop` parameter is an integer that specifies the number of times the gif should loop.
+    :type loop: int, optional&#34;&#34;&#34;
+    path: str = &#39;.&#39;
+    file_name: str = &#39;crit_dist.gif&#39;
+    dpi: int = 200
+    fps: int = 2
+    loop: int = 0  # 0 means infinite loop, 1 means no loop
+    region_ident_subfolder_name: str = &#39;region_ident&#39;
+
+    # def __init__(self, path: str = &#39;.&#39;, file_name: str = &#39;crit_dist.gif&#39;, dpi: int = 200, fps: int = 2, loop: int = 0):
+    #     self.path = path
+    #     self.file_name = file_name
+    #     self.dpi = dpi
+    #     self.fps = fps
+    #     self.loop = loop
+
+    # if path is changed, call method to create new folder
+    def __setattr__(self, prop, value):
+        if prop == &#39;path&#39;:
+            value = self._check_path(value)
+        super().__setattr__(prop, value)
+
+    def _check_path(self, value: str,):
+        &#34;&#34;&#34; Check if path exists. If not, create it.&#34;&#34;&#34;
+        assert isinstance(value, str)
+        # if path does not end with region_ident, add region_ident
+        if not value.endswith(self.region_ident_subfolder_name):
+            value = os.path.join(value, self.region_ident_subfolder_name)
+        # Set plot folder for stats and create plot folder if it does not exist.
+        if not os.path.exists(value):
+            os.makedirs(value)
+        return value</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.IdentGifSettings.dpi"><code class="name">var <span class="ident">dpi</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.IdentGifSettings.file_name"><code class="name">var <span class="ident">file_name</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.IdentGifSettings.fps"><code class="name">var <span class="ident">fps</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.IdentGifSettings.loop"><code class="name">var <span class="ident">loop</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.IdentGifSettings.path"><code class="name">var <span class="ident">path</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.IdentGifSettings.region_ident_subfolder_name"><code class="name">var <span class="ident">region_ident_subfolder_name</span> : str</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification"><code class="flex name class">
+<span>class <span class="ident">SisoCandidateRegionIdentification</span></span>
+<span>(</span><span>raw_distances: Optional[numpy.ndarray] = None, test_data: Optional[<a title="BNN_trust_regions.bnn_trust_regions.io_data.IOData" href="io_data.html#BNN_trust_regions.bnn_trust_regions.io_data.IOData">IOData</a>] = None, min_points_per_region: int = 200, smoothing_window_size: int = 50, verbose: bool = False, gif_settings: Optional[<a title="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.IdentGifSettings" href="#BNN_trust_regions.bnn_trust_regions.candidate_region_identification.IdentGifSettings">IdentGifSettings</a>] = None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>SISO candidate region identification class.</p>
+<p>The function initializes the CandidateRegionIdentification class.</p>
+<p>:param raw_distances: The <code>raw_distances</code> parameter is a numpy array that contains the raw distances
+between the reference model and the approximation model.
+:type raw_distances: np.ndarray
+:param smoothing_window_size: The <code>smoothing_window_size</code> parameter is an integer that specifies the
+window size used for smoothing the raw distances. The default value is 5.
+:type smoothing_window_size: int (optional)
+:param critical_distance: The <code>critical_distance</code> parameter is a float that specifies the critical
+distance used for identifying candidate regions. The default value is 0.5.
+:type critical_distance: float (optional)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@dataclass
+class SisoCandidateRegionIdentification:
+    &#34;&#34;&#34;
+    SISO candidate region identification class.
+    &#34;&#34;&#34;
+
+    # used data
+    raw_distances: np.ndarray
+    test_data: IOData
+
+    # hyperparameters
+    smoothing_window_size: int
+    min_points_per_region: int
+
+    # only internal use?
+    smoothed_distances: np.ndarray
+
+    # identified candidate regions
+    critical_distance: float
+    switching_idxs: np.ndarray  # switching index of candeidate regions
+    extendend_switching_idxs: np.ndarray  # same as switching_idxs but with first and last index added
+    candidate_region_list: typing.List[CandidateRegion]
+
+    # only for plotting
+    gif_settings: IdentGifSettings
+    verbose: bool = False
+
+    def __init__(self,
+                 raw_distances: typing.Union[np.ndarray, None] = None,
+                 test_data: typing.Union[IOData, None] = None,
+                 min_points_per_region: int = 200,
+                 smoothing_window_size: int = 50,
+                 verbose: bool = False,
+                 gif_settings: typing.Union[IdentGifSettings, None] = None
+                 ):
+        &#34;&#34;&#34;
+        The function initializes the CandidateRegionIdentification class.
+
+        :param raw_distances: The `raw_distances` parameter is a numpy array that contains the raw distances
+        between the reference model and the approximation model.
+        :type raw_distances: np.ndarray
+        :param smoothing_window_size: The `smoothing_window_size` parameter is an integer that specifies the
+        window size used for smoothing the raw distances. The default value is 5.
+        :type smoothing_window_size: int (optional)
+        :param critical_distance: The `critical_distance` parameter is a float that specifies the critical
+        distance used for identifying candidate regions. The default value is 0.5.
+        :type critical_distance: float (optional)
+        &#34;&#34;&#34;
+        self.raw_distances = raw_distances
+        self.smoothing_window_size = smoothing_window_size
+        self.test_data = test_data
+        self.min_points_per_region = min_points_per_region
+
+        # if test_data is not None:
+        #     self.num_distributions = test_data.output.shape[0]
+
+        self.verbose = verbose
+        self.gif_settings = gif_settings
+
+    def smooth_distances(self):
+        &#34;&#34;&#34;
+        The function smooths the raw distances using a moving average filter.
+
+        :return: The smoothed distances.
+        :rtype: numpy.ndarray
+        &#34;&#34;&#34;
+        window_size = self.smoothing_window_size
+        distances = copy.deepcopy(self.raw_distances)
+        if window_size % 2 == 0:
+            pad_width = (int((window_size-1) / 2), int((window_size-1) / 2) + 1)
+        else:
+            pad_width = int((window_size-1) / 2)
+        padded = np.pad(
+            distances, (pad_width,), mode=&#39;edge&#39;)
+        self.smoothed_distances = scipy.signal.convolve(
+            padded, np.ones((window_size,))/window_size, mode=&#39;valid&#39;)
+
+    def calc_critical_distance(self, ):
+        &#34;&#34;&#34;
+        Calculate the critical distance.
+
+        :param verbose: Whether to create a gif of critical distance selection.
+        :type verbose: bool, optional
+        :param gif_settings: The gif settings.
+        :type gif_settings: IdentGifSettings, optional
+        &#34;&#34;&#34;
+
+        # if verbose, create gif of critical distance selection
+        if self.verbose:
+            frames = []
+            if self.gif_settings is None:
+                self.gif_settings = IdentGifSettings()
+        gif_settings = self.gif_settings
+        verbose = self.verbose
+
+        distance = self.smoothed_distances
+        sorted_distance = np.sort(self.smoothed_distances)
+        crit_value = sorted_distance[0]
+
+        last_num_slices = 0
+        max_slices = 0
+
+        required_min_points = self.min_points_per_region
+        for idx, crit_value in enumerate(sorted_distance):
+
+            lower_crit = np.array(distance &lt;= crit_value)
+
+            # get switching indices
+            valid_invalid_switching = np.where(lower_crit[:-1] != lower_crit[1:])[0]
+
+            # only for plots
+            if verbose and (idx % 100 == 0):
+                frame = _create_frame(self.test_data.input, crit_value, valid_invalid_switching,
+                                      dist=distance, gif_settings=gif_settings, idx=idx, )
+                frames.append(frame)
+
+            # count switching frequency
+            num_slices = valid_invalid_switching.shape[0] + 1
+            splited_output = np.split(self.test_data.output, valid_invalid_switching, axis=0)
+            # list of lengths of each region
+            list_of_lengths = [len(item) for item in splited_output]
+
+            min_points_per_region = min(
+                list_of_lengths[1:-1]) if len(list_of_lengths) &gt; 2 else min(list_of_lengths)
+            max_slices = max(num_slices, max_slices)
+
+            # logging.debug
+            # if verbose:
+            #     print(
+            #         f&#39;Number of slices: {num_slices}, last num slices: {last_num_slices}, max num slices: {max_slices}&#39;)
+
+            # stopp increasing of critical value when following conditions are satisfied
+            # min_num_cluster_condition = num_slices &gt; 1  # use more than one cluster
+            # min_points_per_cluster_condition = min_points_per_region \
+            #     &gt;= required_min_points  # min cluster size
+
+            if ((num_slices &gt; 1) and ((min_points_per_region &gt;= required_min_points))):
+                self.critical_distance = crit_value
+                self.switching_idxs = valid_invalid_switching
+
+                # final frame with chosen crit value
+                if verbose:
+                    frame = _create_frame(self.test_data.input, crit_value, valid_invalid_switching,
+                                          dist=distance, gif_settings=gif_settings, idx=idx, )
+                    frames.append(frame)
+                    frames.append(frame)  # add last frame twice to make gif loop nicer
+                    if gif_settings.path is None:
+                        gif_settings.path = &#39;.&#39;  # save in current directory
+                    file_path = os.path.join(gif_settings.path, f&#39;{gif_settings.file_name}.gif&#39;)
+                    imageio.mimsave(file_path, frames, format=&#39;GIF&#39;,
+                                    fps=gif_settings.fps, loop=gif_settings.loop)
+
+                return
+
+            last_num_slices = num_slices
+            _ = last_num_slices  # only for debugging?
+
+        raise ValueError(
+            &#39;No critical value found. Please check if the data and predictions are sorted according to the input data.&#39; +
+            &#39;If the data is sorted, try smaller min_points_per_region.&#39;)
+
+    def subsplit_candidate_regions(self,):
+        &#34;&#34;&#34;
+        The function `subsplit_candidate_regions` takes a range of indices and splits it into finer candidate regions of a minimum
+        size, returning the indices that belong to the canidate regions and the full list of indices.
+
+        &#34;&#34;&#34;
+        valid_invalid_switching = self.switching_idxs
+
+        num_predictions = self.test_data.output.shape[0]
+        # Add the bounds of the range to the list
+        extended_switching_range = [0, *valid_invalid_switching, num_predictions - 1]
+        # remove duplicates, if first or last index is already in list
+        extended_switching_range = list(dict.fromkeys(extended_switching_range))
+
+        # Calculate the sizes of each cluster in the range
+        sizes_of_clusters = np.diff(extended_switching_range)
+
+        # Create a copy of the range to add new indices to
+        new_extended_switching_range = copy.deepcopy(extended_switching_range)
+
+        # Calculate the number of subclusters to create for each cluster
+        num_create_split_points = np.floor(
+            sizes_of_clusters / self.min_points_per_region).astype(int)-1
+
+        # Add new indices to the range for each cluster that needs to be split
+        adapted_index = 0
+        for index, num_add_cluster in enumerate(num_create_split_points):
+            if num_add_cluster &gt; 0:
+                start_index = extended_switching_range[index]
+
+                # Calculate the indices of the new subclusters
+                add_indices = start_index \
+                    + np.ceil((sizes_of_clusters[index] / (num_add_cluster+1)) *  # index scaling factor
+                              np.arange(start=1, stop=num_add_cluster+1, step=1)).astype(int)  # interval [1, num_add_cluster]
+
+                # Insert the new subclusters into the range
+                new_extended_switching_range = np.insert(
+                    new_extended_switching_range, index+adapted_index+1, add_indices)
+                adapted_index = adapted_index + num_add_cluster  # increase counter
+
+        # Remove the bounds of the range from the list
+        valid_invalid_switching = new_extended_switching_range[1:-1]
+        self.switching_idxs = valid_invalid_switching
+        self.extendend_switching_idxs = new_extended_switching_range
+
+        if self.verbose:
+            _create_frame(self.test_data.input, self.critical_distance, valid_invalid_switching,
+                          dist=self.smoothed_distances, gif_settings=self.gif_settings, idx=&#39;final&#39;)
+
+    def split_data_in_regions(self, predictions: typing.Union[np.ndarray, UnivariateGaussian],
+                              ) -&gt; CandidateRegions:
+        &#34;&#34;&#34;
+        The function `split_in_local_clusters` splits prediction and output data into valid and invalid
+        intervals based on an invalid range.
+
+        :param prediction: An array of predictions
+        :param output_data: The `output_data` parameter is an array of output data. It is of type
+        `numpy.ndarray`
+        :type output_data: np.ndarray
+        :param invalid_range: An array of boolean values indicating invalid intervals. Each element in the
+        array corresponds to a prediction, and a value of True indicates that the prediction is invalid
+        :type invalid_range: np.ndarray
+        :param min_points_per_cluster: The parameter `min_points_per_cluster` is an integer that specifies
+        the minimum number of points required for a cluster to be considered valid. If a cluster has fewer
+        points than this threshold, it will be considered invalid
+        :type min_points_per_cluster: int
+        :return: a tuple containing three elements: `splited_prediction`, `splited_output`, and
+        `extended_switching_range`.
+        &#34;&#34;&#34;
+
+        # num_predictions = self.num_distributions
+        output_data = self.test_data.output
+
+        switching_idxs = self.switching_idxs
+        extendend_switching_idxs = self.extendend_switching_idxs
+
+        # get input values which define the regions
+        region_bounds = self.test_data.input[extendend_switching_idxs]
+        candidate_region_list = []
+
+        # if all prediction are valid or invalid -&gt; dont split
+        if 0 &lt; switching_idxs.size &lt; output_data.size:
+
+            splited_outputs = np.split(output_data, switching_idxs, axis=0)
+            if isinstance(predictions, UnivariateGaussian):
+
+                splitted_means = np.split(predictions.mean, switching_idxs, axis=0)
+                splitted_vars = np.split(predictions.var, switching_idxs, axis=0)
+                splited_predictions = []
+                for idx, (mean, var, splited_output) in enumerate(zip(splitted_means, splitted_vars, splited_outputs)):
+                    predictions_in_region = UnivariateGaussian(mean=mean, var=var)
+                    # splited_predictions.append(predictions_in_region)
+
+                    candidate_region = CandidateRegion(predictions_in_region=predictions_in_region,
+                                                       outputs_in_region=splited_output,
+                                                       x_min=region_bounds[idx], x_max=region_bounds[idx+1],)
+                    candidate_region_list.append(candidate_region)
+
+            else:
+                splited_predictions = np.split(predictions, switching_idxs, axis=1)
+
+                for idx, (splitted_prediction, splited_output) in enumerate(zip(splited_predictions, splited_outputs)):
+                    candidate_region = CandidateRegion(
+                        predictions_in_region=splitted_prediction,
+                        outputs_in_region=splited_output,
+                        x_min=region_bounds[idx],
+                        x_max=region_bounds[idx+1],)
+                    candidate_region_list.append(candidate_region)
+        else:
+            candidate_region = CandidateRegion(predictions_in_region=predictions,
+                                               outputs_in_region=output_data,
+                                               x_min=region_bounds[0],
+                                               x_max=region_bounds[-1],)
+            candidate_region_list.append(candidate_region)
+
+        self.candidate_region_list = candidate_region_list
+        # return list of candidate regions
+        return CandidateRegions(candidate_region_list)</code></pre>
+</details>
+<h3>Class variables</h3>
+<dl>
+<dt id="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.candidate_region_list"><code class="name">var <span class="ident">candidate_region_list</span> : List[<a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion" href="canidate_region.html#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegion">CandidateRegion</a>]</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.critical_distance"><code class="name">var <span class="ident">critical_distance</span> : float</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.extendend_switching_idxs"><code class="name">var <span class="ident">extendend_switching_idxs</span> : numpy.ndarray</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.gif_settings"><code class="name">var <span class="ident">gif_settings</span> : <a title="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.IdentGifSettings" href="#BNN_trust_regions.bnn_trust_regions.candidate_region_identification.IdentGifSettings">IdentGifSettings</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.min_points_per_region"><code class="name">var <span class="ident">min_points_per_region</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.raw_distances"><code class="name">var <span class="ident">raw_distances</span> : numpy.ndarray</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.smoothed_distances"><code class="name">var <span class="ident">smoothed_distances</span> : numpy.ndarray</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.smoothing_window_size"><code class="name">var <span class="ident">smoothing_window_size</span> : int</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.switching_idxs"><code class="name">var <span class="ident">switching_idxs</span> : numpy.ndarray</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.test_data"><code class="name">var <span class="ident">test_data</span> : <a title="BNN_trust_regions.bnn_trust_regions.io_data.IOData" href="io_data.html#BNN_trust_regions.bnn_trust_regions.io_data.IOData">IOData</a></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.verbose"><code class="name">var <span class="ident">verbose</span> : bool</code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.calc_critical_distance"><code class="name flex">
+<span>def <span class="ident">calc_critical_distance</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Calculate the critical distance.</p>
+<p>:param verbose: Whether to create a gif of critical distance selection.
+:type verbose: bool, optional
+:param gif_settings: The gif settings.
+:type gif_settings: IdentGifSettings, optional</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def calc_critical_distance(self, ):
+    &#34;&#34;&#34;
+    Calculate the critical distance.
+
+    :param verbose: Whether to create a gif of critical distance selection.
+    :type verbose: bool, optional
+    :param gif_settings: The gif settings.
+    :type gif_settings: IdentGifSettings, optional
+    &#34;&#34;&#34;
+
+    # if verbose, create gif of critical distance selection
+    if self.verbose:
+        frames = []
+        if self.gif_settings is None:
+            self.gif_settings = IdentGifSettings()
+    gif_settings = self.gif_settings
+    verbose = self.verbose
+
+    distance = self.smoothed_distances
+    sorted_distance = np.sort(self.smoothed_distances)
+    crit_value = sorted_distance[0]
+
+    last_num_slices = 0
+    max_slices = 0
+
+    required_min_points = self.min_points_per_region
+    for idx, crit_value in enumerate(sorted_distance):
+
+        lower_crit = np.array(distance &lt;= crit_value)
+
+        # get switching indices
+        valid_invalid_switching = np.where(lower_crit[:-1] != lower_crit[1:])[0]
+
+        # only for plots
+        if verbose and (idx % 100 == 0):
+            frame = _create_frame(self.test_data.input, crit_value, valid_invalid_switching,
+                                  dist=distance, gif_settings=gif_settings, idx=idx, )
+            frames.append(frame)
+
+        # count switching frequency
+        num_slices = valid_invalid_switching.shape[0] + 1
+        splited_output = np.split(self.test_data.output, valid_invalid_switching, axis=0)
+        # list of lengths of each region
+        list_of_lengths = [len(item) for item in splited_output]
+
+        min_points_per_region = min(
+            list_of_lengths[1:-1]) if len(list_of_lengths) &gt; 2 else min(list_of_lengths)
+        max_slices = max(num_slices, max_slices)
+
+        # logging.debug
+        # if verbose:
+        #     print(
+        #         f&#39;Number of slices: {num_slices}, last num slices: {last_num_slices}, max num slices: {max_slices}&#39;)
+
+        # stopp increasing of critical value when following conditions are satisfied
+        # min_num_cluster_condition = num_slices &gt; 1  # use more than one cluster
+        # min_points_per_cluster_condition = min_points_per_region \
+        #     &gt;= required_min_points  # min cluster size
+
+        if ((num_slices &gt; 1) and ((min_points_per_region &gt;= required_min_points))):
+            self.critical_distance = crit_value
+            self.switching_idxs = valid_invalid_switching
+
+            # final frame with chosen crit value
+            if verbose:
+                frame = _create_frame(self.test_data.input, crit_value, valid_invalid_switching,
+                                      dist=distance, gif_settings=gif_settings, idx=idx, )
+                frames.append(frame)
+                frames.append(frame)  # add last frame twice to make gif loop nicer
+                if gif_settings.path is None:
+                    gif_settings.path = &#39;.&#39;  # save in current directory
+                file_path = os.path.join(gif_settings.path, f&#39;{gif_settings.file_name}.gif&#39;)
+                imageio.mimsave(file_path, frames, format=&#39;GIF&#39;,
+                                fps=gif_settings.fps, loop=gif_settings.loop)
+
+            return
+
+        last_num_slices = num_slices
+        _ = last_num_slices  # only for debugging?
+
+    raise ValueError(
+        &#39;No critical value found. Please check if the data and predictions are sorted according to the input data.&#39; +
+        &#39;If the data is sorted, try smaller min_points_per_region.&#39;)</code></pre>
+</details>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.smooth_distances"><code class="name flex">
+<span>def <span class="ident">smooth_distances</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function smooths the raw distances using a moving average filter.</p>
+<p>:return: The smoothed distances.
+:rtype: numpy.ndarray</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def smooth_distances(self):
+    &#34;&#34;&#34;
+    The function smooths the raw distances using a moving average filter.
+
+    :return: The smoothed distances.
+    :rtype: numpy.ndarray
+    &#34;&#34;&#34;
+    window_size = self.smoothing_window_size
+    distances = copy.deepcopy(self.raw_distances)
+    if window_size % 2 == 0:
+        pad_width = (int((window_size-1) / 2), int((window_size-1) / 2) + 1)
+    else:
+        pad_width = int((window_size-1) / 2)
+    padded = np.pad(
+        distances, (pad_width,), mode=&#39;edge&#39;)
+    self.smoothed_distances = scipy.signal.convolve(
+        padded, np.ones((window_size,))/window_size, mode=&#39;valid&#39;)</code></pre>
+</details>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.split_data_in_regions"><code class="name flex">
+<span>def <span class="ident">split_data_in_regions</span></span>(<span>self, predictions: Union[numpy.ndarray, <a title="BNN_trust_regions.bnn_trust_regions.gaussian.UnivariateGaussian" href="gaussian.html#BNN_trust_regions.bnn_trust_regions.gaussian.UnivariateGaussian">UnivariateGaussian</a>]) ‑> <a title="BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions" href="canidate_region.html#BNN_trust_regions.bnn_trust_regions.canidate_region.CandidateRegions">CandidateRegions</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function <code>split_in_local_clusters</code> splits prediction and output data into valid and invalid
+intervals based on an invalid range.</p>
+<p>:param prediction: An array of predictions
+:param output_data: The <code>output_data</code> parameter is an array of output data. It is of type
+<code>numpy.ndarray</code>
+:type output_data: np.ndarray
+:param invalid_range: An array of boolean values indicating invalid intervals. Each element in the
+array corresponds to a prediction, and a value of True indicates that the prediction is invalid
+:type invalid_range: np.ndarray
+:param min_points_per_cluster: The parameter <code>min_points_per_cluster</code> is an integer that specifies
+the minimum number of points required for a cluster to be considered valid. If a cluster has fewer
+points than this threshold, it will be considered invalid
+:type min_points_per_cluster: int
+:return: a tuple containing three elements: <code>splited_prediction</code>, <code>splited_output</code>, and
+<code>extended_switching_range</code>.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def split_data_in_regions(self, predictions: typing.Union[np.ndarray, UnivariateGaussian],
+                          ) -&gt; CandidateRegions:
+    &#34;&#34;&#34;
+    The function `split_in_local_clusters` splits prediction and output data into valid and invalid
+    intervals based on an invalid range.
+
+    :param prediction: An array of predictions
+    :param output_data: The `output_data` parameter is an array of output data. It is of type
+    `numpy.ndarray`
+    :type output_data: np.ndarray
+    :param invalid_range: An array of boolean values indicating invalid intervals. Each element in the
+    array corresponds to a prediction, and a value of True indicates that the prediction is invalid
+    :type invalid_range: np.ndarray
+    :param min_points_per_cluster: The parameter `min_points_per_cluster` is an integer that specifies
+    the minimum number of points required for a cluster to be considered valid. If a cluster has fewer
+    points than this threshold, it will be considered invalid
+    :type min_points_per_cluster: int
+    :return: a tuple containing three elements: `splited_prediction`, `splited_output`, and
+    `extended_switching_range`.
+    &#34;&#34;&#34;
+
+    # num_predictions = self.num_distributions
+    output_data = self.test_data.output
+
+    switching_idxs = self.switching_idxs
+    extendend_switching_idxs = self.extendend_switching_idxs
+
+    # get input values which define the regions
+    region_bounds = self.test_data.input[extendend_switching_idxs]
+    candidate_region_list = []
+
+    # if all prediction are valid or invalid -&gt; dont split
+    if 0 &lt; switching_idxs.size &lt; output_data.size:
+
+        splited_outputs = np.split(output_data, switching_idxs, axis=0)
+        if isinstance(predictions, UnivariateGaussian):
+
+            splitted_means = np.split(predictions.mean, switching_idxs, axis=0)
+            splitted_vars = np.split(predictions.var, switching_idxs, axis=0)
+            splited_predictions = []
+            for idx, (mean, var, splited_output) in enumerate(zip(splitted_means, splitted_vars, splited_outputs)):
+                predictions_in_region = UnivariateGaussian(mean=mean, var=var)
+                # splited_predictions.append(predictions_in_region)
+
+                candidate_region = CandidateRegion(predictions_in_region=predictions_in_region,
+                                                   outputs_in_region=splited_output,
+                                                   x_min=region_bounds[idx], x_max=region_bounds[idx+1],)
+                candidate_region_list.append(candidate_region)
+
+        else:
+            splited_predictions = np.split(predictions, switching_idxs, axis=1)
+
+            for idx, (splitted_prediction, splited_output) in enumerate(zip(splited_predictions, splited_outputs)):
+                candidate_region = CandidateRegion(
+                    predictions_in_region=splitted_prediction,
+                    outputs_in_region=splited_output,
+                    x_min=region_bounds[idx],
+                    x_max=region_bounds[idx+1],)
+                candidate_region_list.append(candidate_region)
+    else:
+        candidate_region = CandidateRegion(predictions_in_region=predictions,
+                                           outputs_in_region=output_data,
+                                           x_min=region_bounds[0],
+                                           x_max=region_bounds[-1],)
+        candidate_region_list.append(candidate_region)
+
+    self.candidate_region_list = candidate_region_list
+    # return list of candidate regions
+    return CandidateRegions(candidate_region_list)</code></pre>
+</details>
+</dd>
+<dt id="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.subsplit_candidate_regions"><code class="name flex">
+<span>def <span class="ident">subsplit_candidate_regions</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The function <code>subsplit_candidate_regions</code> takes a range of indices and splits it into finer candidate regions of a minimum
+size, returning the indices that belong to the canidate regions and the full list of indices.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def subsplit_candidate_regions(self,):
+    &#34;&#34;&#34;
+    The function `subsplit_candidate_regions` takes a range of indices and splits it into finer candidate regions of a minimum
+    size, returning the indices that belong to the canidate regions and the full list of indices.
+
+    &#34;&#34;&#34;
+    valid_invalid_switching = self.switching_idxs
+
+    num_predictions = self.test_data.output.shape[0]
+    # Add the bounds of the range to the list
+    extended_switching_range = [0, *valid_invalid_switching, num_predictions - 1]
+    # remove duplicates, if first or last index is already in list
+    extended_switching_range = list(dict.fromkeys(extended_switching_range))
+
+    # Calculate the sizes of each cluster in the range
+    sizes_of_clusters = np.diff(extended_switching_range)
+
+    # Create a copy of the range to add new indices to
+    new_extended_switching_range = copy.deepcopy(extended_switching_range)
+
+    # Calculate the number of subclusters to create for each cluster
+    num_create_split_points = np.floor(
+        sizes_of_clusters / self.min_points_per_region).astype(int)-1
+
+    # Add new indices to the range for each cluster that needs to be split
+    adapted_index = 0
+    for index, num_add_cluster in enumerate(num_create_split_points):
+        if num_add_cluster &gt; 0:
+            start_index = extended_switching_range[index]
+
+            # Calculate the indices of the new subclusters
+            add_indices = start_index \
+                + np.ceil((sizes_of_clusters[index] / (num_add_cluster+1)) *  # index scaling factor
+                          np.arange(start=1, stop=num_add_cluster+1, step=1)).astype(int)  # interval [1, num_add_cluster]
+
+            # Insert the new subclusters into the range
+            new_extended_switching_range = np.insert(
+                new_extended_switching_range, index+adapted_index+1, add_indices)
+            adapted_index = adapted_index + num_add_cluster  # increase counter
+
+    # Remove the bounds of the range from the list
+    valid_invalid_switching = new_extended_switching_range[1:-1]
+    self.switching_idxs = valid_invalid_switching
+    self.extendend_switching_idxs = new_extended_switching_range
+
+    if self.verbose:
+        _create_frame(self.test_data.input, self.critical_distance, valid_invalid_switching,
+                      dist=self.smoothed_distances, gif_settings=self.gif_settings, idx=&#39;final&#39;)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions" href="index.html">BNN_trust_regions.bnn_trust_regions</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.IdentGifSettings" href="#BNN_trust_regions.bnn_trust_regions.candidate_region_identification.IdentGifSettings">IdentGifSettings</a></code></h4>
+<ul class="">
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.IdentGifSettings.dpi" href="#BNN_trust_regions.bnn_trust_regions.candidate_region_identification.IdentGifSettings.dpi">dpi</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.IdentGifSettings.file_name" href="#BNN_trust_regions.bnn_trust_regions.candidate_region_identification.IdentGifSettings.file_name">file_name</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.IdentGifSettings.fps" href="#BNN_trust_regions.bnn_trust_regions.candidate_region_identification.IdentGifSettings.fps">fps</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.IdentGifSettings.loop" href="#BNN_trust_regions.bnn_trust_regions.candidate_region_identification.IdentGifSettings.loop">loop</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.IdentGifSettings.path" href="#BNN_trust_regions.bnn_trust_regions.candidate_region_identification.IdentGifSettings.path">path</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.IdentGifSettings.region_ident_subfolder_name" href="#BNN_trust_regions.bnn_trust_regions.candidate_region_identification.IdentGifSettings.region_ident_subfolder_name">region_ident_subfolder_name</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification" href="#BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification">SisoCandidateRegionIdentification</a></code></h4>
+<ul class="">
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.calc_critical_distance" href="#BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.calc_critical_distance">calc_critical_distance</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.candidate_region_list" href="#BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.candidate_region_list">candidate_region_list</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.critical_distance" href="#BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.critical_distance">critical_distance</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.extendend_switching_idxs" href="#BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.extendend_switching_idxs">extendend_switching_idxs</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.gif_settings" href="#BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.gif_settings">gif_settings</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.min_points_per_region" href="#BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.min_points_per_region">min_points_per_region</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.raw_distances" href="#BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.raw_distances">raw_distances</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.smooth_distances" href="#BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.smooth_distances">smooth_distances</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.smoothed_distances" href="#BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.smoothed_distances">smoothed_distances</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.smoothing_window_size" href="#BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.smoothing_window_size">smoothing_window_size</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.split_data_in_regions" href="#BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.split_data_in_regions">split_data_in_regions</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.subsplit_candidate_regions" href="#BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.subsplit_candidate_regions">subsplit_candidate_regions</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.switching_idxs" href="#BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.switching_idxs">switching_idxs</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.test_data" href="#BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.test_data">test_data</a></code></li>
+<li><code><a title="BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.verbose" href="#BNN_trust_regions.bnn_trust_regions.candidate_region_identification.SisoCandidateRegionIdentification.verbose">verbose</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
