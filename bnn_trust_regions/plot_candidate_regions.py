@@ -28,7 +28,7 @@ class ErrorbarPlotSettings:
     x_pos_binom_bar_factor: float = 2/3
     binom_bar_color: str = 'purple'
     binom_marker_color: str = 'red'
-    binom_marker: str = 'x'
+    binom_marker: str = 'X'
     binom_y_label: str = r'$\pi$'
     binom_errorbar_label: str = r'$\pi$ Bounds'  # +' in Region'
     binom_p0_label: str = r'$\pi_0=$'
@@ -44,7 +44,7 @@ class ErrorbarPlotSettings:
     x_pos_anees_bar_factor: float = 1/3
     anees_bar_color: str = 'tab:orange'
     anees_marker_color: str = 'tab:blue'
-    anees_marker: str = 'x'
+    anees_marker: str = 'X'
     anees_marker_out_of_scope: str = '^'
     # diamond marker for regions where ANEES is not chi2 distributed
     nees_is_not_chi2_marker: str = 'D'
@@ -213,7 +213,7 @@ class PlotSisoCandidateRegions:
         """
 
         fig, ax = plt.subplots(
-            2, constrained_layout=True, sharex=True,
+            2, constrained_layout=True,  # sharex=True,
             gridspec_kw={'height_ratios': [self.plot_settings.first_ax_to_second_ax_ratio, 1.]})
 
         # set x axis limits to min and max of data
@@ -258,7 +258,7 @@ class PlotSisoCandidateRegions:
 
         # set ratio of first axis to second axis
         fig, ax = plt.subplots(
-            2, constrained_layout=True, sharex=True,
+            2, constrained_layout=True,  # sharex=True,
             gridspec_kw={'height_ratios': [self.plot_settings.first_ax_to_second_ax_ratio, 1.]})
 
         # set x axis limits to min and max of data
@@ -457,6 +457,8 @@ class PlotSisoCandidateRegions:
                     yerr=anees_crit_deviations_from_1,
                     label=plt_settings.annes_errorbar_label,
                     # capsize=plt_settings.errorbar_capsize,  # set capsize
+                    # cap lime with same as standard line width
+                    capthick=plt.rcParams['lines.linewidth'],
                     fmt=plt_settings.fmt, color=plt_settings.anees_bar_color, zorder=plt_settings.z_order_errorbar)
 
         # plot anees if its lower than max_anees and is chi2 distributed
@@ -483,6 +485,7 @@ class PlotSisoCandidateRegions:
                      y=binom_stat,
                      yerr=binom_bounds,
                      label=plt_settings.binom_errorbar_label,
+                     capthick=plt.rcParams['lines.linewidth'],
                      #  capsize=plt_settings.errorbar_capsize,  # set capsize
                      fmt=plt_settings.fmt, color=plt_settings.binom_bar_color, zorder=plt_settings.z_order_errorbar)
 
