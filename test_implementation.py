@@ -16,7 +16,7 @@ from bnn_trust_regions.utils import save_load, matplotlib_settings
 from bnn_trust_regions.wasserstein_dist import WassersteinDistance
 
 np.random.seed(42)
-matplotlib_settings.init_settings()
+matplotlib_settings.init_settings(use_tex=True)
 
 
 def test_functionality():

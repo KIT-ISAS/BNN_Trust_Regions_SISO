@@ -4,16 +4,24 @@ import typing
 import matplotlib.pyplot as plt
 
 
-def init_settings():
+def init_settings(use_tex: bool = False) -> None:
     """
     Initialize matplotlib LaTeX settings for better quality text and figures.
 
     This function updates the default parameters for matplotlib to improve
     the quality of text and figures that use LaTeX for typesetting.
 
-    :param: None
+    :param use_tex: Whether to use LaTeX for typesetting.
+    :type use_tex: bool
+
     :return: None
     """
+
+    if use_tex:
+        print('\x1b[6;30;42m' + 'Using LaTeX for typesetting in matplotlib.' + '\x1b[0m')
+        print('\x1b[1;37;41m' + 'Make sure to have LaTeX installed on your system ' +
+              'or set use_tex=False to use matplotlib\'s default typesetting.' + '\x1b[0m')
+
     # some plot settings
     scaling_factor = 6  # 6
     unscaled_font_size = 8  # 10 # 8 # font size
@@ -39,7 +47,7 @@ def init_settings():
 
     plt.rcParams.update({
         # general settings
-        'text.usetex': True,
+        'text.usetex': use_tex,
         'figure.figsize': figsize,
         'svg.fonttype': 'none',
         # font settings
@@ -75,7 +83,8 @@ def init_settings():
     })
 
     # set LaTeX preamble
-    plt.rc('text.latex', preamble=r'\usepackage{amsmath}')
+    if use_tex:
+        plt.rc('text.latex', preamble=r'\usepackage{amsmath}')
 
 
 def scale_figsize(fig_width: float, scaling_factor: float = 1.0, height_to_width_ratio: float = 0.75) -> typing.List[float]:
