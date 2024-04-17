@@ -346,7 +346,7 @@ class SisoCandidateRegionIdentification:
 
 def _create_frame(input_data: np.ndarray, crit_value: float,
                   valid_invalid_switching: list, dist: np.ndarray,
-                  gif_settings: IdentGifSettings, idx: int = None) -> numpy.typing.ArrayLike:
+                  gif_settings: IdentGifSettings, idx: typing.Union[int, str, None] = None, initial=False) -> numpy.typing.ArrayLike:
     """
     The `_create_frame` function creates a frame for an animation by plotting data and saving it as an
     image.
@@ -371,11 +371,27 @@ def _create_frame(input_data: np.ndarray, crit_value: float,
     :param idx: The `idx` parameter is an optional parameter that specifies the iteration index. If it
     is not provided, the value `'final'` is used as the default value
     :type idx: int
+    :param initial: The `initial` parameter is a boolean value that specifies whether the frame is the
+    initial frame. If it is set to True, the frame is the initial frame. Otherwise, it is set to False.
+    The intial frame contains the initial plot without any switching points (only distance values over x)
+    :type initial: bool
     :return: an image file in PNG format.
     :rtype: numpy.typing.ArrayLike
     """
     if idx is None:
         idx = 'final'
+    elif isinstance(idx, int):
+        # shift idx by 1 to start at 1
+        # idx 0 is the initial frame
+        idx += 1
+
+        # if initial frame, plot only distance values at idx 0
+        if idx == 1:
+            initial = True
+            _create_frame(input_data, crit_value, valid_invalid_switching, dist, gif_settings, -1, initial)
+
+    # if idx not None or int, idx is used as str for file name
+
     # logging.debug
     # print(
     #     f'Iteration: {idx}, crit value: {crit_value}, num switching: {len(valid_invalid_switching)}')
@@ -387,23 +403,25 @@ def _create_frame(input_data: np.ndarray, crit_value: float,
 
     ax.axhline(y=crit_value, color='k', linestyle='--')
 
-    # plot vertical lines at switching points
-    for switching_point in valid_invalid_switching:
-        ax.axvline(x=input_data.squeeze()[switching_point], color='k', linestyle='-.')
-    # fill areas between switching points
-    # the areas should be white if distance is lower than crit value
-    # and red if distance is higher than crit value
-    extended_switching = [0, *valid_invalid_switching, input_data.shape[0]-1]
-    for i in range(0, len(extended_switching)-1):
-        range_start = extended_switching[i]
-        range_end = extended_switching[i+1]
-        mean_raw_distance = np.mean(dist[range_start:range_end])
-        if mean_raw_distance > crit_value:
-            facecolor = 'r'
-        else:
-            facecolor = 'w'
-        ax.axvspan(input_data.squeeze()[range_start], input_data.squeeze()[
-            range_end], facecolor=facecolor, alpha=0.5)
+    if not initial:
+        # plot vertical lines at switching points
+        for switching_point in valid_invalid_switching:
+            ax.axvline(x=input_data.squeeze()[switching_point], color='k', linestyle='-.')
+        # fill areas between switching points
+        # the areas should be white if distance is lower than crit value
+        # and red if distance is higher than crit value
+        extended_switching = [0, *valid_invalid_switching, input_data.shape[0]-1]
+        for i in range(0, len(extended_switching)-1):
+            range_start = extended_switching[i]
+            range_end = extended_switching[i+1]
+            mean_raw_distance = np.mean(dist[range_start:range_end])
+            if mean_raw_distance > crit_value:
+                facecolor = 'r'
+            else:
+                facecolor = 'w'
+            ax.axvspan(input_data.squeeze()[range_start], input_data.squeeze()[
+                range_end], facecolor=facecolor, alpha=0.5)
+
     # make dir if .tmp does not exist
     if not os.path.exists(gif_settings.path):
         os.makedirs(gif_settings.path)
