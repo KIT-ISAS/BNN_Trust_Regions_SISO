@@ -1,4 +1,4 @@
-# BNN_Trust_Regions
+# BNN_Trust_Regions_SISO
 
 This code is designed to identify the trust regions of single-input, single-output Bayesian neural networks.
 
