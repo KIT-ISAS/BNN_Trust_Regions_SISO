@@ -42,6 +42,7 @@ class CandidateRegion:
 
     binom_test_result: BinomTestResult
     anees_test_result: AneesTestResult
+    uce: float
 
     def __init__(self, predictions_in_region: typing.Union[np.ndarray, UnivariateGaussian],
                  outputs_in_region: np.ndarray,
@@ -119,6 +120,30 @@ class CandidateRegions:
                 prediction=region.predictions_in_region,
                 output_data=region.outputs_in_region)
             region.anees_test_result = anees_test_result
+
+    def calc_uce(self) -> np.ndarray:
+        """Calculate single-bin UCE per region: |mean squared error - mean variance|."""
+        scores = []
+        for region in self.regions:
+            prediction = region.predictions_in_region
+            if isinstance(prediction, UnivariateGaussian):
+                mean = np.asarray(prediction.mean).reshape(-1)
+                variance = np.broadcast_to(prediction.var, mean.shape)
+            else:
+                samples = np.asarray(prediction)
+                if samples.ndim != 2 or samples.shape[0] == 0:
+                    raise ValueError("Sampled predictions must have shape (samples, observations).")
+                mean = np.mean(samples, axis=0)
+                variance = np.var(samples, axis=0)
+            target = np.asarray(region.outputs_in_region).reshape(-1)
+            if not target.size or mean.shape != target.shape or variance.shape != target.shape:
+                raise ValueError("Regional prediction and target counts must match and be nonempty.")
+            if not (np.all(np.isfinite(mean)) and np.all(np.isfinite(variance))
+                    and np.all(np.isfinite(target))) or np.any(variance < 0):
+                raise ValueError("Regional predictions/targets must be finite with nonnegative variance.")
+            region.uce = float(abs(np.mean((target - mean)**2) - np.mean(variance)))
+            scores.append(region.uce)
+        return np.asarray(scores)
 
     def print_anees_test_results(self):
         """

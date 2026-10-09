@@ -9,7 +9,7 @@ import typing
 
 import numpy as np
 
-from bnn_trust_regions.utils.ci_prediction import calc_mean_and_quantiles
+from .utils.ci_prediction import calc_mean_and_quantiles
 
 from .plot_candidate_regions import PlotSettings, PlotSisoCandidateRegions
 
