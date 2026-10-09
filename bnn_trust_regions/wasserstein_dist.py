@@ -302,7 +302,7 @@ def wasserstein_p1_univariate_gaussian_gaussian(mean1: typing.Union[float, np.nd
     if np.sum(non_zero) > 0:
         factor2[non_zero] = 1 - 2 * \
             scipy.stats.norm.cdf(-mean_y_abs[non_zero] / std_y_abs[non_zero])
-        factor4[non_zero] = np.exp(-np.square(mean_y_abs) / (2 * cov_y[non_zero]))
+        factor4[non_zero] = np.exp(-np.square(mean_y_abs[non_zero]) / (2 * cov_y[non_zero]))
 
     if np.sum(where_std_y_zero) > 0:
         # limit of factor1 for cov_y -> 0 is 1; see paper
